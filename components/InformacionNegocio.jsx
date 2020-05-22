@@ -36,7 +36,7 @@ export default function InformacionNegocio() {
 
         <TouchableOpacity
           stlye={{ flex: 2 }}
-          onPress={() => routeDirection(latitud_negocio, longitud_negocio)}
+          /*onPress={() => routeDirection(latitud_negocio, longitud_negocio)}*/
         >
           <FontAwesomeIcon icon={faMapMarkerAlt} size={40} color={"red"} />
         </TouchableOpacity>

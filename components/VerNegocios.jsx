@@ -9,9 +9,6 @@ export default function VerNegocios() {
   const region = useSelector((state) => state.center_map.region);
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios);
   const dispatch = useDispatch();
-  const [info_negocio, setInfoNegocio] = useState("");
-  const [latitud_negocio, setLatitudNegocio] = useState(0);
-  const [longitud_negocio, setLongitudNegocio] = useState(0);
 
   const selectMarker = (lat, longitud, title) => {
     dispatch(
