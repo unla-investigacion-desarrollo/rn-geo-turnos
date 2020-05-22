@@ -3,3 +3,4 @@ export const NEW_NEGOCIO = "NEW_NEGOCIO";
 export const CENTER_MAP = "CENTER_MAP";
 export const SWITCH_MENU = "SWITCH_MENU";
 export const ADD_NEGOCIO = "ADD_NEGOCIO";
+export const SELECT_MARKER = "SELECT_MARKER";

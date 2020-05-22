@@ -38,23 +38,30 @@ function BottomMenu() {
         }}
       >
         <TouchableOpacity onPress={() => dispatch(switchMenu(NUEVO_NEGOCIO))}>
-          <FontAwesomeIcon
-            icon={faStoreAlt}
-            size={30}
-            color={
-              menu_option === NUEVO_NEGOCIO ? colorSeleccionadoIcon : colorIcon
-            }
-          />
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon
+              icon={faStoreAlt}
+              size={30}
+              color={
+                menu_option === NUEVO_NEGOCIO
+                  ? colorSeleccionadoIcon
+                  : colorIcon
+              }
+            />
+
+            <Text
+              style={{
+                ...styles.menu_text_style,
+                color:
+                  menu_option === NUEVO_NEGOCIO
+                    ? colorSeleccionadoIcon
+                    : colorIcon,
+              }}
+            >
+              + Negocio
+            </Text>
+          </View>
         </TouchableOpacity>
-        <Text
-          style={{
-            ...styles.menu_text_style,
-            color:
-              menu_option === NUEVO_NEGOCIO ? colorSeleccionadoIcon : colorIcon,
-          }}
-        >
-          + Negocio
-        </Text>
       </View>
       <View
         style={{
@@ -64,23 +71,27 @@ function BottomMenu() {
         }}
       >
         <TouchableOpacity onPress={() => dispatch(switchMenu(VER_NEGOCIOS))}>
-          <FontAwesomeIcon
-            icon={faMapMarkedAlt}
-            size={30}
-            color={
-              menu_option === VER_NEGOCIOS ? colorSeleccionadoIcon : colorIcon
-            }
-          />
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon
+              icon={faMapMarkedAlt}
+              size={30}
+              color={
+                menu_option === VER_NEGOCIOS ? colorSeleccionadoIcon : colorIcon
+              }
+            />
+            <Text
+              style={{
+                ...styles.menu_text_style,
+                color:
+                  menu_option === VER_NEGOCIOS
+                    ? colorSeleccionadoIcon
+                    : colorIcon,
+              }}
+            >
+              Negocios
+            </Text>
+          </View>
         </TouchableOpacity>
-        <Text
-          style={{
-            ...styles.menu_text_style,
-            color:
-              menu_option === VER_NEGOCIOS ? colorSeleccionadoIcon : colorIcon,
-          }}
-        >
-          Negocios
-        </Text>
       </View>
     </View>
   );
@@ -92,5 +103,6 @@ const styles = StyleSheet.create({
   menu_text_style: {
     fontSize: 10,
     fontWeight: "bold",
+    textAlign: "center",
   },
 });

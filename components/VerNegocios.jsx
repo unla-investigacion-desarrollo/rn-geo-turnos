@@ -3,21 +3,21 @@ import { StyleSheet, View, Dimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
-import { centerMap } from "../actions/centerMapActions";
+import { selectMarker } from "../actions/selectMarkerActions";
 
 export default function VerNegocios() {
   const region = useSelector((state) => state.center_map.region);
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios);
   const dispatch = useDispatch();
 
-  const selectMarker = (lat, longitud, title) => {
+  const seleccionarMarker = (lat, longitud, direccion) => {
     dispatch(
-      centerMap({
+      selectMarker({
         latitude: lat,
         longitude: longitud,
+        direccion: direccion,
       })
     );
-    setLongitudNegocio(longitud);
   };
 
   const posicionesRandom = () => {
@@ -38,7 +38,11 @@ export default function VerNegocios() {
         <MapView.Marker
           key={index}
           onPress={() =>
-            selectMarker(marker.latitude, marker.longitude, marker.direccion)
+            seleccionarMarker(
+              marker.latitude,
+              marker.longitude,
+              marker.direccion
+            )
           }
           coordinate={{
             latitude: marker.latitude,

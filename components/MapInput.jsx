@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet, Platform } from "react-native";
 import { newNegocio } from "../actions/newNegocioActions";
+
 import { useDispatch } from "react-redux";
 
 function MapInput(props) {
@@ -47,42 +48,49 @@ function MapInput(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       <TextInput
         placeholder={"Buscar Lugar..."}
         style={styles.input}
         value={direccion}
+        onTouchStart={() => console.log("PEPEPE")}
         onChangeText={(searchtext) => setDireccion(searchtext)}
         onSubmitEditing={searchChange}
         returnKeyType="search"
         clearButtonMode="always"
       ></TextInput>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    top: 15,
-    left: 10,
-    right: 10,
-    zIndex: 1000,
+  input: {
+    height: 50,
+    top: "10%",
+    elevation: 8,
+    backgroundColor: "#fff",
+    paddingHorizontal: 15,
+    marginTop: 35,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
   },
-  input: {
-    height: 50,
+  container_confirmDireccion: {
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    marginTop: 35,
+    height: "20%",
+    borderRadius: 10,
+    borderColor: "#ddd",
+    borderWidth: 1,
+    bottom: 10,
+    width: "100%",
+    position: "absolute",
+    paddingTop: 10,
+    elevation: 5,
+    borderRadius: 20,
   },
 });
 

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Text, TextInput, Image, View, TouchableOpacity } from "react-native";
+import { Text, TextInput, Linking, View, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-
+import { useSelector } from "react-redux";
 export default function InformacionNegocio() {
+  const marcador_seleccionado = useSelector(
+    (state) => state.marker_seleccionado.marcador_seleccionado
+  );
+
   const routeDirection = (lat, longitud) => {
     const scheme = Platform.select({
       ios: "maps:0,0?q=",
@@ -20,27 +24,48 @@ export default function InformacionNegocio() {
   };
 
   return (
-    <View>
+    <>
       <Text style={{ fontSize: 20, textAlign: "center" }}>
         Información Negocio
       </Text>
-      <View style={{ flexDirection: "row" }}>
-        <TextInput
-          style={{
-            height: 45,
-            flex: 8,
-            width: "100%",
-          }}
-          // value={info_negocio}
-        />
-
+      <View
+        style={{
+          borderWidth: 1,
+          borderColor: "#ddd",
+          margin: 8,
+          height: 50,
+          padding: 8,
+          borderRadius: 5,
+        }}
+      >
         <TouchableOpacity
-          stlye={{ flex: 2 }}
-          /*onPress={() => routeDirection(latitud_negocio, longitud_negocio)}*/
+          style={{ flex: 1, flexDirection: "row" }}
+          onPress={() =>
+            routeDirection(
+              marcador_seleccionado.latitude,
+              marcador_seleccionado.longitude
+            )
+          }
         >
-          <FontAwesomeIcon icon={faMapMarkerAlt} size={40} color={"red"} />
+          <Text
+            style={{
+              flex: 8,
+              height: 30,
+              top: "2%",
+              width: "100%",
+            }}
+          >
+            {marcador_seleccionado.direccion}
+          </Text>
+
+          <FontAwesomeIcon
+            stlye={{ flex: 2 }}
+            icon={faMapMarkerAlt}
+            size={30}
+            color={"red"}
+          />
         </TouchableOpacity>
       </View>
-    </View>
+    </>
   );
 }
