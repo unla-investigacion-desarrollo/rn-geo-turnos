@@ -1,4 +1,9 @@
-import { NEW_NEGOCIO, CENTER_MAP, ADD_NEGOCIO } from "../actions/types";
+import {
+  NEW_NEGOCIO,
+  CENTER_MAP,
+  ADD_NEGOCIO,
+  DELETE_NEGOCIO,
+} from "../actions/types";
 
 const initialState = {
   negocio: {
@@ -14,10 +19,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         negocio: action.payload,
-        region: {
-          latitude: action.payload.latitude,
-          longitude: action.payload.longitude,
-        },
+      };
+      break;
+    case DELETE_NEGOCIO:
+      return {
+        ...state,
+        negocio: action.payload,
       };
       break;
     case ADD_NEGOCIO: //Al agregar un negocio limpio el negocio que estaba dando de alta

@@ -4,3 +4,6 @@ export const CENTER_MAP = "CENTER_MAP";
 export const SWITCH_MENU = "SWITCH_MENU";
 export const ADD_NEGOCIO = "ADD_NEGOCIO";
 export const SELECT_MARKER = "SELECT_MARKER";
+export const DELETE_NEGOCIO = "DELETE_NEGOCIO";
+export const SET_CENTER_MAP = "SET_CENTER_MAP";
+export const CHANGE_CENTER_TO_SETTED = "CHANGE_CENTER_TO_SETTED";

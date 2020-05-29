@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, View, StyleSheet, Platform } from "react-native";
-import { newNegocio } from "../actions/newNegocioActions";
-
+import { newNegocio, deleteNegocio } from "../actions/newNegocioActions";
+import { api_key } from "../services/api_map";
 import { useDispatch } from "react-redux";
 
 function MapInput(props) {
@@ -12,7 +12,7 @@ function MapInput(props) {
   const searchChange = () => {
     if (direccion !== "") {
       const url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-      const key = "AIzaSyDKkEy2Yhsr1EYiT33qI2sIizOfmxZ4GE0";
+      const key = api_key;
 
       let address = direccion.replace(/\s/g, "+");
       address = address + "+argentina";
@@ -44,6 +44,14 @@ function MapInput(props) {
             );
           }
         });
+    } else {
+      dispatch(
+        deleteNegocio({
+          latitude: null,
+          longitude: null,
+          direccion: "",
+        })
+      );
     }
   };
 
@@ -53,7 +61,6 @@ function MapInput(props) {
         placeholder={"Buscar Lugar..."}
         style={styles.input}
         value={direccion}
-        onTouchStart={() => console.log("PEPEPE")}
         onChangeText={(searchtext) => setDireccion(searchtext)}
         onSubmitEditing={searchChange}
         returnKeyType="search"

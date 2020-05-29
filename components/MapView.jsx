@@ -17,7 +17,6 @@ const MyMapView = (props) => {
         latitudeDelta: 0.003,
         longitudeDelta: 0.003,
       }}
-      showsUserLocation={true}
     >
       {negocio.latitude !== null && negocio.longitude !== null ? (
         <MapView.Marker

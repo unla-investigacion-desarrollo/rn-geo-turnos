@@ -20,18 +20,6 @@ export default function VerNegocios() {
     );
   };
 
-  const posicionesRandom = () => {
-    return [
-      {
-        latitude: -34.60381,
-        longitude: -58.381774,
-        title: "Obeliso de Buenos Aires",
-      },
-      { latitude: 20, longitude: -40, title: "2" },
-      { latitude: 45, longitude: 50, title: "3" },
-    ];
-  };
-
   const marcarNegocios = () => {
     {
       return lista_negocios.map((marker, index) => (
@@ -66,7 +54,6 @@ export default function VerNegocios() {
             latitudeDelta: 0.003,
             longitudeDelta: 0.003,
           }}
-          showsUserLocation={true}
         >
           {marcarNegocios()}
         </MapView>
