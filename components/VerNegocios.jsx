@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
@@ -37,7 +37,12 @@ export default function VerNegocios() {
             longitude: marker.longitude,
           }}
           title={marker.direccion}
-        ></MapView.Marker>
+        >
+          <Image
+            source={require("../assets/marcador-verde.png")}
+            style={{ height: 35, width: 35 }}
+          />
+        </MapView.Marker>
       ));
     }
   };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "react-native";
 import MapView from "react-native-maps";
 
 const UserPositionMap = (props) => {
@@ -20,7 +21,12 @@ const UserPositionMap = (props) => {
             latitude: props.direccion_google.latitude,
             longitude: props.direccion_google.longitude,
           }}
-        ></MapView.Marker>
+        >
+          <Image
+            style={{ width: 35, height: 35 }}
+            source={require("../assets/punto.png")}
+          />
+        </MapView.Marker>
       ) : null}
     </MapView>
   );
