@@ -5,13 +5,16 @@ import MapContainer from "./MapContainer";
 import VerNegocios from "./VerNegocios";
 import BottomMenu from "./BottomMenu";
 import UserPosition from "./UserPosition";
+import QrReader from "./QrReader";
 import {
   NUEVO_NEGOCIO,
   VER_NEGOCIOS,
   USER_POSITION,
+  QR_READER,
 } from "../actions/menuOptions";
 import { switchMenu } from "../actions/menuSwitchActions";
 import { centerMapToSetted } from "../actions/centerMapActions";
+import { dataRead } from "../actions/qrReaderActions";
 
 const RenderMenuSelected = ({ menu_option, center_map }) => {
   const dispatch = useDispatch();
@@ -29,6 +32,10 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
         break;
       case USER_POSITION:
         return <UserPosition />;
+        break;
+      case QR_READER:
+        dispatch(dataRead([]));
+        return <QrReader />;
         break;
       default:
         return <VerNegocios />;

@@ -5,6 +5,7 @@ import menuSwitchReducer from "./menuSwitchReducer";
 import centerMapReducer from "./centerMapReducer";
 import negociosListReducer from "./negociosListReducer";
 import selectMarkerReducer from "./selectMarkerReducer";
+import qrReaderReducer from "./qrReaderReducer";
 
 export default combineReducers({
   negocio_reducer: newNegocioReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   center_map: centerMapReducer,
   lista_negocios: negociosListReducer,
   marker_seleccionado: selectMarkerReducer,
+  qr_state: qrReaderReducer,
 });

@@ -4,6 +4,7 @@ import { View } from "react-native";
 import MenuMasNegocios from "./MenuMasNegocios";
 import MenuNegocios from "./MenuNegocios";
 import MenuUserPosition from "./MenuUserPosition";
+import MenuQrRead from "./MenuQrRead";
 
 function BottomMenu() {
   const colorSeleccionadoIcon = "#1A73E8";
@@ -24,6 +25,10 @@ function BottomMenu() {
           colorIcon={colorIcon}
         />
       </>
+      <MenuQrRead
+        colorSeleccionadoIcon={colorSeleccionadoIcon}
+        colorIcon={colorIcon}
+      />
       <>
         <MenuUserPosition
           colorSeleccionadoIcon={colorSeleccionadoIcon}
