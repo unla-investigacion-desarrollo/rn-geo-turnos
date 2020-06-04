@@ -13,10 +13,6 @@ export default function QrReader() {
     askPermissions();
   }, []);
 
-  useEffect(() => {
-    console.log(qr_state.data);
-  }, [qr_state]);
-
   const askPermissions = () => {
     let status = BarCodeScanner.requestPermissionsAsync();
 

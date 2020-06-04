@@ -25,10 +25,12 @@ function BottomMenu() {
           colorIcon={colorIcon}
         />
       </>
-      <MenuQrRead
-        colorSeleccionadoIcon={colorSeleccionadoIcon}
-        colorIcon={colorIcon}
-      />
+      <>
+        <MenuQrRead
+          colorSeleccionadoIcon={colorSeleccionadoIcon}
+          colorIcon={colorIcon}
+        />
+      </>
       <>
         <MenuUserPosition
           colorSeleccionadoIcon={colorSeleccionadoIcon}
