@@ -10,7 +10,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SELECT_MARKER:
+    case SELECT_MARKER: //Dispatch desde selectMarkerActions
       return {
         ...state,
         marcador_seleccionado: action.payload,

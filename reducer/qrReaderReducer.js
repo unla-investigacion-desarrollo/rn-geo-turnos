@@ -10,13 +10,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case QR_READ:
+    case QR_READ: //Dispath desde qrReaderActions
       return {
         ...state,
         data: action.payload,
       };
       break;
-    case QR_PERMISSIONS:
+    case QR_PERMISSIONS: //Dispath desde qrReaderActions
       return {
         ...state,
         hasPermission: action.payload.hasPermission,

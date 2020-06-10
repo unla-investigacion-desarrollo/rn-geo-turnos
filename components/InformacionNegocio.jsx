@@ -5,10 +5,11 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 export default function InformacionNegocio() {
   const marcador_seleccionado = useSelector(
-    (state) => state.marker_seleccionado.marcador_seleccionado
+    (state) => state.marker_seleccionado.marcador_seleccionado //Marker del local que seleccione para obtener su informacion
   );
 
   const routeDirection = (lat, longitud) => {
+    //Funcion que permite redirigir a google maps/maps
     const scheme = Platform.select({
       ios: "maps:0,0?q=",
       android: "geo:0,0?q=",

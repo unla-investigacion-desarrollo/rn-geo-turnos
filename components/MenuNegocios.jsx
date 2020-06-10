@@ -9,10 +9,10 @@ import { faStoreAlt } from "@fortawesome/free-solid-svg-icons";
 
 function MenuNegocios(props) {
   const [option_menu, setOptionMenu] = useState(0);
-  const menu_option = useSelector((state) => state.menu_option.menu_option);
+  const menu_option = useSelector((state) => state.menu_option.menu_option); //menu seleccionado
   const dispatch = useDispatch();
 
-  if (option_menu !== 0) dispatch(switchMenu(option_menu));
+  if (option_menu !== 0) dispatch(switchMenu(option_menu)); //cambio de menu al seleccionarlo
 
   return (
     <View
@@ -29,7 +29,7 @@ function MenuNegocios(props) {
             icon={faStoreAlt}
             size={30}
             color={
-              menu_option === NUEVO_NEGOCIO
+              menu_option === NUEVO_NEGOCIO //Si el menu seleccionado es NUEVO_NEGOCIO, lo pinto de azul
                 ? props.colorSeleccionadoIcon
                 : props.colorIcon
             }
@@ -39,7 +39,7 @@ function MenuNegocios(props) {
             style={{
               ...styles.menu_text_style,
               color:
-                menu_option === NUEVO_NEGOCIO
+                menu_option === NUEVO_NEGOCIO //Si el menu seleccionado es NUEVO_NEGOCIO, lo pinto de azul
                   ? props.colorSeleccionadoIcon
                   : props.colorIcon,
             }}

@@ -3,6 +3,7 @@ import { Image } from "react-native";
 import MapView from "react-native-maps";
 
 const UserPositionMap = (props) => {
+  //Mapa donde se va a poder ver la ubicacion de la direccion que el usuario introdujo
   return (
     <MapView
       style={{ flex: 1, borderRadius: 10 }}

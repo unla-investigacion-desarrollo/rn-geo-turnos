@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 import ConfirmDireccion from "./ConfirmDireccion";
 
 const MapContainer = (props) => {
-  const region = useSelector((state) => state.center_map.region);
+  const region = useSelector((state) => state.center_map.region); //Centro del mapa
 
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 12 }}>
-        {region.latitude ? (
+        {region.latitude ? ( //Si el centro del mapa esta configurado, muestro le mapa
           <View style={{ flex: 9 }}>
             <MyMapView />
           </View>

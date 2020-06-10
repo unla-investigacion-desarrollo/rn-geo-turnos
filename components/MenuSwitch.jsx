@@ -19,41 +19,41 @@ import { dataRead } from "../actions/qrReaderActions";
 const RenderMenuSelected = ({ menu_option, center_map }) => {
   const dispatch = useDispatch();
   if (!center_map.latitude) {
-    dispatch(switchMenu(USER_POSITION));
+    dispatch(switchMenu(USER_POSITION)); //Si no se cuenta con una posicion del usuario, obligatoriamente voy a solicitarla
 
-    return <UserPosition />;
+    return <UserPosition />; //Pantalla donde se solicita la posicion del usuario
   } else {
     switch (menu_option) {
       case NUEVO_NEGOCIO:
-        return <MapContainer />;
+        return <MapContainer />; //Pantalla donde se inicia el proceso de alta de un negocio
         break;
       case VER_NEGOCIOS:
-        return <VerNegocios />;
+        return <VerNegocios />; //Pantalla donde se visualizan los negocios cercanos
         break;
       case USER_POSITION:
-        return <UserPosition />;
+        return <UserPosition />; //Pantalla donde se solicita la posicion del usuario
         break;
       case QR_READER:
         dispatch(dataRead([]));
-        return <QrReader />;
+        return <QrReader />; //Pantalla donde se realiaz la lectura del codigo QR
         break;
       default:
-        return <VerNegocios />;
+        return <VerNegocios />; //Por default la pantalla que se ve es la de negocios cercanos
         break;
     }
   }
 };
 
 function MenuSwitch() {
-  const menu_option = useSelector((state) => state.menu_option.menu_option);
-  const center_map = useSelector((state) => state.center_map.region);
-  const center_map_setted = useSelector((state) => state.center_map.region);
+  const menu_option = useSelector((state) => state.menu_option.menu_option); //Menu seleccionado
+  const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //Cada vez que cambio de menu, centro el mapa en la posicion que el usuario configuro
   useEffect(() => {
     dispatch(centerMapToSetted());
   }, [menu_option]);
 
+  //Sirve para solicitar los permisos y obtener la pisicion del usuario
   /*const getInitialState = () => {
     getLocation().then((data) => {
       dispatch(

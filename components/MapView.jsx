@@ -4,8 +4,8 @@ import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
 
 const MyMapView = (props) => {
-  const negocio = useSelector((state) => state.negocio_reducer.negocio);
-  const region = useSelector((state) => state.center_map.region);
+  const negocio = useSelector((state) => state.negocio_reducer.negocio); //Marcador del negocio que estoy queriendo agregar
+  const region = useSelector((state) => state.center_map.region); //Centro del mapa
 
   return (
     <MapView
@@ -18,7 +18,7 @@ const MyMapView = (props) => {
         longitudeDelta: 0.003,
       }}
     >
-      {negocio.latitude !== null && negocio.longitude !== null ? (
+      {negocio.latitude !== null && negocio.longitude !== null ? ( //Solo pongo el marcador si tengo una ubicacion
         <MapView.Marker
           coordinate={{
             latitude: negocio.latitude,

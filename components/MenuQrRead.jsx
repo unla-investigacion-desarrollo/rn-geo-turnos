@@ -12,7 +12,7 @@ function MenuQrRead(props) {
   const menu_option = useSelector((state) => state.menu_option.menu_option);
   const dispatch = useDispatch();
 
-  if (option_menu !== 0) dispatch(switchMenu(option_menu));
+  if (option_menu !== 0) dispatch(switchMenu(option_menu)); //cambio de menu al seleccionarlo
 
   return (
     <View
@@ -28,7 +28,7 @@ function MenuQrRead(props) {
             icon={faQrcode}
             size={30}
             color={
-              menu_option === QR_READER
+              menu_option === QR_READER //Si el menu seleccionado es QR_READER, lo pinto de azul
                 ? props.colorSeleccionadoIcon
                 : props.colorIcon
             }
@@ -37,7 +37,7 @@ function MenuQrRead(props) {
             style={{
               ...styles.menu_text_style,
               color:
-                menu_option === QR_READER
+                menu_option === QR_READER //Si el menu seleccionado es QR_READER, lo pinto de azul
                   ? props.colorSeleccionadoIcon
                   : props.colorIcon,
             }}

@@ -30,20 +30,20 @@ export default function (state = initialState, action) {
         },
       };
       break;
-    case CENTER_MAP:
+    case CENTER_MAP: //Dispatch desde centerMapActions
       return {
         ...state,
         region: action.payload,
       };
       break;
-    case SET_CENTER_MAP:
+    case SET_CENTER_MAP: //Dispatch desde centerMapActions
       return {
         ...state,
         region: action.payload,
         region_setted: action.payload,
       };
       break;
-    case CHANGE_CENTER_TO_SETTED:
+    case CHANGE_CENTER_TO_SETTED: //Dispatch desde centerMapActions
       return {
         ...state,
         region: state.region_setted,

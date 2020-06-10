@@ -10,6 +10,7 @@ export default function QrReader() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //Pido permisos de camara
     askPermissions();
   }, []);
 
@@ -25,14 +26,16 @@ export default function QrReader() {
   };
 
   const fetchApi = (readed) => {
+    //Ejemplo donde busco a un endpoint lo que lei del qr para obtener una informcion
     fetch(qr_state.url + readed)
       .then((res) => res.json())
       .then((res) => {
-        dispatch(dataRead(res.forms));
+        dispatch(dataRead(res.forms)); //Guardo lo que lei en redux
       });
   };
 
   const handleBarCodeScanned = ({ data }) => {
+    //Cuando logro escanear algo con la camara
     setScanned(true);
 
     fetchApi(data);
@@ -50,7 +53,7 @@ export default function QrReader() {
         }}
       >
         {qr_state.hasPermission === null ? (
-          <Text>Requesting for camera permission</Text>
+          <Text>Necesitamos permisos para acceder a su cámara</Text>
         ) : null}
 
         <BarCodeScanner

@@ -9,10 +9,10 @@ import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
 
 function MenuMasNegocios(props) {
   const [option_menu, setOptionMenu] = useState(0);
-  const menu_option = useSelector((state) => state.menu_option.menu_option);
+  const menu_option = useSelector((state) => state.menu_option.menu_option); //Menu seleccionado
   const dispatch = useDispatch();
 
-  if (option_menu !== 0) dispatch(switchMenu(option_menu));
+  if (option_menu !== 0) dispatch(switchMenu(option_menu)); //Cambio de menu al seleccionarlo
 
   return (
     <View
@@ -28,7 +28,7 @@ function MenuMasNegocios(props) {
             icon={faMapMarkedAlt}
             size={30}
             color={
-              menu_option === VER_NEGOCIOS
+              menu_option === VER_NEGOCIOS //Si el menu seleccionado es VER_NEGOCIOS, lo pinto de azul
                 ? props.colorSeleccionadoIcon
                 : props.colorIcon
             }
@@ -37,7 +37,7 @@ function MenuMasNegocios(props) {
             style={{
               ...styles.menu_text_style,
               color:
-                menu_option === VER_NEGOCIOS
+                menu_option === VER_NEGOCIOS //Si el menu seleccionado es VER_NEGOCIOS, lo pinto de azul
                   ? props.colorSeleccionadoIcon
                   : props.colorIcon,
             }}

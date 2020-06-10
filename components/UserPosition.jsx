@@ -7,33 +7,32 @@ import { configureCenterMap } from "../actions/centerMapActions";
 
 export default function UserPosition() {
   const [direccion, setDireccion] = useState("");
-  const center_map = useSelector((state) => state.center_map.region);
-  const [direccion_google, setDireccionGoogle] = useState("");
+  const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
+  const [direccion_google, setDireccionGoogle] = useState(""); //ubicacion marcada por el usuario
 
   useEffect(() => {
-    setDireccionGoogle(center_map);
+    setDireccionGoogle(center_map); //Set del state local con informacion del centro del mapa que configuro el usuario
   }, [center_map]);
 
   const dispatch = useDispatch();
 
   const searchChange = () => {
+    //Busco a un endpoint de google informacion sobre la direccion que introdujo el usuario
     if (direccion !== "") {
-      const url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-      const key = api_key;
+      const url = "https://maps.googleapis.com/maps/api/geocode/json?address="; //Url del endpoint
+      const key = api_key; //key de google CAMBIAR PARA PRODUCCION
 
       let address = direccion.replace(/\s/g, "+");
       address = address + "+argentina";
 
       let key_url = "&key=" + key;
 
-      console.log(url + address + key_url);
-
       fetch(url + address + key_url)
         .then((response) => response.json())
         .then((responseJson) => {
           //Seteo la latitud y longitud del negocio en REDUX para recargar el mapa
           if (responseJson.results[0].geometry.location.lat !== null) {
-            let direccion_completa =
+            let direccion_completa = //genero la direccion completa con numero, calle, localidad, partido
               responseJson.results[0].address_components[1].short_name +
               " " +
               responseJson.results[0].address_components[0].short_name +
@@ -43,6 +42,7 @@ export default function UserPosition() {
               responseJson.results[0].address_components[3].short_name;
 
             setDireccionGoogle({
+              //La guardo en el state del componente
               latitude: responseJson.results[0].geometry.location.lat,
               longitude: responseJson.results[0].geometry.location.lng,
               direccion: direccion_completa,
@@ -52,6 +52,7 @@ export default function UserPosition() {
     }
   };
   const setCenter = () => {
+    //Cuando se confirma la direccion, configuro la direccion ingresada como la por defecto para el usuario
     dispatch(configureCenterMap(direccion_google));
   };
 

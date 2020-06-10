@@ -6,11 +6,12 @@ import InformacionNegocio from "./InformacionNegocio";
 import { selectMarker } from "../actions/selectMarkerActions";
 
 export default function VerNegocios() {
-  const region = useSelector((state) => state.center_map.region);
-  const lista_negocios = useSelector((state) => state.lista_negocios.negocios);
+  const region = useSelector((state) => state.center_map.region); //Centro del mapa
+  const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
   const dispatch = useDispatch();
 
   const seleccionarMarker = (lat, longitud, direccion) => {
+    //Selecciono marcador dentro del mapa
     dispatch(
       selectMarker({
         latitude: lat,
@@ -21,6 +22,7 @@ export default function VerNegocios() {
   };
 
   const marcarNegocios = () => {
+    //Genero los MARKERS de los negocios cercanos
     {
       return lista_negocios.map((marker, index) => (
         <MapView.Marker
@@ -48,13 +50,14 @@ export default function VerNegocios() {
   };
 
   const createMap = () => {
+    //Creo el mapa donde se van a mostrar los marcadores
     if (region.latitude) {
       return (
         <MapView
           style={{ flex: 1 }}
           provider={MapView.PROVIDER_GOOGLE}
           region={{
-            latitude: region.latitude,
+            latitude: region.latitude, //Marco el centro del mapa con la ubicacion del usuario
             longitude: region.longitude,
             latitudeDelta: 0.003,
             longitudeDelta: 0.003,

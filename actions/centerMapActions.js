@@ -7,7 +7,7 @@ import {
 export function centerMap(region) {
   return (dispatch) => {
     dispatch({
-      type: CENTER_MAP,
+      type: CENTER_MAP, //Dispatch hacia centerMapReducer
       payload: region,
     });
   };
@@ -16,7 +16,7 @@ export function centerMap(region) {
 export function configureCenterMap(region) {
   return (dispatch) => {
     dispatch({
-      type: SET_CENTER_MAP,
+      type: SET_CENTER_MAP, //Dispatch hacia centerMapReducer
       payload: region,
     });
   };
@@ -25,7 +25,7 @@ export function configureCenterMap(region) {
 export function centerMapToSetted() {
   return (dispatch) => {
     dispatch({
-      type: CHANGE_CENTER_TO_SETTED,
+      type: CHANGE_CENTER_TO_SETTED, //Dispatch hacia centerMapReducer
     });
   };
 }

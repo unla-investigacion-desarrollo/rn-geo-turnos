@@ -21,25 +21,25 @@ function BottomMenu() {
     >
       <>
         <MenuMasNegocios
-          colorSeleccionadoIcon={colorSeleccionadoIcon}
+          colorSeleccionadoIcon={colorSeleccionadoIcon} //Componente de menu para agregar negocios
           colorIcon={colorIcon}
         />
       </>
       <>
         <MenuQrRead
-          colorSeleccionadoIcon={colorSeleccionadoIcon}
+          colorSeleccionadoIcon={colorSeleccionadoIcon} //Componente de menu de lectura de qr
           colorIcon={colorIcon}
         />
       </>
       <>
         <MenuUserPosition
-          colorSeleccionadoIcon={colorSeleccionadoIcon}
+          colorSeleccionadoIcon={colorSeleccionadoIcon} //componente de menu para solicitar posicion al usuario
           colorIcon={colorIcon}
         />
       </>
       <>
         <MenuNegocios
-          colorSeleccionadoIcon={colorSeleccionadoIcon}
+          colorSeleccionadoIcon={colorSeleccionadoIcon} //componente del menu para visualizar los negocios cercanos
           colorIcon={colorIcon}
         />
       </>

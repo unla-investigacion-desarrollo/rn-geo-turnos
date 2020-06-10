@@ -6,10 +6,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ADD_NEGOCIO:
+    case ADD_NEGOCIO: //Dispatch desde NegociosListActions
       return {
         ...state,
-        negocios: agregarNegocio(state.negocios, action.payload),
+        negocios: agregarNegocio(state.negocios, action.payload), //Agrego un local a la lista de locales
       };
       break;
 
