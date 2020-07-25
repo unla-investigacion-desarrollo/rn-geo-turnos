@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TextInput, Text, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { api_key } from "../services/api_map";
+import { api_key } from "../../services/api_map";
 import UserPositionMap from "./UserPositionMap";
-import { configureCenterMap } from "../actions/centerMapActions";
+import { configureCenterMap } from "../../actions/centerMapActions";
 
 export default function UserPosition() {
   const [direccion, setDireccion] = useState("");

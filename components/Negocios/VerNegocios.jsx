@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
-import { selectMarker } from "../actions/selectMarkerActions";
+import { selectMarker } from "../../actions/selectMarkerActions";
 
 export default function VerNegocios() {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa

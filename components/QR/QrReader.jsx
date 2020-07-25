@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { dataRead, qrPermissions } from "../actions/qrReaderActions";
+import { dataRead, qrPermissions } from "../../actions/qrReaderActions";
 
 export default function QrReader() {
   const qr_state = useSelector((state) => state.qr_state);

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import MapInput from "./MapInput";
-import MyMapView from "./MapView";
+import MyMapView from "../MapView";
 import { useSelector } from "react-redux";
 import ConfirmDireccion from "./ConfirmDireccion";
 

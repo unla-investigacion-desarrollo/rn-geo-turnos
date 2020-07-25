@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, View, StyleSheet, Platform } from "react-native";
-import { newNegocio, deleteNegocio } from "../actions/newNegocioActions";
-import { api_key } from "../services/api_map";
+import { newNegocio, deleteNegocio } from "../../actions/newNegocioActions";
+import { api_key } from "../../services/api_map";
 import { useDispatch } from "react-redux";
 
 function MapInput(props) {
