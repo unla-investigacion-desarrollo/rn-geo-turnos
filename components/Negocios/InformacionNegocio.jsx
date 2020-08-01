@@ -1,8 +1,16 @@
-import React, { useState } from "react";
-import { Text, TextInput, Linking, View, TouchableOpacity } from "react-native";
+import React from "react";
+import {
+  Text,
+  Button,
+  Linking,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+
 export default function InformacionNegocio() {
   const marcador_seleccionado = useSelector(
     (state) => state.marker_seleccionado.marcador_seleccionado //Marker del local que seleccione para obtener su informacion
@@ -27,8 +35,18 @@ export default function InformacionNegocio() {
   return (
     <>
       <Text style={{ fontSize: 20, textAlign: "center" }}>
-        Información Negocio
+        #Nombre del Negocio#
       </Text>
+
+      <View
+        style={{
+          borderWidth: 2,
+          borderColor: "#34d057",
+          margin: 10,
+          marginLeft: 30,
+          marginRight: 30,
+        }}
+      ></View>
       <View
         style={{
           borderWidth: 1,
@@ -67,6 +85,26 @@ export default function InformacionNegocio() {
           />
         </TouchableOpacity>
       </View>
+      <View style={{ flex: 1, flexDirection: "row", marginTop: "5%" }}>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity style={{ textAlign: "center" }}>
+            <Button title={"Realizar Pedido"} style={styles.confirm_button} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity style={{ textAlign: "center" }}>
+            <Button title={"Reservar Turno"} style={styles.confirm_button} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </>
   );
 }
+const styles = StyleSheet.create({
+  confirm_button: {
+    width: "100%",
+    color: "#007aff",
+    fontSize: 18,
+    top: "50%",
+  },
+});

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { switchMenu } from "../actions/menuSwitchActions";
-import { NUEVO_NEGOCIO } from "../actions/menuOptions";
+import { switchMenu } from "../../actions/menuSwitchActions";
+import { NUEVO_NEGOCIO } from "../../actions/menuOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStoreAlt } from "@fortawesome/free-solid-svg-icons";
 

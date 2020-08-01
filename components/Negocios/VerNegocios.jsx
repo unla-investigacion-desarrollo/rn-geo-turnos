@@ -3,6 +3,7 @@ import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
+import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 
 export default function VerNegocios() {
@@ -38,10 +39,9 @@ export default function VerNegocios() {
             latitude: marker.latitude,
             longitude: marker.longitude,
           }}
-          title={marker.direccion}
         >
           <Image
-            source={require("../assets/marcador-verde.png")}
+            source={require("../../assets/marcador-verde.png")}
             style={{ height: 35, width: 35 }}
           />
         </MapView.Marker>
@@ -73,11 +73,24 @@ export default function VerNegocios() {
 
   return (
     <View style={{ flex: 1 }}>
+      <View
+        style={{
+          position: "absolute",
+          width: "100%",
+          paddingLeft: 8,
+          paddingRight: 8,
+          zIndex: 1,
+          elevation: 2,
+        }}
+      >
+        <Filter />
+      </View>
       <View style={{ flex: 1 }}>{createMap()}</View>
+
       <View
         style={{
           backgroundColor: "#fff",
-          height: "20%",
+          height: "30%",
           borderRadius: 10,
           borderColor: "#ddd",
           borderWidth: 1,

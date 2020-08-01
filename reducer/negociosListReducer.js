@@ -1,7 +1,13 @@
 import { ADD_NEGOCIO } from "../actions/types";
 
 const initialState = {
-  negocios: [],
+  negocios: [
+    {
+      latitude: -34.7922239,
+      longitude: -58.38193479999999,
+      direccion: "628 ADA, Jacinto Calvo, José Marmol",
+    },
+  ],
 };
 
 export default function (state = initialState, action) {

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { switchMenu } from "../actions/menuSwitchActions";
-import { QR_READER } from "../actions/menuOptions";
+import { switchMenu } from "../../actions/menuSwitchActions";
+import { QR_READER } from "../../actions/menuOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 

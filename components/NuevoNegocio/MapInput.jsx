@@ -36,6 +36,12 @@ function MapInput(props) {
               ", " +
               responseJson.results[0].address_components[3].short_name;
 
+            console.log(
+              responseJson.results[0].geometry.location.lat,
+              responseJson.results[0].geometry.location.lng,
+              direccion_completa
+            );
+
             dispatch(
               newNegocio({
                 //Agrego la informacion de ese negocio al store de redux para utilizarla desde otro componente (confirmdireccion.jsx y mapview.jsx)

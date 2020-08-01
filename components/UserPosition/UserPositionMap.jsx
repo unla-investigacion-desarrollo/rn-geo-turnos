@@ -25,7 +25,7 @@ const UserPositionMap = (props) => {
         >
           <Image
             style={{ width: 35, height: 35 }}
-            source={require("../assets/punto.png")}
+            source={require("../../assets/punto.png")}
           />
         </MapView.Marker>
       ) : null}

@@ -7,14 +7,14 @@ import {
 
 const initialState = {
   region: {
-    latitude: null,
-    longitude: null,
+    latitude: -34.7922239,
+    longitude: -58.38193479999999,
     direccion: "",
   },
   region_setted: {
     //Posicion configurada en el menu de posicion del usuario NO CAMBIARLO
-    latitude: null,
-    longitude: null,
+    latitude: -34.7922239,
+    longitude: -58.38193479999999,
     direccion: "",
   },
 };

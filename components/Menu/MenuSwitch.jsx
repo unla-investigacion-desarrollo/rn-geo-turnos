@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View } from "react-native";
-import MapContainer from "./MapContainer";
-import VerNegocios from "./VerNegocios";
+import MapContainer from "../NuevoNegocio/MapContainer";
+import VerNegocios from "../Negocios/VerNegocios";
 import BottomMenu from "./BottomMenu";
-import UserPosition from "./UserPosition";
-import QrReader from "./QrReader";
+import UserPosition from "../UserPosition/UserPosition";
+import QrReader from "../QR/QrReader";
 import {
   NUEVO_NEGOCIO,
   VER_NEGOCIOS,
   USER_POSITION,
   QR_READER,
-} from "../actions/menuOptions";
-import { switchMenu } from "../actions/menuSwitchActions";
-import { centerMapToSetted } from "../actions/centerMapActions";
-import { dataRead } from "../actions/qrReaderActions";
+} from "../../actions/menuOptions";
+import { switchMenu } from "../../actions/menuSwitchActions";
+import { centerMapToSetted } from "../../actions/centerMapActions";
+import { dataRead } from "../../actions/qrReaderActions";
 
 const RenderMenuSelected = ({ menu_option, center_map }) => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
 function MenuSwitch() {
   const menu_option = useSelector((state) => state.menu_option.menu_option); //Menu seleccionado
   const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
-
+  console.log(center_map);
   const dispatch = useDispatch(); //Cada vez que cambio de menu, centro el mapa en la posicion que el usuario configuro
   useEffect(() => {
     dispatch(centerMapToSetted());
