@@ -44,10 +44,13 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
   }
 };
 
+
+
 function MenuSwitch() {
   const menu_option = useSelector((state) => state.menu_option.menu_option); //Menu seleccionado
   const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
-  console.log(center_map);
+  // console.log("Centro del mapa: ");
+  // console.log(center_map);
   const dispatch = useDispatch(); //Cada vez que cambio de menu, centro el mapa en la posicion que el usuario configuro
   useEffect(() => {
     dispatch(centerMapToSetted());

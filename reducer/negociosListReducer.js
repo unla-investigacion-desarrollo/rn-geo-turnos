@@ -15,24 +15,11 @@ export default function (state = initialState, action) {
     case ADD_NEGOCIO: //Dispatch desde NegociosListActions
       return {
         ...state,
-        negocios: agregarNegocio(state.negocios, action.payload), //Agrego un local a la lista de locales
+        negocios: action.payload, //Agrego un local a la lista de locales
       };
       break;
 
     default:
       return state;
-  }
-}
-function agregarNegocio(listNegocios, nuevo_negocio) {
-  const foundIndex = listNegocios.findIndex(
-    (negocio) =>
-      negocio.latitude === nuevo_negocio.latitude &&
-      negocio.longitude === nuevo_negocio.longitude
-  );
-
-  if (foundIndex === -1) {
-    return [...listNegocios, nuevo_negocio];
-  } else {
-    return [...listNegocios];
   }
 }

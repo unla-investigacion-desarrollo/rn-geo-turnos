@@ -5,6 +5,8 @@ import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
 import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
+import { addNegocios } from "../../actions/negociosListActions";
+
 
 export default function VerNegocios() {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
@@ -21,6 +23,19 @@ export default function VerNegocios() {
       })
     );
   };
+
+
+
+  const getNegocios = () => {
+    //Ejemplo donde busco a un endpoint lo que lei del qr para obtener una informcion
+    fetch("https://putsreq.com/Rzl88cHz8ZGk9gkmXu6n")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        dispatch(addNegocios(res))
+      });
+  };
+  
 
   const marcarNegocios = () => {
     //Genero los MARKERS de los negocios cercanos
@@ -63,6 +78,7 @@ export default function VerNegocios() {
             longitudeDelta: 0.003,
           }}
         >
+          {getNegocios()}
           {marcarNegocios()}
         </MapView>
       );
