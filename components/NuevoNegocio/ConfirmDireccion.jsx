@@ -9,6 +9,7 @@ function ConfirmDireccion(props) {
   const dispatch = useDispatch();
   const agregarNegocio = () => {
     dispatch(addNegocio(negocio)); //Se agrega el negocio a la lista de negocios de la aplicacion
+    props.navigation.navigate("Información");
   };
 
   return (

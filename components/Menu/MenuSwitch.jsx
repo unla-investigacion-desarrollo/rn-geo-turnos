@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View } from "react-native";
-import MapContainer from "../NuevoNegocio/MapContainer";
+import NuevoNegocio from "../NuevoNegocio/NuevoNegocio";
 import VerNegocios from "../Negocios/VerNegocios";
 import BottomMenu from "./BottomMenu";
 import UserPosition from "../UserPosition/UserPosition";
@@ -25,7 +25,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
   } else {
     switch (menu_option) {
       case NUEVO_NEGOCIO:
-        return <MapContainer />; //Pantalla donde se inicia el proceso de alta de un negocio
+        return <NuevoNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
         break;
       case VER_NEGOCIOS:
         return <VerNegocios />; //Pantalla donde se visualizan los negocios cercanos

@@ -30,7 +30,7 @@ const MapContainer = (props) => {
         </View>
       </View>
       <>
-        <ConfirmDireccion />
+        <ConfirmDireccion navigation={props.navigation} />
       </>
     </View>
   );

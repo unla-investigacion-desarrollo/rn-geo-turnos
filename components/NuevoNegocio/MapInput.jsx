@@ -5,7 +5,7 @@ import { api_key } from "../../services/api_map";
 import { useDispatch } from "react-redux";
 
 function MapInput(props) {
-  const [direccion, setDireccion] = useState("");
+  const [direccion, setDireccion] = useState("jacinto calvo 628");
 
   const dispatch = useDispatch();
 
