@@ -56,16 +56,26 @@ export default function QrReader() {
           <Text>Necesitamos permisos para acceder a su cámara</Text>
         ) : null}
 
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
+
+        {!scanned &&
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          />
+        }
+
 
         {scanned && (
-          <Button
-            title={"Presione aqui para escanear de nuevo"}
-            onPress={() => setScanned(false)}
-          />
+          <Text
+            style={{
+              position: 'absolute',
+              left: 50,
+              top: 200,
+              backgroundColor: 'white',
+            }}
+          >
+            {qr_state?.data[0]?.name}
+          </Text>
         )}
       </View>
     );

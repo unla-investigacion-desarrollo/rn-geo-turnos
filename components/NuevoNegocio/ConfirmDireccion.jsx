@@ -2,13 +2,12 @@ import React from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addNegocio } from "../../actions/negociosListActions";
+import { addNegocios } from "../../actions/negociosListActions";
 
 function ConfirmDireccion(props) {
   const negocio = useSelector((state) => state.negocio_reducer.negocio); //Negocio que se esta queriendo dar de alta
   const dispatch = useDispatch();
   const agregarNegocio = () => {
-    dispatch(addNegocio(negocio)); //Se agrega el negocio a la lista de negocios de la aplicacion
     props.navigation.navigate("Información");
   };
 
