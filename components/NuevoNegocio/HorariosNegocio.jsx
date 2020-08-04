@@ -15,8 +15,26 @@ export default function HorariosNegocio(props) {
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
-      <View style={{ marginLeft: 15, marginRight: 15, flex: 1 }}>
-        <View style={{ marginTop: 10 }}>
+      <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text style={styles.labelText}>
+            Tiempo promedio de atención al público: {tiempoAtencion}min
+          </Text>
+          <Slider
+            style={{ width: "100%", height: 40 }}
+            minimumValue={0}
+            maximumValue={50}
+            minimumTrackTintColor="#1A73E8"
+            maximumTrackTintColor="#ccc"
+            onValueChange={(value) => setTiempoAtencion(parseInt(value))}
+          />
+        </View>
+        <View style={{ flex: 2 }}>
+          <ScrollView>
+            <ListaHorarios />
+          </ScrollView>
+        </View>
+        <View style={{ flex: 1, marginTop: 15 }}>
           <Text style={styles.labelText}>Día de la semana</Text>
           <Picker
             note
@@ -36,9 +54,8 @@ export default function HorariosNegocio(props) {
             <Picker.Item label="Net Banking" value="key4" />
           </Picker>
         </View>
-
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+        <View style={{ flexDirection: "row", flex: 1 }}>
+          <View style={{ flex: 1, paddingRight: 10 }}>
             <Text style={styles.labelText}>Hora Desde</Text>
             <Picker
               note
@@ -58,7 +75,7 @@ export default function HorariosNegocio(props) {
               <Picker.Item label="Net Banking" value="key4" />
             </Picker>
           </View>
-          <View style={{ marginTop: 10, flex: 1 }}>
+          <View style={{ flex: 1 }}>
             <View>
               <Text style={styles.labelText}>Hora Hasta</Text>
               <Picker
@@ -81,8 +98,8 @@ export default function HorariosNegocio(props) {
             </View>
           </View>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+        <View style={{ flexDirection: "row", flex: 1 }}>
+          <View style={{ flex: 1, paddingRight: 10 }}>
             <Text style={styles.labelText}>Hora Desde</Text>
             <Picker
               note
@@ -102,7 +119,7 @@ export default function HorariosNegocio(props) {
               <Picker.Item label="Net Banking" value="key4" />
             </Picker>
           </View>
-          <View style={{ marginTop: 10, flex: 1 }}>
+          <View style={{ flex: 1 }}>
             <View>
               <Text style={styles.labelText}>Hora Hasta</Text>
               <Picker
@@ -125,25 +142,27 @@ export default function HorariosNegocio(props) {
             </View>
           </View>
         </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.labelText}>
-            Tiempo promedio de atención al público: {tiempoAtencion}min
-          </Text>
-          <Slider
-            style={{ width: "100%", height: 40 }}
-            minimumValue={0}
-            maximumValue={50}
-            minimumTrackTintColor="#1A73E8"
-            maximumTrackTintColor="#ccc"
-            onValueChange={(value) => setTiempoAtencion(parseInt(value))}
-          />
+        <View
+          style={{
+            bottom: 10,
+            flex: 0.3,
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#0fc224",
+              padding: 5,
+              borderRadius: 5,
+            }}
+          >
+            <Text style={{ color: "#fff" }}>Añadir Horario</Text>
+          </View>
         </View>
-        <ScrollView>
-          <ListaHorarios />
-        </ScrollView>
       </View>
 
-      <View style={{ marginBottom: 30 }}>
+      <View style={{ flex: 1 }}>
         <Button
           title="Continuar"
           style={{ alignItems: "center" }}

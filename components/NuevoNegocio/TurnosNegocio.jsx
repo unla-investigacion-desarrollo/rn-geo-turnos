@@ -13,7 +13,7 @@ export default function TurnosNegocio(props) {
           marginLeft: 15,
           marginRight: 15,
           flexDirection: "row",
-          flex: 1,
+          flex: 13,
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -44,7 +44,7 @@ export default function TurnosNegocio(props) {
       ) : (
         <></>
       )}
-      <View style={{ marginBottom: 30 }}>
+      <View style={{ flex: 1 }}>
         <Button
           title="Finalizar Registro"
           style={{ alignItems: "center" }}

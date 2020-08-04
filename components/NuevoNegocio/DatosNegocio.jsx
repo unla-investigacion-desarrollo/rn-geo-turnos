@@ -14,7 +14,7 @@ export default function DatosNegocio(props) {
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
-      <View style={{ marginLeft: 15, marginRight: 15, flex: 1 }}>
+      <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
         <View style={{ marginTop: 10 }}>
           <Text style={styles.labelText}>Nombre del Negocio</Text>
           <View style={styles.viewContainer}>
@@ -126,7 +126,7 @@ export default function DatosNegocio(props) {
           />
         </View>
       </View>
-      <View style={{ marginBottom: 30 }}>
+      <View style={{ flex: 1 }}>
         <Button
           title="Continuar"
           style={{ alignItems: "center" }}
