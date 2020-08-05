@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Button, Text, Slider } from "react-native";
-import { CheckBox, Toast, Icon } from "native-base";
+import { CheckBox } from "native-base";
 
 export default function TurnosNegocio(props) {
   const [usaTurnos, setUsaTurnos] = useState(false);
