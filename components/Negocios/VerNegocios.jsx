@@ -7,8 +7,7 @@ import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 import { addNegocios } from "../../actions/negociosListActions";
 
-
-export default function VerNegocios() {
+export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ export default function VerNegocios() {
     fetch("https://putsreq.com/Rzl88cHz8ZGk9gkmXu6n")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         dispatch(addNegocios(res))
       });
   };
@@ -116,7 +115,7 @@ export default function VerNegocios() {
           paddingTop: 10,
         }}
       >
-        <InformacionNegocio />
+        <InformacionNegocio navigation={props.navigation}/>
       </View>
     </View>
   );

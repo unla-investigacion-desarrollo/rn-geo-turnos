@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { View } from "react-native";
 import NuevoNegocio from "../NuevoNegocio/NuevoNegocio";
 import VerNegocios from "../Negocios/VerNegocios";
+import ReservarTurno from "../Negocios/ReservarTurno";
 import BottomMenu from "./BottomMenu";
 import UserPosition from "../UserPosition/UserPosition";
 import QrReader from "../QR/QrReader";
@@ -28,7 +29,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
         return <NuevoNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
         break;
       case VER_NEGOCIOS:
-        return <VerNegocios />; //Pantalla donde se visualizan los negocios cercanos
+        return <ReservarTurno />; //Pantalla donde se visualizan los negocios cercanos
         break;
       case USER_POSITION:
         return <UserPosition />; //Pantalla donde se solicita la posicion del usuario

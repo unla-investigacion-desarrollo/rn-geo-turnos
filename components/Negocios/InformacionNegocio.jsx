@@ -10,8 +10,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import Reserva from "./Reserva";
 
-export default function InformacionNegocio() {
+
+export default function InformacionNegocio(props) {
   const marcador_seleccionado = useSelector(
     (state) => state.marker_seleccionado.marcador_seleccionado //Marker del local que seleccione para obtener su informacion
   );
@@ -92,9 +94,8 @@ export default function InformacionNegocio() {
           </TouchableOpacity>
         </View>
         <View style={{ flex: 1 }}>
-          <TouchableOpacity style={{ textAlign: "center" }}>
-            <Button title={"Reservar Turno"} style={styles.confirm_button} />
-          </TouchableOpacity>
+          <Reserva navigation={props.navigation} />
+
         </View>
       </View>
     </>

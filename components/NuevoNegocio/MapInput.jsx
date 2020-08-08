@@ -20,7 +20,7 @@ function MapInput(props) {
 
       let key_url = "&key=" + key; //concateno la key para armar la url
 
-      console.log(url + address + key_url); //armo la url completa para hacer el fetch
+      // console.log(url + address + key_url); //armo la url completa para hacer el fetch
 
       fetch(url + address + key_url)
         .then((response) => response.json())
@@ -36,11 +36,11 @@ function MapInput(props) {
               ", " +
               responseJson.results[0].address_components[3].short_name;
 
-            console.log(
-              responseJson.results[0].geometry.location.lat,
-              responseJson.results[0].geometry.location.lng,
-              direccion_completa
-            );
+            // console.log(
+            //   responseJson.results[0].geometry.location.lat,
+            //   responseJson.results[0].geometry.location.lng,
+            //   direccion_completa
+            // );
 
             dispatch(
               newNegocio({
