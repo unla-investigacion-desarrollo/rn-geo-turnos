@@ -26,27 +26,30 @@ export default function DatosNegocio(props) {
   const dispatch = useDispatch();
 
   const continuar = () => {
-    searchChange(direccion + "+" + localidad + "+" + provincia).then(
-      (response) => {
-        let dataNegocio = {
-          nombre: nombre,
-          cuit: cuit,
-          direccion: direccion,
-          piso: piso,
-          depto: depto,
-          rubro: rubro,
-          localidad: localidad,
-          provincia: provincia,
-          capacidadPersonas: capacidadPersonas,
-          latitude: response.latitude,
-          longitude: response.longitude,
-        };
-        if (validarCamposDatosNegocio(dataNegocio)) {
-          dispatch(setDataNegocio(dataNegocio));
-          props.navigation.navigate("Ubicación");
+    if (direccion !== "") {
+      searchChange(direccion + "+" + localidad + "+" + provincia).then(
+        (response) => {
+          let dataNegocio = {
+            nombre: nombre,
+            cuit: cuit,
+            direccion: direccion,
+            piso: piso,
+            depto: depto,
+            rubro: rubro,
+            localidad: localidad,
+            provincia: provincia,
+            capacidadPersonas: capacidadPersonas,
+            latitude: response.latitude !== undefined ? response.latitude : 0,
+            longitude:
+              response.longitude !== undefined ? response.longitude : 0,
+          };
+          if (validarCamposDatosNegocio(dataNegocio)) {
+            dispatch(setDataNegocio(dataNegocio));
+            props.navigation.navigate("Ubicación");
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   return (
