@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { TextInput, View, StyleSheet, Platform } from "react-native";
-import { newNegocio, deleteNegocio } from "../../actions/newNegocioActions";
 import { api_key } from "../../services/api_map";
 import { useDispatch } from "react-redux";
 
@@ -35,32 +34,8 @@ function MapInput(props) {
               responseJson.results[0].address_components[2].short_name +
               ", " +
               responseJson.results[0].address_components[3].short_name;
-
-            // console.log(
-            //   responseJson.results[0].geometry.location.lat,
-            //   responseJson.results[0].geometry.location.lng,
-            //   direccion_completa
-            // );
-
-            dispatch(
-              newNegocio({
-                //Agrego la informacion de ese negocio al store de redux para utilizarla desde otro componente (confirmdireccion.jsx y mapview.jsx)
-                latitude: responseJson.results[0].geometry.location.lat,
-                longitude: responseJson.results[0].geometry.location.lng,
-                direccion: direccion_completa,
-              })
-            );
           }
         });
-    } else {
-      dispatch(
-        deleteNegocio({
-          //Cuando la direccion de busqueda se queda en blanco, borro la direccion que se habia ido a buscar
-          latitude: null,
-          longitude: null,
-          direccion: "",
-        })
-      );
     }
   };
 

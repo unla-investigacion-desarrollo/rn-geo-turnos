@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import MapInput from "./MapInput";
-import MyMapView from "../MapView";
+import MyMapView from "./MapView";
 import { useSelector } from "react-redux";
 import ConfirmDireccion from "./ConfirmDireccion";
 
@@ -16,18 +16,6 @@ const MapContainer = (props) => {
             <MyMapView />
           </View>
         ) : null}
-        <View
-          style={{
-            position: "absolute",
-            width: "100%",
-            paddingLeft: 8,
-            paddingRight: 8,
-            zIndex: 1,
-            elevation: 2,
-          }}
-        >
-          <MapInput />
-        </View>
       </View>
       <>
         <ConfirmDireccion navigation={props.navigation} />

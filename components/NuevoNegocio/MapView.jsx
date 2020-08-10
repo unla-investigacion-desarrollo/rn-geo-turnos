@@ -3,7 +3,7 @@ import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
 
 const MyMapView = (props) => {
-  const negocio = useSelector((state) => state.negocio_reducer.negocio); //Marcador del negocio que estoy queriendo agregar
+  const negocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
 
   return (

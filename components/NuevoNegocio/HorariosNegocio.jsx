@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   ScrollView,
@@ -6,12 +6,78 @@ import {
   Text,
   Button,
   Slider,
+  TouchableOpacity,
 } from "react-native";
 import { Picker, Icon } from "native-base";
 import ListaHorarios from "./ListaHorarios";
+import { horarios, dias } from "../../Utils/constantes";
+import { setHorariosNegocio } from "../../actions/NuevoNegocioActions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function HorariosNegocio(props) {
+  const [diaSemana, setDiaSemana] = useState(0);
+  const [horaDesde1, setHoraDesde1] = useState("");
+  const [horaDesde2, setHoraDesde2] = useState("");
+  const [horaHasta1, setHoraHasta1] = useState("");
+  const [horaHasta2, setHoraHasta2] = useState("");
   const [tiempoAtencion, setTiempoAtencion] = useState(0);
+  const [diasSemanaDisponibles, setDiasSemanaDisponibles] = useState([]);
+  const dispatch = useDispatch();
+
+  const horariosNegocio = useSelector((state) => state.nuevoNegocio.horarios);
+
+  useEffect(() => {
+    if (horariosNegocio.horarios !== undefined) {
+      let diasDisponibles = [];
+
+      for (let i = 0; i < dias.length; i++) {
+        let exists = false;
+        for (let j = 0; j < horariosNegocio.horarios.length; j++) {
+          if (dias[i].dia === horariosNegocio.horarios[j].diaSemana) {
+            exists = true;
+          }
+        }
+        if (!exists) {
+          diasDisponibles = [...diasDisponibles, dias[i]];
+        }
+      }
+      setDiasSemanaDisponibles(diasDisponibles);
+    } else {
+      setDiasSemanaDisponibles(dias);
+    }
+  }, [horariosNegocio]);
+
+  const agregarHorario = () => {
+    let horario = {
+      diaSemana: diaSemana,
+      horaDesde1: horaDesde1,
+      horaHasta1: horaHasta1,
+      horaDesde2: horaDesde2,
+      horaHasta2: horaHasta2,
+    };
+    let listaHorariosNegocio = [horario];
+
+    if (
+      horariosNegocio !== undefined &&
+      horariosNegocio.horarios !== undefined
+    ) {
+      listaHorariosNegocio = [...horariosNegocio.horarios, horario];
+    }
+
+    const newHorarios = {
+      tiempoAtencion: tiempoAtencion,
+      horarios: listaHorariosNegocio,
+    };
+    if (
+      diaSemana > 0 &&
+      horaDesde1 !== "" &&
+      horaDesde2 !== "" &&
+      horaHasta1 !== "" &&
+      horaHasta2 !== ""
+    )
+      dispatch(setHorariosNegocio(newHorarios));
+    setDiaSemana(0);
+  };
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
@@ -40,6 +106,8 @@ export default function HorariosNegocio(props) {
             note
             mode="dropdown"
             style={styles.input}
+            selectedValue={diaSemana}
+            onValueChange={(e) => setDiaSemana(e)}
             iosIcon={
               <Icon
                 name="arrow-down"
@@ -47,11 +115,11 @@ export default function HorariosNegocio(props) {
               />
             }
           >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
+            {diasSemanaDisponibles.map((dia) => {
+              return (
+                <Picker.Item key={dia.dia} label={dia.desc} value={dia.dia} />
+              );
+            })}
           </Picker>
         </View>
         <View style={{ flexDirection: "row", flex: 1 }}>
@@ -61,6 +129,8 @@ export default function HorariosNegocio(props) {
               note
               mode="dropdown"
               style={styles.input}
+              selectedValue={horaDesde1}
+              onValueChange={(e) => setHoraDesde1(e)}
               iosIcon={
                 <Icon
                   name="arrow-down"
@@ -68,11 +138,9 @@ export default function HorariosNegocio(props) {
                 />
               }
             >
-              <Picker.Item label="Wallet" value="key0" />
-              <Picker.Item label="ATM Card" value="key1" />
-              <Picker.Item label="Debit Card" value="key2" />
-              <Picker.Item label="Credit Card" value="key3" />
-              <Picker.Item label="Net Banking" value="key4" />
+              {horarios.map((hora, index) => {
+                return <Picker.Item key={index} label={hora} value={hora} />;
+              })}
             </Picker>
           </View>
           <View style={{ flex: 1 }}>
@@ -82,6 +150,8 @@ export default function HorariosNegocio(props) {
                 note
                 mode="dropdown"
                 style={styles.input}
+                selectedValue={horaHasta1}
+                onValueChange={(e) => setHoraHasta1(e)}
                 iosIcon={
                   <Icon
                     name="arrow-down"
@@ -89,11 +159,9 @@ export default function HorariosNegocio(props) {
                   />
                 }
               >
-                <Picker.Item label="Wallet" value="key0" />
-                <Picker.Item label="ATM Card" value="key1" />
-                <Picker.Item label="Debit Card" value="key2" />
-                <Picker.Item label="Credit Card" value="key3" />
-                <Picker.Item label="Net Banking" value="key4" />
+                {horarios.map((hora, index) => {
+                  return <Picker.Item key={index} label={hora} value={hora} />;
+                })}
               </Picker>
             </View>
           </View>
@@ -105,6 +173,8 @@ export default function HorariosNegocio(props) {
               note
               mode="dropdown"
               style={styles.input}
+              selectedValue={horaDesde2}
+              onValueChange={(e) => setHoraDesde2(e)}
               iosIcon={
                 <Icon
                   name="arrow-down"
@@ -112,11 +182,9 @@ export default function HorariosNegocio(props) {
                 />
               }
             >
-              <Picker.Item label="Wallet" value="key0" />
-              <Picker.Item label="ATM Card" value="key1" />
-              <Picker.Item label="Debit Card" value="key2" />
-              <Picker.Item label="Credit Card" value="key3" />
-              <Picker.Item label="Net Banking" value="key4" />
+              {horarios.map((hora, index) => {
+                return <Picker.Item key={index} label={hora} value={hora} />;
+              })}
             </Picker>
           </View>
           <View style={{ flex: 1 }}>
@@ -126,6 +194,8 @@ export default function HorariosNegocio(props) {
                 note
                 mode="dropdown"
                 style={styles.input}
+                selectedValue={horaHasta2}
+                onValueChange={(e) => setHoraHasta2(e)}
                 iosIcon={
                   <Icon
                     name="arrow-down"
@@ -133,11 +203,9 @@ export default function HorariosNegocio(props) {
                   />
                 }
               >
-                <Picker.Item label="Wallet" value="key0" />
-                <Picker.Item label="ATM Card" value="key1" />
-                <Picker.Item label="Debit Card" value="key2" />
-                <Picker.Item label="Credit Card" value="key3" />
-                <Picker.Item label="Net Banking" value="key4" />
+                {horarios.map((hora, index) => {
+                  return <Picker.Item key={index} label={hora} value={hora} />;
+                })}
               </Picker>
             </View>
           </View>
@@ -150,24 +218,31 @@ export default function HorariosNegocio(props) {
             justifyContent: "flex-end",
           }}
         >
-          <View
-            style={{
-              backgroundColor: "#0fc224",
-              padding: 5,
-              borderRadius: 5,
-            }}
-          >
-            <Text style={{ color: "#fff" }}>Añadir Horario</Text>
-          </View>
+          <TouchableOpacity onPress={agregarHorario}>
+            <View
+              style={{
+                backgroundColor: "#0fc224",
+                padding: 5,
+                borderRadius: 5,
+              }}
+            >
+              <Text style={{ color: "#fff" }}>Añadir Horario</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={{ flex: 1 }}>
-        <Button
-          title="Continuar"
-          style={{ alignItems: "center" }}
-          onPress={() => props.navigation.navigate("Turnos")}
-        ></Button>
+        {horariosNegocio.horarios !== undefined &&
+        horariosNegocio.horarios.length > 0 ? (
+          <Button
+            title="Continuar"
+            style={{ alignItems: "center" }}
+            onPress={() => props.navigation.navigate("Turnos")}
+          ></Button>
+        ) : (
+          <></>
+        )}
       </View>
     </View>
   );

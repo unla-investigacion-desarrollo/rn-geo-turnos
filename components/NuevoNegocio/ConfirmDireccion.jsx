@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addNegocios } from "../../actions/negociosListActions";
 
 function ConfirmDireccion(props) {
-  const negocio = useSelector((state) => state.negocio_reducer.negocio); //Negocio que se esta queriendo dar de alta
+  const negocio = useSelector((state) => state.nuevoNegocio.dataNegocio); //Negocio que se esta queriendo dar de alta
   const dispatch = useDispatch();
   const agregarNegocio = () => {
-    props.navigation.navigate("Información");
+    props.navigation.navigate("Horarios");
   };
 
   return (

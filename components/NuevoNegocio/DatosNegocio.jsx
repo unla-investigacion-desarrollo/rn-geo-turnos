@@ -8,9 +8,46 @@ import {
   Slider,
 } from "react-native";
 import { Picker, Icon } from "native-base";
+import { useDispatch } from "react-redux";
+import { setDataNegocio } from "../../actions/NuevoNegocioActions";
+import { searchChange } from "./NuevoNegocioFunctions";
+import { validarCamposDatosNegocio } from "../../Utils/funciones";
 
 export default function DatosNegocio(props) {
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
+  const [nombre, setNombre] = useState("");
+  const [cuit, setCuit] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [piso, setPiso] = useState("");
+  const [depto, setDepto] = useState("");
+  const [rubro, setRubro] = useState(0);
+  const [localidad, setLocalidad] = useState(0);
+  const [provincia, setProvincia] = useState(0);
+  const dispatch = useDispatch();
+
+  const continuar = () => {
+    searchChange(direccion + "+" + localidad + "+" + provincia).then(
+      (response) => {
+        let dataNegocio = {
+          nombre: nombre,
+          cuit: cuit,
+          direccion: direccion,
+          piso: piso,
+          depto: depto,
+          rubro: rubro,
+          localidad: localidad,
+          provincia: provincia,
+          capacidadPersonas: capacidadPersonas,
+          latitude: response.latitude,
+          longitude: response.longitude,
+        };
+        if (validarCamposDatosNegocio(dataNegocio)) {
+          dispatch(setDataNegocio(dataNegocio));
+          props.navigation.navigate("Ubicación");
+        }
+      }
+    );
+  };
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
@@ -18,20 +55,32 @@ export default function DatosNegocio(props) {
         <View style={{ marginTop: 10 }}>
           <Text style={styles.labelText}>Nombre del Negocio</Text>
           <View style={styles.viewContainer}>
-            <TextInput style={styles.input}></TextInput>
+            <TextInput
+              style={styles.input}
+              value={nombre}
+              onChangeText={(e) => setNombre(e)}
+            ></TextInput>
           </View>
         </View>
         <View style={{ marginTop: 10 }}>
           <Text style={styles.labelText}>N° Cuit</Text>
           <View style={styles.viewContainer}>
-            <TextInput style={styles.input}></TextInput>
+            <TextInput
+              style={styles.input}
+              value={cuit}
+              onChangeText={(e) => setCuit(e)}
+            ></TextInput>
           </View>
         </View>
 
         <View style={{ marginTop: 10 }}>
           <Text style={styles.labelText}>Dirección</Text>
           <View style={styles.viewContainer}>
-            <TextInput style={styles.input}></TextInput>
+            <TextInput
+              style={styles.input}
+              value={direccion}
+              onChangeText={(e) => setDireccion(e)}
+            ></TextInput>
           </View>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -39,7 +88,11 @@ export default function DatosNegocio(props) {
             <View>
               <Text style={styles.labelText}>Piso</Text>
               <View style={styles.viewContainer}>
-                <TextInput style={styles.input}></TextInput>
+                <TextInput
+                  style={styles.input}
+                  value={piso}
+                  onChangeText={(e) => setPiso(e)}
+                ></TextInput>
               </View>
             </View>
           </View>
@@ -47,30 +100,14 @@ export default function DatosNegocio(props) {
             <View>
               <Text style={styles.labelText}>Departamento</Text>
               <View style={styles.viewContainer}>
-                <TextInput style={styles.input}></TextInput>
+                <TextInput
+                  style={styles.input}
+                  value={depto}
+                  onChangeText={(e) => setDepto(e)}
+                ></TextInput>
               </View>
             </View>
           </View>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.labelText}>Rubro</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
-          >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
-          </Picker>
         </View>
         <View style={{ marginTop: 10 }}>
           <Text style={styles.labelText}>Localidad</Text>
@@ -78,6 +115,8 @@ export default function DatosNegocio(props) {
             note
             mode="dropdown"
             style={styles.input}
+            selectedValue={localidad}
+            onValueChange={(e) => setLocalidad(e)}
             iosIcon={
               <Icon
                 name="arrow-down"
@@ -85,11 +124,7 @@ export default function DatosNegocio(props) {
               />
             }
           >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
+            <Picker.Item label="Almirante Brown" value="1" />
           </Picker>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -98,6 +133,8 @@ export default function DatosNegocio(props) {
             note
             mode="dropdown"
             style={styles.input}
+            selectedValue={provincia}
+            onValueChange={(e) => setProvincia(e)}
             iosIcon={
               <Icon
                 name="arrow-down"
@@ -105,11 +142,25 @@ export default function DatosNegocio(props) {
               />
             }
           >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
+            <Picker.Item label="Buenos Aires" value="1" />
+          </Picker>
+        </View>
+        <View style={{ marginTop: 10 }}>
+          <Text style={styles.labelText}>Rubro</Text>
+          <Picker
+            note
+            mode="dropdown"
+            style={styles.input}
+            selectedValue={rubro}
+            onValueChange={(e) => setRubro(e)}
+            iosIcon={
+              <Icon
+                name="arrow-down"
+                style={{ color: "#ccc", marginRight: 0 }}
+              />
+            }
+          >
+            <Picker.Item label="Almacen" value="1" />
           </Picker>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -130,7 +181,7 @@ export default function DatosNegocio(props) {
         <Button
           title="Continuar"
           style={{ alignItems: "center" }}
-          onPress={() => props.navigation.navigate("Horarios")}
+          onPress={continuar}
         ></Button>
       </View>
     </View>

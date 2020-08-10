@@ -12,16 +12,16 @@ export default function NuevoNegocio() {
   const createHomeStack = () => {
     return (
       <Stack.Navigator>
+        <Stack.Screen
+          name="Información"
+          component={DatosNegocio}
+        ></Stack.Screen>
         <Stack.Screen name="Ubicación" component={MapContainer}></Stack.Screen>
         <Stack.Screen
           name="Horarios"
           component={HorariosNegocio}
         ></Stack.Screen>
         <Stack.Screen name="Turnos" component={TurnosNegocio}></Stack.Screen>
-        <Stack.Screen
-          name="Información"
-          component={DatosNegocio}
-        ></Stack.Screen>
 
         <Stack.Screen name="MapInput" component={MapInput}></Stack.Screen>
       </Stack.Navigator>

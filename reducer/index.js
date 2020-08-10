@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import newNegocioReducer from "./newNegocioReducer";
+import NuevoNegocioReducer from "./NuevoNegocioReducer";
 import menuSwitchReducer from "./menuSwitchReducer";
 import centerMapReducer from "./centerMapReducer";
 import negociosListReducer from "./negociosListReducer";
@@ -9,7 +9,7 @@ import qrReaderReducer from "./qrReaderReducer";
 
 //combino los states de los reducers en 1 solo para poder accederlo desde los componentes
 export default combineReducers({
-  negocio_reducer: newNegocioReducer,
+  nuevoNegocio: NuevoNegocioReducer,
   menu_option: menuSwitchReducer,
   center_map: centerMapReducer,
   lista_negocios: negociosListReducer,
