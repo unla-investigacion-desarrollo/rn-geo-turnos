@@ -10,8 +10,10 @@ import {
 import { Picker, Icon } from "native-base";
 import { useDispatch } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";
-import { searchChange } from "./NuevoNegocioFunctions";
-import { validarCamposDatosNegocio } from "../../Utils/funciones";
+import {
+  searchChange,
+  validarCamposDatosNegocio,
+} from "./NuevoNegocioFunctions";
 
 export default function DatosNegocio(props) {
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
@@ -26,24 +28,28 @@ export default function DatosNegocio(props) {
   const dispatch = useDispatch();
 
   const continuar = () => {
-    if (direccion !== "") {
+    let dataNegocio = {
+      nombre: nombre,
+      cuit: cuit,
+      direccion: direccion,
+      piso: piso,
+      depto: depto,
+      rubro: rubro,
+      localidad: localidad,
+      provincia: provincia,
+      capacidadPersonas: capacidadPersonas,
+      latitude: 0,
+      longitude: 0,
+    };
+    if (validarCamposDatosNegocio(dataNegocio)) {
       searchChange(direccion + "+" + localidad + "+" + provincia).then(
         (response) => {
-          let dataNegocio = {
-            nombre: nombre,
-            cuit: cuit,
-            direccion: direccion,
-            piso: piso,
-            depto: depto,
-            rubro: rubro,
-            localidad: localidad,
-            provincia: provincia,
-            capacidadPersonas: capacidadPersonas,
-            latitude: response.latitude !== undefined ? response.latitude : 0,
-            longitude:
-              response.longitude !== undefined ? response.longitude : 0,
-          };
-          if (validarCamposDatosNegocio(dataNegocio)) {
+          dataNegocio.latitude = response.latitude;
+          dataNegocio.longitude = response.longitude;
+
+          console.log(dataNegocio.latitude, dataNegocio.longitude);
+
+          if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
             dispatch(setDataNegocio(dataNegocio));
             props.navigation.navigate("Ubicación");
           }

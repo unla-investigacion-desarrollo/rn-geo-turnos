@@ -18,12 +18,43 @@ export const searchChange = async (direccion) => {
     const responseJson = await axios.get(url + address + key_url);
 
     const data = responseJson.data;
-
     let localizacionNegocio = {
-      longitude: data.results[0].geometry.location.lng,
-      latitude: data.results[0].geometry.location.lat,
+      longitude: 0,
+      latitude: 0,
     };
+
+    if (data.results.length > 0) {
+      localizacionNegocio = {
+        longitude: data.results[0].geometry.location.lng,
+        latitude: data.results[0].geometry.location.lat,
+      };
+    }
 
     return localizacionNegocio;
   }
+};
+export const validarCamposDatosNegocio = (object) => {
+  if (object.nombre === "") {
+    return false;
+  }
+  if (object.cuit === "") {
+    return false;
+  }
+  if (object.direccion === "") {
+    return false;
+  }
+  if (object.rubro === 0) {
+    return false;
+  }
+  if (object.localidad === 0) {
+    return false;
+  }
+  if (object.provincia === 0) {
+    return false;
+  }
+
+  if (object.capacidadPersonas === 0) {
+    return false;
+  }
+  return true;
 };
