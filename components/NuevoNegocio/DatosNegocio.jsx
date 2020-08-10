@@ -133,7 +133,9 @@ export default function DatosNegocio(props) {
               />
             }
           >
+            <Picker.Item label="Seleccione una localidad" value="0" />
             <Picker.Item label="Almirante Brown" value="1" />
+            <Picker.Item label="Banfield" value="2" />
           </Picker>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -151,7 +153,9 @@ export default function DatosNegocio(props) {
               />
             }
           >
+            <Picker.Item label="Seleccione una provincia" value="0" />
             <Picker.Item label="Buenos Aires" value="1" />
+            <Picker.Item label="Chaco" value="2" />
           </Picker>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -169,7 +173,9 @@ export default function DatosNegocio(props) {
               />
             }
           >
+            <Picker.Item label="Seleccione un rubro" value="0" />
             <Picker.Item label="Almacen" value="1" />
+            <Picker.Item label="Kiosko" value="2" />
           </Picker>
         </View>
         <View style={{ marginTop: 10 }}>

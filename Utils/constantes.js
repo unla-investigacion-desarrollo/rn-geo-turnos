@@ -1,4 +1,5 @@
 export const dias = [
+  { dia: 0, desc: "Seleccione un dia" },
   { dia: 1, desc: "Lunes" },
   { dia: 2, desc: "Martes" },
   { dia: 3, desc: "Miercoles" },
