@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { StyleSheet, View, Dimensions, Image } from "react-native";
+import { StyleSheet, View, Dimensions, Image, Text, TouchableOpacity} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
@@ -124,8 +124,20 @@ export default function VerNegocios(props) {
         }}
       >
         {showInfoNegocio &&
+        <TouchableOpacity
+           style={{backgroundColor:"#ddd", width: 30, alignSelf:"flex-end"}}
+          onPress={() =>
+            setShowInfoNegocio(false)
+          }>
+            <Text style={{ fontSize:20}}>
+              X
+            </Text>
+          </TouchableOpacity>
+        }
+        {showInfoNegocio &&
           <InformacionNegocio navigation={props.navigation} />
         }
+        
       </View>
     </View>
   );
