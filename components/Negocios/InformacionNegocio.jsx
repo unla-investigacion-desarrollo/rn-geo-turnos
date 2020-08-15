@@ -37,7 +37,7 @@ export default function InformacionNegocio(props) {
   return (
     <>
       <Text style={{ fontSize: 20, textAlign: "center" }}>
-        #Nombre del Negocio#
+        {marcador_seleccionado.name}
       </Text>
 
       <View

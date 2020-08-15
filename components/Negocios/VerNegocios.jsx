@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
@@ -6,19 +6,26 @@ import InformacionNegocio from "./InformacionNegocio";
 import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 import { addNegocios } from "../../actions/negociosListActions";
+import { set } from "react-native-reanimated";
 
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
   const dispatch = useDispatch();
 
-  const seleccionarMarker = (lat, longitud, direccion) => {
+  const [showInfoNegocio, setShowInfoNegocio] = useState(false);
+
+  const seleccionarMarker = (lat, longitud, direccion, id, name) => {
     //Selecciono marcador dentro del mapa
+    setShowInfoNegocio(true)
+    
     dispatch(
       selectMarker({
         latitude: lat,
         longitude: longitud,
         direccion: direccion,
+        id: id, 
+        name: name
       })
     );
   };
@@ -26,8 +33,7 @@ export default function VerNegocios(props) {
 
 
   const getNegocios = () => {
-    //Ejemplo donde busco a un endpoint lo que lei del qr para obtener una informcion
-    fetch("https://putsreq.com/Rzl88cHz8ZGk9gkmXu6n")
+    fetch("https://putsreq.com/TUZwPRfqWsQmH09hi4AO ")
       .then((res) => res.json())
       .then((res) => {
         // console.log(res)
@@ -46,7 +52,9 @@ export default function VerNegocios(props) {
             seleccionarMarker(
               marker.latitude,
               marker.longitude,
-              marker.direccion
+              marker.direccion,
+              marker.idNegocio,
+              marker.name
             )
           }
           coordinate={{
@@ -104,10 +112,10 @@ export default function VerNegocios(props) {
 
       <View
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: showInfoNegocio ? "#fff" : "rgba(0,0,0,0)",
           height: "30%",
           borderRadius: 10,
-          borderColor: "#ddd",
+          borderColor: showInfoNegocio ? "#ddd" : "rgba(0,0,0,0)",
           borderWidth: 1,
           bottom: 10,
           width: "100%",
@@ -115,7 +123,9 @@ export default function VerNegocios(props) {
           paddingTop: 10,
         }}
       >
-        <InformacionNegocio navigation={props.navigation}/>
+        {showInfoNegocio &&
+          <InformacionNegocio navigation={props.navigation} />
+        }
       </View>
     </View>
   );
