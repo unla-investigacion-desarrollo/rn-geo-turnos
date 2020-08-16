@@ -4,7 +4,7 @@ import Constants from "expo-constants";
 import { Provider } from "react-redux";
 import store from "./store.js";
 import { StatusBar } from "react-native";
-import MenuSwitch from "./components/Menu/MenuSwitch";
+import MenuSwitch from "./components/MenuSwitch";
 import { Root } from "native-base";
 
 function App() {

@@ -38,7 +38,9 @@ export default function QrReader() {
     //Cuando logro escanear algo con la camara
     setScanned(true);
 
-    fetchApi(data);
+    console.log(data);
+
+    //fetchApi(data);
   };
 
   if (qr_state.loadingPermissions) {
@@ -56,22 +58,20 @@ export default function QrReader() {
           <Text>Necesitamos permisos para acceder a su cámara</Text>
         ) : null}
 
-
-        {!scanned &&
+        {!scanned && (
           <BarCodeScanner
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
           />
-        }
-
+        )}
 
         {scanned && (
           <Text
             style={{
-              position: 'absolute',
+              position: "absolute",
               left: 50,
               top: 200,
-              backgroundColor: 'white',
+              backgroundColor: "white",
             }}
           >
             {qr_state?.data[0]?.name}

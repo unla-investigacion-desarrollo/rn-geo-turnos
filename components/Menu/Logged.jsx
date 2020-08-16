@@ -45,9 +45,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
   }
 };
 
-
-
-function MenuSwitch() {
+export default function Logged() {
   const menu_option = useSelector((state) => state.menu_option.menu_option); //Menu seleccionado
   const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
   // console.log("Centro del mapa: ");
@@ -59,16 +57,16 @@ function MenuSwitch() {
 
   //Sirve para solicitar los permisos y obtener la pisicion del usuario
   /*const getInitialState = () => {
-    getLocation().then((data) => {
-      dispatch(
-        centerMap({
-          latitude: data.latitude,
-          longitude: data.longitude,
-          direccion: "",
-        })
-      );
-    });
-  };*/
+      getLocation().then((data) => {
+        dispatch(
+          centerMap({
+            latitude: data.latitude,
+            longitude: data.longitude,
+            direccion: "",
+          })
+        );
+      });
+    };*/
 
   return (
     <View style={{ flex: 1 }}>
@@ -84,5 +82,3 @@ function MenuSwitch() {
     </View>
   );
 }
-
-export default MenuSwitch;
