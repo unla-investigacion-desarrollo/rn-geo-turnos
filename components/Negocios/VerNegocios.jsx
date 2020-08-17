@@ -110,35 +110,37 @@ export default function VerNegocios(props) {
       </View>
       <View style={{ flex: 1 }}>{createMap()}</View>
 
-      <View
-        style={{
-          backgroundColor: showInfoNegocio ? "#fff" : "rgba(0,0,0,0)",
-          height: "30%",
-          borderRadius: 10,
-          borderColor: showInfoNegocio ? "#ddd" : "rgba(0,0,0,0)",
-          borderWidth: 1,
-          bottom: 10,
-          width: "100%",
-          position: "absolute",
-          paddingTop: 10,
-        }}
-      >
-        {showInfoNegocio &&
-        <TouchableOpacity
-           style={{ position: "absolute", width: 40, alignSelf:"flex-end"}}
-          onPress={() =>
-            setShowInfoNegocio(false)
-          }>
-            <Text style={{ fontSize:24}}>
-              X
-            </Text>
-          </TouchableOpacity>
-        }
-        {showInfoNegocio &&
-          <InformacionNegocio navigation={props.navigation} />
-        }
-        
-      </View>
+      {showInfoNegocio &&
+        <View
+          style={{
+            backgroundColor:  "#fff" ,
+            height: "30%",
+            borderRadius: 10,
+            borderColor:  "#ddd" ,
+            borderWidth: 1,
+            bottom: 10,
+            width: "100%",
+            position: "absolute",
+            paddingTop: 10,
+          }}
+        >
+         
+          <TouchableOpacity
+            style={{ position: "absolute", width: 40, alignSelf:"flex-end"}}
+            onPress={() =>
+              setShowInfoNegocio(false)
+            }>
+              <Text style={{ fontSize:24}}>
+                X
+              </Text>
+            </TouchableOpacity>
+          
+          
+            <InformacionNegocio navigation={props.navigation} />
+          
+          
+        </View>
+      }
     </View>
   );
 }

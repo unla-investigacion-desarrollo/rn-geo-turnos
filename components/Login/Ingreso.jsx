@@ -38,8 +38,8 @@ export default function Ingreso(props) {
           style={{
             width: 100,
             height: 100,
-            borderRadius: "50%",
-            borderWidth: "3px",
+            borderRadius: 50,
+            borderWidth: 3,
             borderColor: "#ccc",
             backgroundColor: "white",
           }}
