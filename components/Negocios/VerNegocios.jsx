@@ -125,11 +125,11 @@ export default function VerNegocios(props) {
       >
         {showInfoNegocio &&
         <TouchableOpacity
-           style={{backgroundColor:"#ddd", width: 30, alignSelf:"flex-end"}}
+           style={{ position: "absolute", width: 40, alignSelf:"flex-end"}}
           onPress={() =>
             setShowInfoNegocio(false)
           }>
-            <Text style={{ fontSize:20}}>
+            <Text style={{ fontSize:24}}>
               X
             </Text>
           </TouchableOpacity>

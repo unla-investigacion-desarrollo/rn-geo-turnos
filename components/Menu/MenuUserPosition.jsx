@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { switchMenu } from "../../actions/menuSwitchActions";
 import { USER_POSITION } from "../../actions/menuOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCompass } from "@fortawesome/free-solid-svg-icons";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 function MenuUserPosition(props) {
   const [option_menu, setOptionMenu] = useState(0);
@@ -25,7 +25,7 @@ function MenuUserPosition(props) {
       <TouchableOpacity onPress={() => dispatch(switchMenu(USER_POSITION))}>
         <View style={{ alignItems: "center" }}>
           <FontAwesomeIcon
-            icon={faCompass}
+            icon={faCog}
             size={30}
             color={
               menu_option === USER_POSITION //si el menu seleccionado es USER_POSITION entonces lo pinto de azul
@@ -42,7 +42,7 @@ function MenuUserPosition(props) {
                   : props.colorIcon,
             }}
           >
-            Mi posición
+            Configuracion
           </Text>
         </View>
       </TouchableOpacity>

@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TurnosNegocio from "./TurnosNegocio";
 import VerNegocios from "./VerNegocios"
 
-export default function NuevoNegocio() {
+export default function NavigationVerNegocios() {
   const Stack = createStackNavigator();
   const createHomeStack = () => {
     return (
