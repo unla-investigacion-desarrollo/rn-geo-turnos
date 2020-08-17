@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   TextInput,
@@ -6,39 +6,17 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setRegisterData } from "../../actions/RegisterActions";
+import { useDispatch } from "react-redux";
+import { actions } from "../../actions/types";
 
-export default function RegistroDni(props) {
+export default function Ingreso(props) {
   const [documento, setDocumento] = useState("");
-  const [nroTramite, setNroTramite] = useState("");
-  const registro = useSelector((state) => state.registro);
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    let registerOjecto = registro.registerData;
-    if (registerOjecto.documento.length > 0) {
-      setDocumento(registerOjecto.documento);
-    }
-    if (registerOjecto.nroTramite.length > 0) {
-      setNroTramite(registerOjecto.nroTramite);
-    }
-  }, [registro]);
-
-  const setData = () => {
-    if (documento.length > 0 && nroTramite.length > 0) {
-      let registroObject = registro.registerData;
-
-      registroObject.documento = documento;
-      registroObject.nroTramite = nroTramite;
-
-      dispatch(setRegisterData(registroObject));
-
-      props.navigation.navigate("Datos Personales");
-    }
+  const setLogged = () => {
+    if (documento.length > 0 && password.length > 0)
+      dispatch({ type: actions.LOGGED, payload: 1 });
   };
 
   return (
@@ -85,14 +63,12 @@ export default function RegistroDni(props) {
           ></TextInput>
         </View>
         <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
-            Número de Trámite
-          </Text>
+          <Text style={{ color: "white", fontWeight: "bold" }}>Contraseña</Text>
 
           <TextInput
             style={styles.input}
-            value={nroTramite}
-            onChangeText={(value) => setNroTramite(value)}
+            value={password}
+            onChangeText={(value) => setPassword(value)}
           ></TextInput>
         </View>
         <TouchableOpacity
@@ -101,7 +77,7 @@ export default function RegistroDni(props) {
             paddingLeft: 0,
             flex: 1,
           }}
-          onPress={() => props.navigation.navigate("Cámara")}
+          onPress={() => props.navigation.navigate("Registro DNI")}
         >
           <View
             style={{
@@ -110,17 +86,16 @@ export default function RegistroDni(props) {
               width: "100%",
             }}
           >
-            <View style={{ flex: 1 }}>
-              <FontAwesomeIcon icon={faCamera} style={{ color: "white" }} />
-            </View>
             <View style={{ flex: 12 }}>
-              <Text style={{ color: "#fff" }}>Escanear Documento</Text>
+              <Text style={{ color: "#fff" }}>
+                ¿No tiene cuenta? Regístrese
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1 }}>
-        <TouchableOpacity style={{ height: 50 }} onPress={setData}>
+        <TouchableOpacity style={{ height: 50 }} onPress={setLogged}>
           <View
             title="Hola"
             style={{
@@ -134,7 +109,7 @@ export default function RegistroDni(props) {
             <Text
               style={{ fontSize: 15, color: "#1A73E8", fontWeight: "bold" }}
             >
-              Continuar
+              Ingresar
             </Text>
           </View>
         </TouchableOpacity>

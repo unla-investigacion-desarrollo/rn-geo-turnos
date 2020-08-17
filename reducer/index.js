@@ -7,7 +7,7 @@ import negociosListReducer from "./negociosListReducer";
 import selectMarkerReducer from "./selectMarkerReducer";
 import qrReaderReducer from "./qrReaderReducer";
 import LoginReducer from "./LoginReducer";
-
+import RegisterReducer from "./RegisterReducer";
 //combino los states de los reducers en 1 solo para poder accederlo desde los componentes
 export default combineReducers({
   nuevoNegocio: NuevoNegocioReducer,
@@ -17,4 +17,5 @@ export default combineReducers({
   marker_seleccionado: selectMarkerReducer,
   qr_state: qrReaderReducer,
   login: LoginReducer,
+  registro: RegisterReducer,
 });

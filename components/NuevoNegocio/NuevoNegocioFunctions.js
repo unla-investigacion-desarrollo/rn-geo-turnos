@@ -1,7 +1,7 @@
 import { api_key } from "../../services/api_map";
 
 import axios from "axios";
-export const searchChange = async (direccion) => {
+export const searchPosition = async (direccion) => {
   //Funcion que va a consultar al endpoint de google maps para obtener la informacion de la direccion que se introducio
 
   if (direccion !== "") {
@@ -44,6 +44,9 @@ export const validarCamposDatosNegocio = (object) => {
     return false;
   }
   if (object.rubro === 0) {
+    return false;
+  }
+  if (object.emprendimiento === 0) {
     return false;
   }
   if (object.localidad === 0) {

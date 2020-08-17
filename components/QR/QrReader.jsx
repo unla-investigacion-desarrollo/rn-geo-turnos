@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { dataRead, qrPermissions } from "../../actions/qrReaderActions";
+import { setRegisterData } from "../../actions/RegisterActions";
 
-export default function QrReader() {
+export default function QrReader(props) {
   const qr_state = useSelector((state) => state.qr_state);
+  const registro = useSelector((state) => state.registro);
   const [scanned, setScanned] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //Pido permisos de camara
     askPermissions();
-  }, []);
+  }, [dispatch]);
 
   const askPermissions = () => {
     let status = BarCodeScanner.requestPermissionsAsync();
@@ -35,10 +36,20 @@ export default function QrReader() {
   };
 
   const handleBarCodeScanned = ({ data }) => {
+    const lecturaDocumento = data.split("@");
+
+    let registroObject = registro.registerData;
+
+    registroObject.documento = lecturaDocumento[4];
+    registroObject.nroTramite = lecturaDocumento[0];
+    registroObject.nombre = lecturaDocumento[2];
+    registroObject.apellido = lecturaDocumento[1];
+
     //Cuando logro escanear algo con la camara
     setScanned(true);
+    dispatch(setRegisterData(registroObject));
 
-    console.log(data);
+    props.navigation.navigate("Registro DNI");
 
     //fetchApi(data);
   };

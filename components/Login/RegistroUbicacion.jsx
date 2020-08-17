@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   TextInput,
@@ -8,9 +8,13 @@ import {
 } from "react-native";
 import { Picker, Icon } from "native-base";
 import MarkUbicacion from "./MarkUbicacion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../actions/types";
-export default function RegistroDni(props) {
+import { searchPosition } from "../NuevoNegocio/NuevoNegocioFunctions";
+import { setRegisterData } from "../../actions/RegisterActions";
+
+export default function RegistroDni() {
+  const registro = useSelector((state) => state.registro);
   const [direccion, setDireccion] = useState("");
   const [piso, setPiso] = useState("");
   const [depto, setDepto] = useState("");
@@ -18,8 +22,47 @@ export default function RegistroDni(props) {
   const [provincia, setProvincia] = useState(0);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    let registerOjecto = registro.registerData;
+
+    if (registerOjecto.direccion.length > 0) {
+      setDireccion(registerOjecto.direccion);
+    }
+    if (registerOjecto.piso.length > 0) {
+      setPiso(registerOjecto.nroTramite);
+    }
+    if (registerOjecto.depto.length > 0) {
+      setDepto(registerOjecto.depto);
+    }
+    if (registerOjecto.localidad.length > 0) {
+      setLocalidad(registerOjecto.localidad);
+    }
+    if (registerOjecto.provincia.length > 0) {
+      setProvincia(registerOjecto.provincia);
+    }
+  }, [registro]);
+
   const setLogged = () => {
-    dispatch({ type: actions.LOGGED, payload: 1 });
+    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
+      dispatch({ type: actions.LOGGED, payload: 1 });
+    }
+  };
+
+  const validarDireccion = () => {
+    let registroObject = registro.registerData;
+    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
+      searchPosition(direccion).then((response) => {
+        registroObject.latitude = response.latitude;
+        registroObject.longitude = response.longitude;
+        registroObject.direccion = direccion;
+        registroObject.piso = piso;
+        registroObject.depto = depto;
+        registroObject.localidad = localidad;
+        registroObject.provincia = provincia;
+
+        dispatch(setRegisterData(registroObject));
+      });
+    }
   };
 
   return (
@@ -118,6 +161,27 @@ export default function RegistroDni(props) {
         </View>
       </View>
       <View style={{ flex: 1 }}>
+        <View
+          style={{
+            bottom: 10,
+            flex: 0.3,
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginTop: 10,
+          }}
+        >
+          <TouchableOpacity onPress={validarDireccion}>
+            <View
+              style={{
+                backgroundColor: "#0fc224",
+                padding: 5,
+                borderRadius: 5,
+              }}
+            >
+              <Text style={{ color: "#fff" }}>Validar Dirección</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity style={{ height: 50 }} onPress={setLogged}>
           <View
             title="Hola"

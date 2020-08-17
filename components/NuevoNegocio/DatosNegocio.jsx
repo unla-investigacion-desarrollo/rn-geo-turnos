@@ -11,7 +11,7 @@ import { Picker, Icon } from "native-base";
 import { useDispatch } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";
 import {
-  searchChange,
+  searchPosition,
   validarCamposDatosNegocio,
 } from "./NuevoNegocioFunctions";
 
@@ -23,6 +23,7 @@ export default function DatosNegocio(props) {
   const [piso, setPiso] = useState("");
   const [depto, setDepto] = useState("");
   const [rubro, setRubro] = useState(0);
+  const [emprendimiento, setEmprendimiento] = useState(0);
   const [localidad, setLocalidad] = useState(0);
   const [provincia, setProvincia] = useState(0);
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export default function DatosNegocio(props) {
       piso: piso,
       depto: depto,
       rubro: rubro,
+      emprendimiento: emprendimiento,
       localidad: localidad,
       provincia: provincia,
       capacidadPersonas: capacidadPersonas,
@@ -42,26 +44,22 @@ export default function DatosNegocio(props) {
       longitude: 0,
     };
     if (validarCamposDatosNegocio(dataNegocio)) {
-      searchChange(direccion + "+" + localidad + "+" + provincia).then(
-        (response) => {
-          dataNegocio.latitude = response.latitude;
-          dataNegocio.longitude = response.longitude;
+      searchPosition(direccion).then((response) => {
+        dataNegocio.latitude = response.latitude;
+        dataNegocio.longitude = response.longitude;
 
-          console.log(dataNegocio.latitude, dataNegocio.longitude);
-
-          if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
-            dispatch(setDataNegocio(dataNegocio));
-            props.navigation.navigate("Ubicación");
-          }
+        if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
+          dispatch(setDataNegocio(dataNegocio));
+          props.navigation.navigate("Ubicación");
         }
-      );
+      });
     }
   };
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
       <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>Nombre del Negocio</Text>
           <View style={styles.viewContainer}>
             <TextInput
@@ -71,7 +69,7 @@ export default function DatosNegocio(props) {
             ></TextInput>
           </View>
         </View>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>N° Cuit</Text>
           <View style={styles.viewContainer}>
             <TextInput
@@ -82,7 +80,7 @@ export default function DatosNegocio(props) {
           </View>
         </View>
 
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>Dirección</Text>
           <View style={styles.viewContainer}>
             <TextInput
@@ -93,7 +91,7 @@ export default function DatosNegocio(props) {
           </View>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+          <View style={{ marginTop: 7, flex: 1, paddingRight: 10 }}>
             <View>
               <Text style={styles.labelText}>Piso</Text>
               <View style={styles.viewContainer}>
@@ -105,7 +103,7 @@ export default function DatosNegocio(props) {
               </View>
             </View>
           </View>
-          <View style={{ marginTop: 10, flex: 1 }}>
+          <View style={{ marginTop: 7, flex: 1 }}>
             <View>
               <Text style={styles.labelText}>Departamento</Text>
               <View style={styles.viewContainer}>
@@ -118,7 +116,7 @@ export default function DatosNegocio(props) {
             </View>
           </View>
         </View>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>Localidad</Text>
           <Picker
             note
@@ -138,7 +136,7 @@ export default function DatosNegocio(props) {
             <Picker.Item label="Banfield" value="2" />
           </Picker>
         </View>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>Provincia</Text>
           <Picker
             note
@@ -158,7 +156,7 @@ export default function DatosNegocio(props) {
             <Picker.Item label="Chaco" value="2" />
           </Picker>
         </View>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>Rubro</Text>
           <Picker
             note
@@ -178,7 +176,27 @@ export default function DatosNegocio(props) {
             <Picker.Item label="Kiosko" value="2" />
           </Picker>
         </View>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 7 }}>
+          <Text style={styles.labelText}>Tipo de Emprendimiento</Text>
+          <Picker
+            note
+            mode="dropdown"
+            style={styles.input}
+            selectedValue={emprendimiento}
+            onValueChange={(e) => setEmprendimiento(e)}
+            iosIcon={
+              <Icon
+                name="arrow-down"
+                style={{ color: "#ccc", marginRight: 0 }}
+              />
+            }
+          >
+            <Picker.Item label="Seleccione un rubro" value="0" />
+            <Picker.Item label="Servicios" value="1" />
+            <Picker.Item label="Comercios" value="2" />
+          </Picker>
+        </View>
+        <View style={{ marginTop: 7 }}>
           <Text style={styles.labelText}>
             Capacidad de Personas: {capacidadPersonas}
           </Text>

@@ -1,24 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
-  Button,
   TextInput,
   View,
   TouchableOpacity,
   StyleSheet,
-  SegmentedControlIOSComponent,
 } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setRegisterData } from "../../actions/RegisterActions";
 
 export default function RegistroDni(props) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [cuil, setCuil] = useState("");
-  const [contrasenia, setContrasenia] = useState("");
-  const [repetirContrasenia, setRepetirContrasenia] = useState("");
+  const [password, setPassword] = useState("");
+  const [repetirPassword, setRepetirPassword] = useState("");
+  const registro = useSelector((state) => state.registro);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let registerOjecto = registro.registerData;
+    if (registerOjecto.nombre.length > 0) {
+      setNombre(registerOjecto.nombre);
+    }
+    if (registerOjecto.apellido.length > 0) {
+      setApellido(registerOjecto.apellido);
+    }
+    if (registerOjecto.cuil.length > 0) {
+      setCuil(registerOjecto.cuil);
+    }
+    if (registerOjecto.password.length > 0) {
+      setPassword(registerOjecto.password);
+    }
+  }, [registro]);
+
+  const setData = () => {
+    if (
+      nombre.length > 0 &&
+      apellido.length > 0 &&
+      cuil.length > 0 &&
+      password.length > 0
+    ) {
+      let registroObject = registro.registerData;
+
+      registroObject.nombre = nombre;
+      registroObject.apellido = apellido;
+      registroObject.cuil = cuil;
+      registroObject.password = password;
+
+      dispatch(setRegisterData(registroObject));
+
+      props.navigation.navigate("Ubicación");
+    }
+  };
 
   return (
     <View
@@ -35,7 +69,7 @@ export default function RegistroDni(props) {
           <TextInput
             style={styles.input}
             value={nombre}
-            onChange={(value) => setNombre(value.value)}
+            onChangeText={(value) => setNombre(value)}
           ></TextInput>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -44,7 +78,7 @@ export default function RegistroDni(props) {
           <TextInput
             style={styles.input}
             value={apellido}
-            onChange={(value) => setApellido(value.value)}
+            onChangeText={(value) => setApellido(value)}
           ></TextInput>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -53,7 +87,7 @@ export default function RegistroDni(props) {
           <TextInput
             style={styles.input}
             value={cuil}
-            onChange={(value) => setCuil(value.value)}
+            onChangeText={(value) => setCuil(value)}
           ></TextInput>
         </View>
       </View>
@@ -66,8 +100,8 @@ export default function RegistroDni(props) {
 
           <TextInput
             style={styles.input}
-            value={contrasenia}
-            onChange={(value) => setContrasenia(value.value)}
+            value={password}
+            onChangeText={(value) => setPassword(value)}
           ></TextInput>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -77,16 +111,13 @@ export default function RegistroDni(props) {
 
           <TextInput
             style={styles.input}
-            value={repetirContrasenia}
-            onChange={(value) => setRepetirContrasenia(value.value)}
+            value={repetirPassword}
+            onChangeText={(value) => setRepetirPassword(value)}
           ></TextInput>
         </View>
       </View>
       <View style={{ flex: 1 }}>
-        <TouchableOpacity
-          style={{ height: 50 }}
-          onPress={() => props.navigation.navigate("Ubicación")}
-        >
+        <TouchableOpacity style={{ height: 50 }} onPress={setData}>
           <View
             title="Hola"
             style={{

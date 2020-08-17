@@ -11,8 +11,8 @@ const MyMapView = (props) => {
       style={{ flex: 1 }}
       provider={MapView.PROVIDER_GOOGLE}
       region={{
-        latitude: region.latitude,
-        longitude: region.longitude,
+        latitude: negocio.latitude,
+        longitude: negocio.longitude,
         latitudeDelta: 0.003,
         longitudeDelta: 0.003,
       }}

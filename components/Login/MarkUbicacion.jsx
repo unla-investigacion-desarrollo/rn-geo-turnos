@@ -1,9 +1,10 @@
 import React from "react";
 import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function MarkUbicacion(props) {
-  const negocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
+  const registro = useSelector((state) => state.registro);
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
 
   return (
@@ -11,11 +12,21 @@ export default function MarkUbicacion(props) {
       style={{ flex: 1 }}
       provider={MapView.PROVIDER_GOOGLE}
       region={{
-        latitude: region.latitude,
-        longitude: region.longitude,
+        latitude: registro.registerData.latitude,
+        longitude: registro.registerData.longitude,
         latitudeDelta: 0.003,
         longitudeDelta: 0.003,
       }}
-    ></MapView>
+    >
+      {registro.registerData.latitude !== 0 &&
+      registro.registerData.longitude !== 0 ? (
+        <MapView.Marker
+          coordinate={{
+            latitude: registro.registerData.latitude,
+            longitude: registro.registerData.longitude,
+          }}
+        ></MapView.Marker>
+      ) : null}
+    </MapView>
   );
 }

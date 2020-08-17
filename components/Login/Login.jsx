@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RegistroDni from "./RegistroDni";
 import RegistroDatosPersonales from "./RegistroDatosPersonales";
 import RegistroUbicacion from "./RegistroUbicacion";
+import Ingreso from "./Ingreso";
 import QrReader from "../QR/QrReader";
 export default function Login(props) {
   const Stack = createStackNavigator();
@@ -11,6 +12,7 @@ export default function Login(props) {
   const createHomeStack = () => {
     return (
       <Stack.Navigator>
+        <Stack.Screen name="Ingreso" component={Ingreso}></Stack.Screen>
         <Stack.Screen
           name="Registro DNI"
           component={RegistroDni}
