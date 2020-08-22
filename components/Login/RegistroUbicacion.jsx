@@ -25,19 +25,19 @@ export default function RegistroDni() {
   useEffect(() => {
     let registerOjecto = registro.registerData;
 
-    if (registerOjecto.direccion.length > 0) {
+    if (registerOjecto.direccion) {
       setDireccion(registerOjecto.direccion);
     }
-    if (registerOjecto.piso.length > 0) {
+    if (registerOjecto.piso) {
       setPiso(registerOjecto.nroTramite);
     }
-    if (registerOjecto.depto.length > 0) {
+    if (registerOjecto.depto) {
       setDepto(registerOjecto.depto);
     }
-    if (registerOjecto.localidad.length > 0) {
+    if (registerOjecto.localidad) {
       setLocalidad(registerOjecto.localidad);
     }
-    if (registerOjecto.provincia.length > 0) {
+    if (registerOjecto.provincia) {
       setProvincia(registerOjecto.provincia);
     }
   }, [registro]);
@@ -49,16 +49,23 @@ export default function RegistroDni() {
   };
 
   const validarDireccion = () => {
-    let registroObject = registro.registerData;
     if (direccion.length > 0 && localidad > 0 && provincia > 0) {
       searchPosition(direccion).then((response) => {
-        registroObject.latitude = response.latitude;
-        registroObject.longitude = response.longitude;
-        registroObject.direccion = direccion;
-        registroObject.piso = piso;
-        registroObject.depto = depto;
-        registroObject.localidad = localidad;
-        registroObject.provincia = provincia;
+        let registroObject = {
+          documento: registro.registerData.documento,
+          nroTramite: registro.registerData.nroTramite,
+          latitude: response.latitude,
+          longitude: response.longitude,
+          direccion: direccion,
+          piso: piso,
+          depto: depto,
+          localidad: localidad,
+          provincia: provincia,
+          nombre: registro.registerData.nombre,
+          apellido: registro.registerData.apellido,
+          cuil: registro.registerData.cuil,
+          password: registro.registerData.password,
+        };
 
         dispatch(setRegisterData(registroObject));
       });

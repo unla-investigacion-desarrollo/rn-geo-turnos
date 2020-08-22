@@ -20,16 +20,16 @@ export default function RegistroDni(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
-    if (registerOjecto.nombre.length > 0) {
+    if (registerOjecto.nombre) {
       setNombre(registerOjecto.nombre);
     }
-    if (registerOjecto.apellido.length > 0) {
+    if (registerOjecto.apellido) {
       setApellido(registerOjecto.apellido);
     }
-    if (registerOjecto.cuil.length > 0) {
+    if (registerOjecto.cuil) {
       setCuil(registerOjecto.cuil);
     }
-    if (registerOjecto.password.length > 0) {
+    if (registerOjecto.password) {
       setPassword(registerOjecto.password);
     }
   }, [registro]);
@@ -41,12 +41,14 @@ export default function RegistroDni(props) {
       cuil.length > 0 &&
       password.length > 0
     ) {
-      let registroObject = registro.registerData;
-
-      registroObject.nombre = nombre;
-      registroObject.apellido = apellido;
-      registroObject.cuil = cuil;
-      registroObject.password = password;
+      let registroObject = {
+        nombre: nombre,
+        apellido: apellido,
+        cuil: cuil,
+        password: password,
+        documento: registro.registerData.documento,
+        nroTramite: registro.registerData.nroTramite,
+      };
 
       dispatch(setRegisterData(registroObject));
 

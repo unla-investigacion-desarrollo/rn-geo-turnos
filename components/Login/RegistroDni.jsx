@@ -20,20 +20,20 @@ export default function RegistroDni(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
-    if (registerOjecto.documento.length > 0) {
+    if (registerOjecto.documento) {
       setDocumento(registerOjecto.documento);
     }
-    if (registerOjecto.nroTramite.length > 0) {
+    if (registerOjecto.nroTramite) {
       setNroTramite(registerOjecto.nroTramite);
     }
   }, [registro]);
 
   const setData = () => {
     if (documento.length > 0 && nroTramite.length > 0) {
-      let registroObject = registro.registerData;
-
-      registroObject.documento = documento;
-      registroObject.nroTramite = nroTramite;
+      let registroObject = {
+        documento: documento,
+        nroTramite: nroTramite,
+      };
 
       dispatch(setRegisterData(registroObject));
 
