@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, Button}  from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUserCircle, faMapMarkerAlt, faStore, faCalendar } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function Configuraciones(props) {
 
@@ -21,7 +23,13 @@ export default function Configuraciones(props) {
                     navigateConfiguraciones("Datos personales")
                 }
             >
-                <Text style={styles.textButton}> Datos personales </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <FontAwesomeIcon icon={faUserCircle} style={styles.icon} />
+                    <Text style={styles.textButton}> Datos personales </Text>
+                </View>
+                              
+                
+                
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
@@ -29,7 +37,10 @@ export default function Configuraciones(props) {
                     navigateConfiguraciones("Ubicación")
                 }
             >
-                <Text style={styles.textButton}> Ubicación </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <FontAwesomeIcon icon={faMapMarkerAlt} style={styles.icon} />
+                    <Text style={styles.textButton}> Ubicación </Text>
+                </View>
             </TouchableOpacity> 
             <TouchableOpacity
                 style={styles.button}
@@ -37,7 +48,10 @@ export default function Configuraciones(props) {
                     navigateConfiguraciones("Configuración del negocio")
                 }
             >
-                <Text style={styles.textButton}> Configuración del negocio </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <FontAwesomeIcon icon={faStore} style={styles.icon} />
+                    <Text style={styles.textButton}> Configuración del negocio </Text>
+                </View>
             </TouchableOpacity> 
             <TouchableOpacity
                 style={styles.button}
@@ -45,8 +59,27 @@ export default function Configuraciones(props) {
                     navigateConfiguraciones("Mis turnos")
                 }
             >
-                <Text style={styles.textButton}> Mis turnos </Text>
-            </TouchableOpacity>       
+                <View style={{ flexDirection: 'row' }}>
+                    <FontAwesomeIcon icon={faCalendar} style={styles.icon} />
+                    <Text style={styles.textButton}> Mis turnos </Text>
+                </View>
+                
+            </TouchableOpacity>      
+            <View >
+
+        <TouchableOpacity style={{ height: 50}} >
+          <View
+            title="saveDatos"
+            style={styles.bottomButton}
+          >
+            <Text
+              style={{ fontSize: 15, color: "#FF8000", fontWeight: "bold" }}
+            >
+              Cerrar sesión
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View> 
         </View>
     </View>
   );
@@ -55,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 10
+    paddingTop:20
   },
   button: {
       paddingTop: 10,
@@ -63,17 +96,34 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       color: "#fff",
       backgroundColor: "#fffff9",
-      borderBottomColor: "#007AFF",
       borderRadius: 10,
-      borderColor: "#fffff9",
-      marginBottom:20,
+      borderColor: "#000",
+    //   borderTopWidth: 1,
+      borderBottomWidth: 1,
       
-      borderWidth: 1
   },
   textButton: {
-      color: "#007AFF",
+      color: "#000",
       fontSize: 20,
+      paddingLeft:10
       
+  },
+  bottomButton: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute', //Here is the trick
+    bottom: 0, //Here is the trick
+    flex: 6,
+    
+  },
+  icon: {
+    color: "black",
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
   }
+  
 
 });

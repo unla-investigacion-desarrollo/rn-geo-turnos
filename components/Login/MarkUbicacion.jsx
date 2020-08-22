@@ -12,8 +12,8 @@ export default function MarkUbicacion(props) {
       style={{ flex: 1 }}
       provider={MapView.PROVIDER_GOOGLE}
       region={{
-        latitude: registro.registerData.latitude,
-        longitude: registro.registerData.longitude,
+        latitude: registro.registerData.latitude? registro.registerData.latitude : -34.603773,
+        longitude: registro.registerData.longitude ? registro.registerData.longitude : -58.381706,
         latitudeDelta: 0.003,
         longitudeDelta: 0.003,
       }}
@@ -22,8 +22,8 @@ export default function MarkUbicacion(props) {
       registro.registerData.longitude !== 0 ? (
         <MapView.Marker
           coordinate={{
-            latitude: registro.registerData.latitude,
-            longitude: registro.registerData.longitude,
+            latitude: registro.registerData.latitude? registro.registerData.latitude : -34.603773,
+            longitude: registro.registerData.longitude ? registro.registerData.longitude : -58.381706,
           }}
         ></MapView.Marker>
       ) : null}

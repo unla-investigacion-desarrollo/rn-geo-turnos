@@ -36,20 +36,31 @@ export default function QrReader(props) {
   };
 
   const handleBarCodeScanned = ({ data }) => {
+    console.log("DNI" + data)
     const lecturaDocumento = data.split("@");
-
     let registroObject = registro.registerData;
 
-    registroObject.documento = lecturaDocumento[4];
-    registroObject.nroTramite = lecturaDocumento[0];
-    registroObject.nombre = lecturaDocumento[2];
-    registroObject.apellido = lecturaDocumento[1];
+    if (data[0] === "@"){
 
+      registroObject.documento = lecturaDocumento[1];
+      registroObject.nroTramite = lecturaDocumento[10];
+      registroObject.nombre = lecturaDocumento[5];
+      registroObject.apellido = lecturaDocumento[4];
+    }else{
+  
+      registroObject.documento = lecturaDocumento[4];
+      registroObject.nroTramite = lecturaDocumento[0];
+      registroObject.nombre = lecturaDocumento[2];
+      registroObject.apellido = lecturaDocumento[1];
+  
+      
+    }
     //Cuando logro escanear algo con la camara
     setScanned(true);
     dispatch(setRegisterData(registroObject));
 
     props.navigation.navigate("Registro DNI");
+    
 
     //fetchApi(data);
   };
