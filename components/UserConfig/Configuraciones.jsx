@@ -8,7 +8,7 @@ export default function Configuraciones(props) {
 
     const navigateConfiguraciones = (opcion) => {
         
-        props.navigation.navigate(opcion);
+        props.navigation.navigate(opcion, {source:"config"});
       };
 
       

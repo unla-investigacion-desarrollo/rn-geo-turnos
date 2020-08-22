@@ -13,7 +13,7 @@ import { actions } from "../../actions/types";
 import { searchPosition } from "../NuevoNegocio/NuevoNegocioFunctions";
 import { setRegisterData } from "../../actions/RegisterActions";
 
-export default function RegistroDni() {
+export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
   const [direccion, setDireccion] = useState("");
   const [piso, setPiso] = useState("");
@@ -21,6 +21,8 @@ export default function RegistroDni() {
   const [localidad, setLocalidad] = useState(0);
   const [provincia, setProvincia] = useState(0);
   const dispatch = useDispatch();
+
+  const isConfig = props?.route?.params?.source === "config"
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
@@ -47,6 +49,12 @@ export default function RegistroDni() {
       dispatch({ type: actions.LOGGED, payload: 1 });
     }
   };
+
+  const setLocation = () => {
+    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
+      props.navigation.navigate("Configuracion de usuario");
+    }
+  }
 
   const validarDireccion = () => {
     if (direccion.length > 0 && localidad > 0 && provincia > 0) {
@@ -189,7 +197,8 @@ export default function RegistroDni() {
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ height: 50 }} onPress={setLogged}>
+
+        <TouchableOpacity style={{ height: 50 }} onPress={isConfig ? setLocation :setLogged}>
           <View
             title="Hola"
             style={{
@@ -203,10 +212,12 @@ export default function RegistroDni() {
             <Text
               style={{ fontSize: 15, color: "#1A73E8", fontWeight: "bold" }}
             >
-              Finalizar Registro
+              {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
             </Text>
           </View>
         </TouchableOpacity>
+      
+       
       </View>
     </View>
   );
