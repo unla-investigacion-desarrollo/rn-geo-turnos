@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, Button, Text, TextInput } from "react-native";
 import { Picker, Icon } from "native-base";
 import { useSelector } from "react-redux";
-
+import { apiCalls } from '../../api/apiCalls'
 
 
 export default function TurnosNegocio(props) {
@@ -14,8 +14,27 @@ export default function TurnosNegocio(props) {
   const [comments, setComments] = useState("");
 
   const postReservarTurno = () => {
-    console.log(day,hour,comments)
-  }
+
+    //EJEMPLO API CALL
+    // apiCalls.postArticulo({
+    //   activoComercial: true,
+    //   codBarra: "asd",
+    //   descripcion: "asd",
+    //   foto: "asd",
+    //   idCategoria: 1,
+    //   idMarca: 1,
+    //   idUnidadMedida: 1,
+    //   nombre: "asd",
+    //   peso: "asd",
+    //   precio: 1,
+    //   usuarioModi: "asd",
+    //   visible: true
+    // }).then((response) => {
+    //   console.log(response.data)
+    // })
+        
+}
+  
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
