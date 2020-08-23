@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../actions/types";
 import { searchPosition } from "../NuevoNegocio/NuevoNegocioFunctions";
 import { setRegisterData } from "../../actions/RegisterActions";
+import { apiCalls } from '../../api/apiCalls'
+
 
 export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
@@ -46,7 +48,32 @@ export default function RegistroDni(props) {
 
   const setLogged = () => {
     if (direccion.length > 0 && localidad > 0 && provincia > 0) {
-      dispatch({ type: actions.LOGGED, payload: 1 });
+
+      apiCalls.postAltaUsuario({
+        apellido: registro.registerData.apellido,
+        celular: "115858585858",
+        cuil: registro.registerData.cuil,
+        idPerfil: 1,
+        loginVo: {
+          clave: registro.registerData.password,
+          email: registro.registerData.email ? registro.registerData.email : "@mail"
+        },
+        nombre: registro.registerData.nombre,
+        ubicacionVo: {
+          calleNumero: direccion,
+          departamento: depto,
+          idLocalidad: parseInt(registro.registerData.localidad),
+          idProvincia: parseInt(registro.registerData.provincia),
+          latitud: registro.registerData.latitude,
+          longitud: registro.registerData.longitude,
+          piso: 1,
+          usuarioModi: "xlucio"
+        },
+        usuarioModi: "xlucio"
+        }).then((response) => {
+          console.log("persona dada de alta: " + response.data)
+          dispatch({ type: actions.LOGGED, payload: 1 });
+        })
     }
   };
 
@@ -65,7 +92,7 @@ export default function RegistroDni(props) {
           latitude: response.latitude,
           longitude: response.longitude,
           direccion: direccion,
-          piso: piso,
+          piso: 1,
           depto: depto,
           localidad: localidad,
           provincia: provincia,
@@ -74,7 +101,6 @@ export default function RegistroDni(props) {
           cuil: registro.registerData.cuil,
           password: registro.registerData.password,
         };
-
         dispatch(setRegisterData(registroObject));
       });
     }
