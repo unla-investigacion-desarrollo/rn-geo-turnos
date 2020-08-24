@@ -1,7 +1,7 @@
 import { actions } from "../actions/types";
 
 const initialState = {
-  logged: 0,
+  logged: 1,
 };
 
 export default function (state = initialState, action) {

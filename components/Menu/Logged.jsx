@@ -5,14 +5,13 @@ import NuevoNegocio from "../NuevoNegocio/NuevoNegocio";
 import VerNegocios from "../Negocios/VerNegocios";
 import NavigationVerNegocios from "../Negocios/NavigationVerNegocios";
 import BottomMenu from "./BottomMenu";
-import UserPosition from "../UserPosition/UserPosition";
-import UserConfigNavigation from "../UserConfig/UserConfigNavigation"
+import UserConfigNavigation from "../UserConfig/UserConfigNavigation";
 import QrReader from "../QR/QrReader";
 import {
   NUEVO_NEGOCIO,
   VER_NEGOCIOS,
-  USER_POSITION,
   QR_READER,
+  USER_CONFIG,
 } from "../../actions/menuOptions";
 import { switchMenu } from "../../actions/menuSwitchActions";
 import { centerMapToSetted } from "../../actions/centerMapActions";
@@ -20,29 +19,24 @@ import { dataRead } from "../../actions/qrReaderActions";
 
 const RenderMenuSelected = ({ menu_option, center_map }) => {
   const dispatch = useDispatch();
-  if (!center_map.latitude) {
-    dispatch(switchMenu(USER_POSITION)); //Si no se cuenta con una posicion del usuario, obligatoriamente voy a solicitarla
 
-    return <UserPosition />; //Pantalla donde se solicita la posicion del usuario
-  } else {
-    switch (menu_option) {
-      case NUEVO_NEGOCIO:
-        return <NuevoNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
-        break;
-      case VER_NEGOCIOS:
-        return <NavigationVerNegocios />; //Pantalla donde se visualizan los negocios cercanos
-        break;
-      case USER_POSITION:
-        return <UserConfigNavigation />; //Pantalla donde se solicita la posicion del usuario
-        break;
-      case QR_READER:
-        dispatch(dataRead([]));
-        return <QrReader />; //Pantalla donde se realiaz la lectura del codigo QR
-        break;
-      default:
-        return <VerNegocios />; //Por default la pantalla que se ve es la de negocios cercanos
-        break;
-    }
+  switch (menu_option) {
+    case NUEVO_NEGOCIO:
+      return <NuevoNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
+      break;
+    case VER_NEGOCIOS:
+      return <NavigationVerNegocios />; //Pantalla donde se visualizan los negocios cercanos
+      break;
+    case USER_CONFIG:
+      return <UserConfigNavigation />; //Pantalla donde se solicita la posicion del usuario
+      break;
+    case QR_READER:
+      dispatch(dataRead([]));
+      return <QrReader />; //Pantalla donde se realiaz la lectura del codigo QR
+      break;
+    default:
+      return <VerNegocios />; //Por default la pantalla que se ve es la de negocios cercanos
+      break;
   }
 };
 

@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import MenuMasNegocios from "./MenuMasNegocios";
 import MenuNegocios from "./MenuNegocios";
-import MenuUserPosition from "./MenuUserPosition";
+import MenuConfig from "./MenuConfig";
 import MenuQrRead from "./MenuQrRead";
 
 function BottomMenu() {
@@ -32,7 +32,7 @@ function BottomMenu() {
         />
       </>
       <>
-        <MenuUserPosition
+        <MenuConfig
           colorSeleccionadoIcon={colorSeleccionadoIcon} //componente de menu para solicitar posicion al usuario
           colorIcon={colorIcon}
         />
