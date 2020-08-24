@@ -33,7 +33,7 @@ export default function RegistroDni(props) {
       setDireccion(registerOjecto.direccion);
     }
     if (registerOjecto.piso) {
-      setPiso(registerOjecto.nroTramite);
+      setPiso(registerOjecto.piso);
     }
     if (registerOjecto.depto) {
       setDepto(registerOjecto.depto);
@@ -51,7 +51,7 @@ export default function RegistroDni(props) {
 
       apiCalls.postAltaUsuario({
         apellido: registro.registerData.apellido,
-        celular: "115858585858",
+        celular: registro.registerData.celular,
         cuil: registro.registerData.cuil,
         idPerfil: 1,
         loginVo: {
@@ -66,12 +66,13 @@ export default function RegistroDni(props) {
           idProvincia: parseInt(registro.registerData.provincia),
           latitud: registro.registerData.latitude,
           longitud: registro.registerData.longitude,
-          piso: 1,
+          piso: 1, // Falta hacer que el campo sea solo numerico, sino la api pincha
           usuarioModi: "xlucio"
         },
         usuarioModi: "xlucio"
         }).then((response) => {
-          console.log("persona dada de alta: " + response.data)
+          console.log("persona dada de alta: " )
+          console.log(response.data)
           dispatch({ type: actions.LOGGED, payload: 1 });
         })
     }
@@ -90,9 +91,10 @@ export default function RegistroDni(props) {
           documento: registro.registerData.documento,
           nroTramite: registro.registerData.nroTramite,
           latitude: response.latitude,
+          celular: registro.registerData.celular,
           longitude: response.longitude,
           direccion: direccion,
-          piso: 1,
+          piso: piso,
           depto: depto,
           localidad: localidad,
           provincia: provincia,
@@ -110,7 +112,7 @@ export default function RegistroDni(props) {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#1A73E8",
+        backgroundColor: "rgba(57,147,255,0.7)",
         padding: 10,
       }}
     >
@@ -236,7 +238,7 @@ export default function RegistroDni(props) {
             }}
           >
             <Text
-              style={{ fontSize: 15, color: "#1A73E8", fontWeight: "bold" }}
+              style={{ fontSize: 15, color: "rgba(57,147,255,0.7)", fontWeight: "bold" }}
             >
               {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
             </Text>

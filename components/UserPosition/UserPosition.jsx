@@ -57,7 +57,7 @@ export default function UserPosition() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#1A73E8" }}>
+    <View style={{ flex: 1, backgroundColor:"rgba(57,147,255,0.7)" }}>
       <View style={{ flex: 2 }}>
         <Text style={styles.text_desc}>
           Esta aplicación respeta tu privacidad por lo que no te pedirá permisos

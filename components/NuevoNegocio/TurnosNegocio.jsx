@@ -35,7 +35,7 @@ export default function TurnosNegocio(props) {
               style={{ width: "100%", height: 40 }}
               minimumValue={0}
               maximumValue={60}
-              minimumTrackTintColor="#1A73E8"
+              minimumTrackTintColor="rgba(57,147,255,0.7)"
               maximumTrackTintColor="#ccc"
               onValueChange={(value) => setIntervaloTurno(parseInt(value))}
             />
@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
   checkBoxChecked: {
     borderRadius: 5,
     borderWidth: 3,
-    borderColor: "#1A73E8",
-    backgroundColor: "#1A73E8",
+    borderColor: "rgba(57,147,255,0.7)",
+    backgroundColor: "rgba(57,147,255,0.7)",
   },
   checkBox: {
     borderRadius: 5,
-    borderColor: "#1A73E8",
+    borderColor: "rgba(57,147,255,0.7)",
   },
 });

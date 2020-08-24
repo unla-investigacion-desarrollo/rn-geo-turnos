@@ -7,7 +7,7 @@ import MenuUserPosition from "./MenuUserPosition";
 import MenuQrRead from "./MenuQrRead";
 
 function BottomMenu() {
-  const colorSeleccionadoIcon = "#1A73E8";
+  const colorSeleccionadoIcon = "rgba(57,147,255,0.7)";
   const colorIcon = "#8b8989";
 
   return (

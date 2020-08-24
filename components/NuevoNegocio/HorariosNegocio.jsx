@@ -90,7 +90,7 @@ export default function HorariosNegocio(props) {
             style={{ width: "100%", height: 40 }}
             minimumValue={0}
             maximumValue={50}
-            minimumTrackTintColor="#1A73E8"
+            minimumTrackTintColor="rgba(57,147,255,0.7)"
             maximumTrackTintColor="#ccc"
             onValueChange={(value) => setTiempoAtencion(parseInt(value))}
           />

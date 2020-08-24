@@ -7,6 +7,7 @@ import UserPosition from "../UserPosition/UserPosition";
 import ConfiguracionDelNegocio from "./ConfiguracionDelNegocio"
 import MisTurnos from "./MisTurnos"
 import RegistroUbicacion from "../Login/RegistroUbicacion"
+import RegistroDatosPersonales from "../Login/RegistroDatosPersonales"
 
 export default function UserConfigNavigation() {
   const Stack = createStackNavigator();
@@ -15,7 +16,7 @@ export default function UserConfigNavigation() {
       <Stack.Navigator>
         <Stack.Screen name="Configuracion de usuario" component={Configuraciones}></Stack.Screen>
 
-        <Stack.Screen name="Datos personales" component={DatosPersonales}></Stack.Screen>
+        <Stack.Screen name="Datos personales" component={RegistroDatosPersonales}></Stack.Screen>
 
         <Stack.Screen name="Ubicación" component={RegistroUbicacion}></Stack.Screen>
 

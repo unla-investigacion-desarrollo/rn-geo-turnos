@@ -65,7 +65,7 @@ export default function DatosPersonales(props) {
       <View
       style={{
         flex: 1,
-        backgroundColor: "#1A73E8",
+        backgroundColor: "rgba(57,147,255,0.7)",
         padding: 10,
       }}
     >
@@ -164,7 +164,7 @@ export default function DatosPersonales(props) {
             }}
           >
             <Text
-              style={{ fontSize: 15, color: "#1A73E8", fontWeight: "bold" }}
+              style={{ fontSize: 15, color: "rgba(57,147,255,0.7)", fontWeight: "bold" }}
             >
               Guardar
             </Text>

@@ -13,10 +13,13 @@ export default function RegistroDni(props) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [cuil, setCuil] = useState("");
+  const [celular, setCelular] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
   const registro = useSelector((state) => state.registro);
   const dispatch = useDispatch();
+
+  const isConfig = props?.route?.params?.source === "config" 
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
@@ -29,6 +32,9 @@ export default function RegistroDni(props) {
     if (registerOjecto.cuil) {
       setCuil(registerOjecto.cuil);
     }
+    if (registerOjecto.celular) {
+      setCelular(registerOjecto.celular);
+    }
     if (registerOjecto.password) {
       setPassword(registerOjecto.password);
     }
@@ -39,12 +45,14 @@ export default function RegistroDni(props) {
       nombre.length > 0 &&
       apellido.length > 0 &&
       cuil.length > 0 &&
-      password.length > 0
+      celular.length > 0 &&
+      password.length > 0 
     ) {
       let registroObject = {
         nombre: nombre,
         apellido: apellido,
         cuil: cuil,
+        celular: celular,
         password: password,
         documento: registro.registerData.documento,
         nroTramite: registro.registerData.nroTramite,
@@ -56,20 +64,46 @@ export default function RegistroDni(props) {
     }
   };
 
+  const saveNewData = () => {
+
+      let registroObject = {
+        documento: registro.registerData.documento,
+        nroTramite: registro.registerData.nroTramite,
+        latitude: registro.registerData.latitude,
+        celular: celular,
+        longitude: registro.registerData.longitude,
+        direccion: registro.registerData.direccion,
+        piso: registro.registerData.piso,
+        depto: registro.registerData.depto,
+        localidad: registro.registerData.localidad,
+        provincia: registro.registerData.provincia,
+        nombre: registro.registerData.nombre,
+        apellido: registro.registerData.apellido,
+        cuil: registro.registerData.cuil,
+        password: password,
+      };
+
+      dispatch(setRegisterData(registroObject));
+
+      props.navigation.navigate("Configuracion de usuario");
+    
+  }
+
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: "#1A73E8",
+        backgroundColor: "rgba(57,147,255,0.7)",
         padding: 10,
       }}
     >
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 3 }}>
         <View>
           <Text style={{ color: "white", fontWeight: "bold" }}>Nombre</Text>
 
           <TextInput
-            style={styles.input}
+            style={isConfig ? styles.blockedInput : styles.input}
+            editable={!isConfig}
             value={nombre}
             onChangeText={(value) => setNombre(value)}
           ></TextInput>
@@ -78,7 +112,8 @@ export default function RegistroDni(props) {
           <Text style={{ color: "white", fontWeight: "bold" }}>Apellido</Text>
 
           <TextInput
-            style={styles.input}
+            style={isConfig ? styles.blockedInput : styles.input}
+            editable={!isConfig}
             value={apellido}
             onChangeText={(value) => setApellido(value)}
           ></TextInput>
@@ -87,13 +122,23 @@ export default function RegistroDni(props) {
           <Text style={{ color: "white", fontWeight: "bold" }}>Cuil</Text>
 
           <TextInput
-            style={styles.input}
+            style={isConfig ? styles.blockedInput : styles.input}
+            editable={!isConfig}
             value={cuil}
             onChangeText={(value) => setCuil(value)}
           ></TextInput>
         </View>
+        <View style={{ marginTop: 10 }}>
+          <Text style={{ color: "white", fontWeight: "bold" }}>Celular</Text>
+
+          <TextInput
+            style={styles.input}
+            value={celular}
+            onChangeText={(value) => setCelular(value)}
+          ></TextInput>
+        </View>
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 2 }}>
         <Text style={{ textAlign: "center", color: "#fff", fontSize: 15 }}>
           Acceso al Sistema
         </Text>
@@ -119,7 +164,7 @@ export default function RegistroDni(props) {
         </View>
       </View>
       <View style={{ flex: 1 }}>
-        <TouchableOpacity style={{ height: 50 }} onPress={setData}>
+        <TouchableOpacity style={{ height: 50 }} onPress={isConfig ? saveNewData : setData}>
           <View
             title="Hola"
             style={{
@@ -131,9 +176,9 @@ export default function RegistroDni(props) {
             }}
           >
             <Text
-              style={{ fontSize: 15, color: "#1A73E8", fontWeight: "bold" }}
+              style={{ fontSize: 15, color: "rgba(57,147,255,0.7)", fontWeight: "bold" }}
             >
-              Continuar
+              {isConfig ? "Guardar" : "Continuar"}
             </Text>
           </View>
         </TouchableOpacity>
@@ -147,6 +192,23 @@ const styles = StyleSheet.create({
     elevation: 8,
     borderRadius: 5,
     backgroundColor: "#fff",
+    paddingHorizontal: 15,
+    marginTop: 8,
+
+    width: "100%",
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+  blockedInput: {
+    height: 35,
+    elevation: 8,
+    borderRadius: 5,
+    backgroundColor: "#DCDCDC",
     paddingHorizontal: 15,
     marginTop: 8,
 
