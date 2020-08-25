@@ -45,6 +45,10 @@ export default function HorariosNegocio(props) {
     } else {
       setDiasSemanaDisponibles(dias);
     }
+
+    if (horariosNegocio.tiempoAtencion) {
+      setTiempoAtencion(horariosNegocio.tiempoAtencion);
+    }
   }, [horariosNegocio]);
 
   const agregarHorario = () => {
@@ -75,7 +79,9 @@ export default function HorariosNegocio(props) {
       horaHasta1 !== "" &&
       horaHasta2 !== ""
     )
-      dispatch(setHorariosNegocio(newHorarios));
+      console.log(newHorarios);
+
+    dispatch(setHorariosNegocio(newHorarios));
     setDiaSemana(0);
   };
 
@@ -88,6 +94,7 @@ export default function HorariosNegocio(props) {
           </Text>
           <Slider
             style={{ width: "100%", height: 40 }}
+            value={tiempoAtencion}
             minimumValue={0}
             maximumValue={50}
             minimumTrackTintColor="rgba(57,147,255,0.7)"
@@ -238,7 +245,7 @@ export default function HorariosNegocio(props) {
           <Button
             title="Continuar"
             style={{ alignItems: "center" }}
-            onPress={() => props.navigation.navigate("Turnos")}
+            onPress={() => props.navigation.navigate("Turnos Negocio")}
           ></Button>
         ) : (
           <></>

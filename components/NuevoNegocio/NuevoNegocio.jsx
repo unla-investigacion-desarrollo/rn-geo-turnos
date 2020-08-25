@@ -16,14 +16,23 @@ export default function NuevoNegocio() {
           name="Información"
           component={DatosNegocio}
         ></Stack.Screen>
-        <Stack.Screen name="Ubicación" component={MapContainer}></Stack.Screen>
         <Stack.Screen
-          name="Horarios"
+          name="Ubicación Negocio"
+          component={MapContainer}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Horarios Negocio"
           component={HorariosNegocio}
         ></Stack.Screen>
-        <Stack.Screen name="Turnos" component={TurnosNegocio}></Stack.Screen>
+        <Stack.Screen
+          name="Turnos Negocio"
+          component={TurnosNegocio}
+        ></Stack.Screen>
 
-        <Stack.Screen name="MapInput" component={MapInput}></Stack.Screen>
+        <Stack.Screen
+          name="MapInput Negocio"
+          component={MapInput}
+        ></Stack.Screen>
       </Stack.Navigator>
     );
   };

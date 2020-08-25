@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -8,7 +8,7 @@ import {
   Slider,
 } from "react-native";
 import { Picker, Icon } from "native-base";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";
 import {
   searchPosition,
@@ -16,6 +16,7 @@ import {
 } from "./NuevoNegocioFunctions";
 
 export default function DatosNegocio(props) {
+  const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
   const [nombre, setNombre] = useState("");
   const [cuit, setCuit] = useState("");
@@ -27,6 +28,39 @@ export default function DatosNegocio(props) {
   const [localidad, setLocalidad] = useState(0);
   const [provincia, setProvincia] = useState(0);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (datosNegocio.capacidadPersonas) {
+      setCapacidadPersonas(datosNegocio.capacidadPersonas);
+    }
+    if (datosNegocio.nombre) {
+      setNombre(datosNegocio.nombre);
+    }
+    if (datosNegocio.cuit) {
+      setCuit(datosNegocio.cuit);
+    }
+    if (datosNegocio.direccion) {
+      setDireccion(datosNegocio.direccion);
+    }
+    if (datosNegocio.piso) {
+      setPiso(datosNegocio.piso);
+    }
+    if (datosNegocio.depto) {
+      setDepto(datosNegocio.depto);
+    }
+    if (datosNegocio.rubro) {
+      setRubro(datosNegocio.rubro);
+    }
+    if (datosNegocio.emprendimiento) {
+      setEmprendimiento(datosNegocio.emprendimiento);
+    }
+    if (datosNegocio.localidad) {
+      setLocalidad(datosNegocio.localidad);
+    }
+    if (datosNegocio.provincia) {
+      setProvincia(datosNegocio.provincia);
+    }
+  }, [datosNegocio]);
 
   const continuar = () => {
     let dataNegocio = {
@@ -50,7 +84,7 @@ export default function DatosNegocio(props) {
 
         if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
           dispatch(setDataNegocio(dataNegocio));
-          props.navigation.navigate("Ubicación");
+          props.navigation.navigate("Ubicación Negocio");
         }
       });
     }
@@ -202,6 +236,7 @@ export default function DatosNegocio(props) {
           </Text>
           <Slider
             style={{ width: "100%", height: 40 }}
+            value={capacidadPersonas}
             minimumValue={0}
             maximumValue={50}
             minimumTrackTintColor="rgba(57,147,255,0.7)"

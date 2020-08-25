@@ -2,10 +2,14 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Configuraciones from "./Configuraciones";
-import ConfiguracionDelNegocio from "./ConfiguracionDelNegocio";
 import MisTurnos from "./MisTurnos";
 import RegistroUbicacion from "../Login/RegistroUbicacion";
 import RegistroDatosPersonales from "../Login/RegistroDatosPersonales";
+import DatosNegocio from "../NuevoNegocio/DatosNegocio";
+import HorariosNegocio from "../NuevoNegocio/HorariosNegocio";
+import MapContainer from "../NuevoNegocio/MapContainer";
+import MapInput from "../NuevoNegocio/MapInput";
+import TurnosNegocio from "../NuevoNegocio/TurnosNegocio";
 
 export default function UserConfigNavigation() {
   const Stack = createStackNavigator();
@@ -26,11 +30,29 @@ export default function UserConfigNavigation() {
           name="Ubicación"
           component={RegistroUbicacion}
         ></Stack.Screen>
+        {/* NEGOCIO */}
+        <Stack.Screen
+          name="Información Negocio"
+          component={DatosNegocio}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Ubicación Negocio"
+          component={MapContainer}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Horarios Negocio"
+          component={HorariosNegocio}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Turnos Negocio"
+          component={TurnosNegocio}
+        ></Stack.Screen>
 
         <Stack.Screen
-          name="Configuración del negocio"
-          component={ConfiguracionDelNegocio}
+          name="MapInput Negocio"
+          component={MapInput}
         ></Stack.Screen>
+        {/* FIN NEGOCIO */}
 
         <Stack.Screen name="Mis turnos" component={MisTurnos}></Stack.Screen>
       </Stack.Navigator>

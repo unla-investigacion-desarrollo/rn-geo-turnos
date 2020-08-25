@@ -1,8 +1,32 @@
 import { actions } from "../actions/types";
 
 const initialState = {
-  dataNegocio: {},
-  horarios: {},
+  dataNegocio: {
+    capacidadPersonas: "14",
+    cuit: "1234",
+    depto: 1,
+    direccion: "Jacinto calvo 628",
+    emprendimiento: "1",
+    latitude: -34.7922239,
+    localidad: "1",
+    longitude: -58.38193479999999,
+    nombre: "Tecweel",
+    piso: "333",
+    provincia: "1",
+    rubro: "1",
+  },
+  horarios: {
+    horarios: [
+      {
+        diaSemana: 1,
+        horaDesde1: "00:00",
+        horaDesde2: "04:00",
+        horaHasta1: "02:30",
+        horaHasta2: "05:30",
+      },
+    ],
+    tiempoAtencion: 5,
+  },
 };
 
 export default function (state = initialState, action) {

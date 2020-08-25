@@ -8,7 +8,7 @@ function ConfirmDireccion(props) {
   const negocio = useSelector((state) => state.nuevoNegocio.dataNegocio); //Negocio que se esta queriendo dar de alta
   const dispatch = useDispatch();
   const agregarNegocio = () => {
-    props.navigation.navigate("Horarios");
+    props.navigation.navigate("Horarios Negocio");
   };
 
   return (

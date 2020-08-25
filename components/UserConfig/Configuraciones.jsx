@@ -46,7 +46,7 @@ export default function Configuraciones(props) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigateConfiguraciones("Configuración del negocio")}
+          onPress={() => navigateConfiguraciones("Información Negocio")}
         >
           <View style={{ flexDirection: "row" }}>
             <FontAwesomeIcon icon={faStore} style={styles.icon} />
