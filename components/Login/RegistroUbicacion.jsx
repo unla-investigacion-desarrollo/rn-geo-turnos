@@ -13,7 +13,7 @@ import { actions } from "../../actions/types";
 import { searchPosition } from "../NuevoNegocio/NuevoNegocioFunctions";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { apiCalls } from "../../api/apiCalls";
-
+import { LinearGradient } from "expo-linear-gradient";
 export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
   const [direccion, setDireccion] = useState("");
@@ -114,146 +114,153 @@ export default function RegistroDni(props) {
     <View
       style={{
         flex: 1,
-        backgroundColor: "rgba(57,147,255,0.7)",
-        padding: 10,
       }}
     >
-      <View style={{ flex: 3 }}>
-        <View>
-          <Text style={styles.labelText}>Dirección</Text>
-          <View style={styles.viewContainer}>
-            <TextInput
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
+        style={{
+          flex: 1,
+          padding: 10,
+        }}
+      >
+        <View style={{ flex: 3 }}>
+          <View>
+            <Text style={styles.labelText}>Dirección</Text>
+            <View style={styles.viewContainer}>
+              <TextInput
+                style={styles.input}
+                value={direccion}
+                onChangeText={(e) => setDireccion(e)}
+              ></TextInput>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+              <View>
+                <Text style={styles.labelText}>Piso</Text>
+                <View style={styles.viewContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={piso}
+                    onChangeText={(e) => setPiso(e)}
+                  ></TextInput>
+                </View>
+              </View>
+            </View>
+            <View style={{ marginTop: 10, flex: 1 }}>
+              <View>
+                <Text style={styles.labelText}>Departamento</Text>
+                <View style={styles.viewContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={depto}
+                    onChangeText={(e) => setDepto(e)}
+                  ></TextInput>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.labelText}>Localidad</Text>
+            <Picker
+              note
+              mode="dropdown"
               style={styles.input}
-              value={direccion}
-              onChangeText={(e) => setDireccion(e)}
-            ></TextInput>
+              selectedValue={localidad}
+              onValueChange={(e) => setLocalidad(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              <Picker.Item label="Seleccione una localidad" value="0" />
+              <Picker.Item label="Almirante Brown" value="1" />
+              <Picker.Item label="Banfield" value="2" />
+            </Picker>
           </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
-            <View>
-              <Text style={styles.labelText}>Piso</Text>
-              <View style={styles.viewContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={piso}
-                  onChangeText={(e) => setPiso(e)}
-                ></TextInput>
-              </View>
-            </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.labelText}>Provincia</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={provincia}
+              onValueChange={(e) => setProvincia(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              <Picker.Item label="Seleccione una provincia" value="0" />
+              <Picker.Item label="Buenos Aires" value="1" />
+              <Picker.Item label="Chaco" value="2" />
+            </Picker>
           </View>
-          <View style={{ marginTop: 10, flex: 1 }}>
-            <View>
-              <Text style={styles.labelText}>Departamento</Text>
-              <View style={styles.viewContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={depto}
-                  onChangeText={(e) => setDepto(e)}
-                ></TextInput>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.labelText}>Localidad</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={localidad}
-            onValueChange={(e) => setLocalidad(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
+          <View
+            style={{
+              flex: 1,
+              paddingTop: 10,
+              paddingBottom: 10,
+            }}
           >
-            <Picker.Item label="Seleccione una localidad" value="0" />
-            <Picker.Item label="Almirante Brown" value="1" />
-            <Picker.Item label="Banfield" value="2" />
-          </Picker>
+            <MarkUbicacion />
+          </View>
         </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.labelText}>Provincia</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={provincia}
-            onValueChange={(e) => setProvincia(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              bottom: 10,
+              flex: 0.3,
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              marginTop: 10,
+            }}
           >
-            <Picker.Item label="Seleccione una provincia" value="0" />
-            <Picker.Item label="Buenos Aires" value="1" />
-            <Picker.Item label="Chaco" value="2" />
-          </Picker>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            paddingTop: 10,
-            paddingBottom: 10,
-          }}
-        >
-          <MarkUbicacion />
-        </View>
-      </View>
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            bottom: 10,
-            flex: 0.3,
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            marginTop: 10,
-          }}
-        >
-          <TouchableOpacity onPress={validarDireccion}>
+            <TouchableOpacity onPress={validarDireccion}>
+              <View
+                style={{
+                  backgroundColor: "#0fc224",
+                  padding: 5,
+                  borderRadius: 5,
+                }}
+              >
+                <Text style={{ color: "#fff" }}>Validar Dirección</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={{ height: 50 }}
+            onPress={isConfig ? setLocation : setLogged}
+          >
             <View
+              title="Hola"
               style={{
-                backgroundColor: "#0fc224",
-                padding: 5,
-                borderRadius: 5,
+                flex: 1,
+                backgroundColor: "white",
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <Text style={{ color: "#fff" }}>Validar Dirección</Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#2572FF",
+                  fontWeight: "bold",
+                }}
+              >
+                {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={{ height: 50 }}
-          onPress={isConfig ? setLocation : setLogged}
-        >
-          <View
-            title="Hola"
-            style={{
-              flex: 1,
-              backgroundColor: "white",
-              borderRadius: 10,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 15,
-                color: "rgba(57,147,255,0.7)",
-                fontWeight: "bold",
-              }}
-            >
-              {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      </LinearGradient>
     </View>
   );
 }

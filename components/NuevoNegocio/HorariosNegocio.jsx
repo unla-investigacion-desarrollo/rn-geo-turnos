@@ -13,6 +13,7 @@ import ListaHorarios from "./ListaHorarios";
 import { horarios, dias } from "../../Utils/constantes";
 import { setHorariosNegocio } from "../../actions/NuevoNegocioActions";
 import { useDispatch, useSelector } from "react-redux";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function HorariosNegocio(props) {
   const [diaSemana, setDiaSemana] = useState(0);
@@ -79,178 +80,207 @@ export default function HorariosNegocio(props) {
       horaHasta1 !== "" &&
       horaHasta2 !== ""
     )
-      console.log(newHorarios);
-
-    dispatch(setHorariosNegocio(newHorarios));
-    setDiaSemana(0);
+      if (diaSemana > 0) {
+        dispatch(setHorariosNegocio(newHorarios));
+        setDiaSemana(0);
+      }
   };
 
   return (
-    <View style={{ backgroundColor: "#fff", flex: 1 }}>
-      <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={styles.labelText}>
-            Tiempo promedio de atención al público: {tiempoAtencion}min
-          </Text>
-          <Slider
-            style={{ width: "100%", height: 40 }}
-            value={tiempoAtencion}
-            minimumValue={0}
-            maximumValue={50}
-            minimumTrackTintColor="rgba(57,147,255,0.7)"
-            maximumTrackTintColor="#ccc"
-            onValueChange={(value) => setTiempoAtencion(parseInt(value))}
-          />
-        </View>
-        <View style={{ flex: 2 }}>
-          <ScrollView>
-            <ListaHorarios />
-          </ScrollView>
-        </View>
-        <View style={{ flex: 1, marginTop: 15 }}>
-          <Text style={styles.labelText}>Día de la semana</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={diaSemana}
-            onValueChange={(e) => setDiaSemana(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
+    <View style={{ flex: 1 }}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
+        style={{
+          flex: 1,
+        }}
+      >
+        <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <Text style={styles.labelText}>
+              Tiempo promedio de atención al público: {tiempoAtencion}min
+            </Text>
+            <Slider
+              style={{ width: "100%", height: 40 }}
+              value={tiempoAtencion}
+              minimumValue={0}
+              maximumValue={50}
+              minimumTrackTintColor="#fff"
+              maximumTrackTintColor="#3e3e3e"
+              thumbTintColor="white"
+              onValueChange={(value) => setTiempoAtencion(parseInt(value))}
+            />
+          </View>
+          <View style={{ flex: 2 }}>
+            <ScrollView>
+              <ListaHorarios />
+            </ScrollView>
+          </View>
+          <View style={{ flex: 1, marginTop: 15 }}>
+            <Text style={styles.labelText}>Día de la semana</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={diaSemana}
+              onValueChange={(e) => setDiaSemana(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              {diasSemanaDisponibles.map((dia) => {
+                return (
+                  <Picker.Item key={dia.dia} label={dia.desc} value={dia.dia} />
+                );
+              })}
+            </Picker>
+          </View>
+          <View style={{ flexDirection: "row", flex: 1 }}>
+            <View style={{ flex: 1, paddingRight: 10 }}>
+              <Text style={styles.labelText}>Hora Desde</Text>
+              <Picker
+                note
+                mode="dropdown"
+                style={styles.input}
+                selectedValue={horaDesde1}
+                onValueChange={(e) => setHoraDesde1(e)}
+                iosIcon={
+                  <Icon
+                    name="arrow-down"
+                    style={{ color: "#ccc", marginRight: 0 }}
+                  />
+                }
+              >
+                {horarios.map((hora, index) => {
+                  return <Picker.Item key={index} label={hora} value={hora} />;
+                })}
+              </Picker>
+            </View>
+            <View style={{ flex: 1 }}>
+              <View>
+                <Text style={styles.labelText}>Hora Hasta</Text>
+                <Picker
+                  note
+                  mode="dropdown"
+                  style={styles.input}
+                  selectedValue={horaHasta1}
+                  onValueChange={(e) => setHoraHasta1(e)}
+                  iosIcon={
+                    <Icon
+                      name="arrow-down"
+                      style={{ color: "#ccc", marginRight: 0 }}
+                    />
+                  }
+                >
+                  {horarios.map((hora, index) => {
+                    return (
+                      <Picker.Item key={index} label={hora} value={hora} />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", flex: 1 }}>
+            <View style={{ flex: 1, paddingRight: 10 }}>
+              <Text style={styles.labelText}>Hora Desde</Text>
+              <Picker
+                note
+                mode="dropdown"
+                style={styles.input}
+                selectedValue={horaDesde2}
+                onValueChange={(e) => setHoraDesde2(e)}
+                iosIcon={
+                  <Icon
+                    name="arrow-down"
+                    style={{ color: "#ccc", marginRight: 0 }}
+                  />
+                }
+              >
+                {horarios.map((hora, index) => {
+                  return <Picker.Item key={index} label={hora} value={hora} />;
+                })}
+              </Picker>
+            </View>
+            <View style={{ flex: 1 }}>
+              <View>
+                <Text style={styles.labelText}>Hora Hasta</Text>
+                <Picker
+                  note
+                  mode="dropdown"
+                  style={styles.input}
+                  selectedValue={horaHasta2}
+                  onValueChange={(e) => setHoraHasta2(e)}
+                  iosIcon={
+                    <Icon
+                      name="arrow-down"
+                      style={{ color: "#ccc", marginRight: 0 }}
+                    />
+                  }
+                >
+                  {horarios.map((hora, index) => {
+                    return (
+                      <Picker.Item key={index} label={hora} value={hora} />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              bottom: 10,
+              flex: 0.3,
+              flexDirection: "row",
+              justifyContent: "flex-end",
+            }}
           >
-            {diasSemanaDisponibles.map((dia) => {
-              return (
-                <Picker.Item key={dia.dia} label={dia.desc} value={dia.dia} />
-              );
-            })}
-          </Picker>
-        </View>
-        <View style={{ flexDirection: "row", flex: 1 }}>
-          <View style={{ flex: 1, paddingRight: 10 }}>
-            <Text style={styles.labelText}>Hora Desde</Text>
-            <Picker
-              note
-              mode="dropdown"
-              style={styles.input}
-              selectedValue={horaDesde1}
-              onValueChange={(e) => setHoraDesde1(e)}
-              iosIcon={
-                <Icon
-                  name="arrow-down"
-                  style={{ color: "#ccc", marginRight: 0 }}
-                />
-              }
-            >
-              {horarios.map((hora, index) => {
-                return <Picker.Item key={index} label={hora} value={hora} />;
-              })}
-            </Picker>
-          </View>
-          <View style={{ flex: 1 }}>
-            <View>
-              <Text style={styles.labelText}>Hora Hasta</Text>
-              <Picker
-                note
-                mode="dropdown"
-                style={styles.input}
-                selectedValue={horaHasta1}
-                onValueChange={(e) => setHoraHasta1(e)}
-                iosIcon={
-                  <Icon
-                    name="arrow-down"
-                    style={{ color: "#ccc", marginRight: 0 }}
-                  />
-                }
+            <TouchableOpacity onPress={agregarHorario}>
+              <View
+                style={{
+                  backgroundColor: "#2572FF",
+                  padding: 5,
+                  borderRadius: 5,
+                }}
               >
-                {horarios.map((hora, index) => {
-                  return <Picker.Item key={index} label={hora} value={hora} />;
-                })}
-              </Picker>
-            </View>
+                <Text style={{ color: "#fff" }}>Añadir Horario</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={{ flexDirection: "row", flex: 1 }}>
-          <View style={{ flex: 1, paddingRight: 10 }}>
-            <Text style={styles.labelText}>Hora Desde</Text>
-            <Picker
-              note
-              mode="dropdown"
-              style={styles.input}
-              selectedValue={horaDesde2}
-              onValueChange={(e) => setHoraDesde2(e)}
-              iosIcon={
-                <Icon
-                  name="arrow-down"
-                  style={{ color: "#ccc", marginRight: 0 }}
-                />
-              }
-            >
-              {horarios.map((hora, index) => {
-                return <Picker.Item key={index} label={hora} value={hora} />;
-              })}
-            </Picker>
-          </View>
-          <View style={{ flex: 1 }}>
-            <View>
-              <Text style={styles.labelText}>Hora Hasta</Text>
-              <Picker
-                note
-                mode="dropdown"
-                style={styles.input}
-                selectedValue={horaHasta2}
-                onValueChange={(e) => setHoraHasta2(e)}
-                iosIcon={
-                  <Icon
-                    name="arrow-down"
-                    style={{ color: "#ccc", marginRight: 0 }}
-                  />
-                }
-              >
-                {horarios.map((hora, index) => {
-                  return <Picker.Item key={index} label={hora} value={hora} />;
-                })}
-              </Picker>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            bottom: 10,
-            flex: 0.3,
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <TouchableOpacity onPress={agregarHorario}>
-            <View
+
+        <View style={{ flex: 1 }}>
+          {horariosNegocio.horarios !== undefined &&
+          horariosNegocio.horarios.length > 0 ? (
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Turnos Negocio")}
               style={{
-                backgroundColor: "#0fc224",
-                padding: 5,
+                backgroundColor: "white",
+                height: 30,
+                marginLeft: 50,
+                marginRight: 50,
                 borderRadius: 5,
               }}
             >
-              <Text style={{ color: "#fff" }}>Añadir Horario</Text>
-            </View>
-          </TouchableOpacity>
+              <Text
+                style={{
+                  color: "#2572FF",
+                  fontSize: 15,
+                  textAlign: "center",
+                  paddingTop: 5,
+                }}
+              >
+                Continuar
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
         </View>
-      </View>
-
-      <View style={{ flex: 1 }}>
-        {horariosNegocio.horarios !== undefined &&
-        horariosNegocio.horarios.length > 0 ? (
-          <Button
-            title="Continuar"
-            style={{ alignItems: "center" }}
-            onPress={() => props.navigation.navigate("Turnos Negocio")}
-          ></Button>
-        ) : (
-          <></>
-        )}
-      </View>
+      </LinearGradient>
     </View>
   );
 }
@@ -274,10 +304,11 @@ const styles = StyleSheet.create({
   },
   labelText: {
     textAlign: "left",
+    color: "white",
   },
   viewContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#ce4257",
   },
 });

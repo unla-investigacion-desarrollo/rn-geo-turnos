@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  Button,
-  Slider,
-} from "react-native";
+import { StyleSheet, View, TextInput, Text, Slider } from "react-native";
 import { Picker, Icon } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";
@@ -14,6 +7,8 @@ import {
   searchPosition,
   validarCamposDatosNegocio,
 } from "./NuevoNegocioFunctions";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function DatosNegocio(props) {
   const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
@@ -91,167 +86,192 @@ export default function DatosNegocio(props) {
   };
 
   return (
-    <View style={{ backgroundColor: "#fff", flex: 1 }}>
-      <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>Nombre del Negocio</Text>
-          <View style={styles.viewContainer}>
-            <TextInput
-              style={styles.input}
-              value={nombre}
-              onChangeText={(e) => setNombre(e)}
-            ></TextInput>
+    <View style={{ flex: 1 }}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
+        style={{
+          flex: 1,
+        }}
+      >
+        <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Nombre del Negocio</Text>
+            <View style={styles.viewContainer}>
+              <TextInput
+                style={styles.input}
+                value={nombre}
+                onChangeText={(e) => setNombre(e)}
+              ></TextInput>
+            </View>
           </View>
-        </View>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>N° Cuit</Text>
-          <View style={styles.viewContainer}>
-            <TextInput
-              style={styles.input}
-              value={cuit}
-              onChangeText={(e) => setCuit(e)}
-            ></TextInput>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>N° Cuit</Text>
+            <View style={styles.viewContainer}>
+              <TextInput
+                style={styles.input}
+                value={cuit}
+                onChangeText={(e) => setCuit(e)}
+              ></TextInput>
+            </View>
           </View>
-        </View>
 
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>Dirección</Text>
-          <View style={styles.viewContainer}>
-            <TextInput
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Dirección</Text>
+            <View style={styles.viewContainer}>
+              <TextInput
+                style={styles.input}
+                value={direccion}
+                onChangeText={(e) => setDireccion(e)}
+              ></TextInput>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ marginTop: 7, flex: 1, paddingRight: 10 }}>
+              <View>
+                <Text style={styles.labelText}>Piso</Text>
+                <View style={styles.viewContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={piso}
+                    onChangeText={(e) => setPiso(e)}
+                  ></TextInput>
+                </View>
+              </View>
+            </View>
+            <View style={{ marginTop: 7, flex: 1 }}>
+              <View>
+                <Text style={styles.labelText}>Departamento</Text>
+                <View style={styles.viewContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={depto}
+                    onChangeText={(e) => setDepto(e)}
+                  ></TextInput>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Localidad</Text>
+            <Picker
+              note
+              mode="dropdown"
               style={styles.input}
-              value={direccion}
-              onChangeText={(e) => setDireccion(e)}
-            ></TextInput>
+              selectedValue={localidad}
+              onValueChange={(e) => setLocalidad(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              <Picker.Item label="Seleccione una localidad" value="0" />
+              <Picker.Item label="Almirante Brown" value="1" />
+              <Picker.Item label="Banfield" value="2" />
+            </Picker>
+          </View>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Provincia</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={provincia}
+              onValueChange={(e) => setProvincia(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              <Picker.Item label="Seleccione una provincia" value="0" />
+              <Picker.Item label="Buenos Aires" value="1" />
+              <Picker.Item label="Chaco" value="2" />
+            </Picker>
+          </View>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Rubro</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={rubro}
+              onValueChange={(e) => setRubro(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              <Picker.Item label="Seleccione un rubro" value="0" />
+              <Picker.Item label="Almacen" value="1" />
+              <Picker.Item label="Kiosko" value="2" />
+            </Picker>
+          </View>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Tipo de Emprendimiento</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={emprendimiento}
+              onValueChange={(e) => setEmprendimiento(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              <Picker.Item label="Seleccione un rubro" value="0" />
+              <Picker.Item label="Servicios" value="1" />
+              <Picker.Item label="Comercios" value="2" />
+            </Picker>
+          </View>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>
+              Capacidad de Personas: {capacidadPersonas}
+            </Text>
+            <Slider
+              style={{ width: "100%", height: 40 }}
+              value={capacidadPersonas}
+              minimumValue={0}
+              maximumValue={50}
+              minimumTrackTintColor="#fff"
+              maximumTrackTintColor="#3e3e3e"
+              thumbTintColor="white"
+              onValueChange={(value) => setCapacidadPersonas(parseInt(value))}
+            />
           </View>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: 7, flex: 1, paddingRight: 10 }}>
-            <View>
-              <Text style={styles.labelText}>Piso</Text>
-              <View style={styles.viewContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={piso}
-                  onChangeText={(e) => setPiso(e)}
-                ></TextInput>
-              </View>
-            </View>
-          </View>
-          <View style={{ marginTop: 7, flex: 1 }}>
-            <View>
-              <Text style={styles.labelText}>Departamento</Text>
-              <View style={styles.viewContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={depto}
-                  onChangeText={(e) => setDepto(e)}
-                ></TextInput>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>Localidad</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={localidad}
-            onValueChange={(e) => setLocalidad(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            onPress={continuar}
+            style={{
+              backgroundColor: "white",
+              height: 30,
+              marginLeft: 50,
+              marginRight: 50,
+              borderRadius: 5,
+            }}
           >
-            <Picker.Item label="Seleccione una localidad" value="0" />
-            <Picker.Item label="Almirante Brown" value="1" />
-            <Picker.Item label="Banfield" value="2" />
-          </Picker>
+            <Text
+              style={{
+                color: "#2572FF",
+                fontSize: 15,
+                textAlign: "center",
+                paddingTop: 5,
+              }}
+            >
+              Continuar
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>Provincia</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={provincia}
-            onValueChange={(e) => setProvincia(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
-          >
-            <Picker.Item label="Seleccione una provincia" value="0" />
-            <Picker.Item label="Buenos Aires" value="1" />
-            <Picker.Item label="Chaco" value="2" />
-          </Picker>
-        </View>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>Rubro</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={rubro}
-            onValueChange={(e) => setRubro(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
-          >
-            <Picker.Item label="Seleccione un rubro" value="0" />
-            <Picker.Item label="Almacen" value="1" />
-            <Picker.Item label="Kiosko" value="2" />
-          </Picker>
-        </View>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>Tipo de Emprendimiento</Text>
-          <Picker
-            note
-            mode="dropdown"
-            style={styles.input}
-            selectedValue={emprendimiento}
-            onValueChange={(e) => setEmprendimiento(e)}
-            iosIcon={
-              <Icon
-                name="arrow-down"
-                style={{ color: "#ccc", marginRight: 0 }}
-              />
-            }
-          >
-            <Picker.Item label="Seleccione un rubro" value="0" />
-            <Picker.Item label="Servicios" value="1" />
-            <Picker.Item label="Comercios" value="2" />
-          </Picker>
-        </View>
-        <View style={{ marginTop: 7 }}>
-          <Text style={styles.labelText}>
-            Capacidad de Personas: {capacidadPersonas}
-          </Text>
-          <Slider
-            style={{ width: "100%", height: 40 }}
-            value={capacidadPersonas}
-            minimumValue={0}
-            maximumValue={50}
-            minimumTrackTintColor="rgba(57,147,255,0.7)"
-            maximumTrackTintColor="#ccc"
-            onValueChange={(value) => setCapacidadPersonas(parseInt(value))}
-          />
-        </View>
-      </View>
-      <View style={{ flex: 1 }}>
-        <Button
-          title="Continuar"
-          style={{ alignItems: "center" }}
-          onPress={continuar}
-        ></Button>
-      </View>
+      </LinearGradient>
     </View>
   );
 }
@@ -275,10 +295,11 @@ const styles = StyleSheet.create({
   },
   labelText: {
     textAlign: "left",
+    color: "white",
   },
   viewContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
   },
 });

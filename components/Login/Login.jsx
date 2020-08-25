@@ -6,6 +6,7 @@ import RegistroDatosPersonales from "./RegistroDatosPersonales";
 import RegistroUbicacion from "./RegistroUbicacion";
 import Ingreso from "./Ingreso";
 import QrReader from "../QR/QrReader";
+
 export default function Login(props) {
   const Stack = createStackNavigator();
 

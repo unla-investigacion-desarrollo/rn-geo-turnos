@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function RegistroDni(props) {
   const [nombre, setNombre] = useState("");
@@ -19,7 +20,7 @@ export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
   const dispatch = useDispatch();
 
-  const isConfig = props?.route?.params?.source === "config" 
+  const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
@@ -46,7 +47,7 @@ export default function RegistroDni(props) {
       apellido.length > 0 &&
       cuil.length > 0 &&
       celular.length > 0 &&
-      password.length > 0 
+      password.length > 0
     ) {
       let registroObject = {
         nombre: nombre,
@@ -65,124 +66,134 @@ export default function RegistroDni(props) {
   };
 
   const saveNewData = () => {
+    let registroObject = {
+      documento: registro.registerData.documento,
+      nroTramite: registro.registerData.nroTramite,
+      latitude: registro.registerData.latitude,
+      celular: celular,
+      longitude: registro.registerData.longitude,
+      direccion: registro.registerData.direccion,
+      piso: registro.registerData.piso,
+      depto: registro.registerData.depto,
+      localidad: registro.registerData.localidad,
+      provincia: registro.registerData.provincia,
+      nombre: registro.registerData.nombre,
+      apellido: registro.registerData.apellido,
+      cuil: registro.registerData.cuil,
+      password: password,
+    };
 
-      let registroObject = {
-        documento: registro.registerData.documento,
-        nroTramite: registro.registerData.nroTramite,
-        latitude: registro.registerData.latitude,
-        celular: celular,
-        longitude: registro.registerData.longitude,
-        direccion: registro.registerData.direccion,
-        piso: registro.registerData.piso,
-        depto: registro.registerData.depto,
-        localidad: registro.registerData.localidad,
-        provincia: registro.registerData.provincia,
-        nombre: registro.registerData.nombre,
-        apellido: registro.registerData.apellido,
-        cuil: registro.registerData.cuil,
-        password: password,
-      };
+    dispatch(setRegisterData(registroObject));
 
-      dispatch(setRegisterData(registroObject));
-
-      props.navigation.navigate("Configuracion de usuario");
-    
-  }
+    props.navigation.navigate("Configuracion de usuario");
+  };
 
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: "rgba(57,147,255,0.7)",
-        padding: 10,
       }}
     >
-      <View style={{ flex: 3 }}>
-        <View>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Nombre</Text>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
+        style={{
+          flex: 1,
+          padding: 10,
+        }}
+      >
+        <View style={{ flex: 3 }}>
+          <View>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Nombre</Text>
 
-          <TextInput
-            style={isConfig ? styles.blockedInput : styles.input}
-            editable={!isConfig}
-            value={nombre}
-            onChangeText={(value) => setNombre(value)}
-          ></TextInput>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Apellido</Text>
-
-          <TextInput
-            style={isConfig ? styles.blockedInput : styles.input}
-            editable={!isConfig}
-            value={apellido}
-            onChangeText={(value) => setApellido(value)}
-          ></TextInput>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Cuil</Text>
-
-          <TextInput
-            style={isConfig ? styles.blockedInput : styles.input}
-            editable={!isConfig}
-            value={cuil}
-            onChangeText={(value) => setCuil(value)}
-          ></TextInput>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Celular</Text>
-
-          <TextInput
-            style={styles.input}
-            value={celular}
-            onChangeText={(value) => setCelular(value)}
-          ></TextInput>
-        </View>
-      </View>
-      <View style={{ flex: 2 }}>
-        <Text style={{ textAlign: "center", color: "#fff", fontSize: 15 }}>
-          Acceso al Sistema
-        </Text>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Contraseña</Text>
-
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={(value) => setPassword(value)}
-          ></TextInput>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
-            Repetir Contraseña
-          </Text>
-
-          <TextInput
-            style={styles.input}
-            value={repetirPassword}
-            onChangeText={(value) => setRepetirPassword(value)}
-          ></TextInput>
-        </View>
-      </View>
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity style={{ height: 50 }} onPress={isConfig ? saveNewData : setData}>
-          <View
-            title="Hola"
-            style={{
-              flex: 1,
-              backgroundColor: "white",
-              borderRadius: 10,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{ fontSize: 15, color: "rgba(57,147,255,0.7)", fontWeight: "bold" }}
-            >
-              {isConfig ? "Guardar" : "Continuar"}
-            </Text>
+            <TextInput
+              style={isConfig ? styles.blockedInput : styles.input}
+              editable={!isConfig}
+              value={nombre}
+              onChangeText={(value) => setNombre(value)}
+            ></TextInput>
           </View>
-        </TouchableOpacity>
-      </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Apellido</Text>
+
+            <TextInput
+              style={isConfig ? styles.blockedInput : styles.input}
+              editable={!isConfig}
+              value={apellido}
+              onChangeText={(value) => setApellido(value)}
+            ></TextInput>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Cuil</Text>
+
+            <TextInput
+              style={isConfig ? styles.blockedInput : styles.input}
+              editable={!isConfig}
+              value={cuil}
+              onChangeText={(value) => setCuil(value)}
+            ></TextInput>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Celular</Text>
+
+            <TextInput
+              style={styles.input}
+              value={celular}
+              onChangeText={(value) => setCelular(value)}
+            ></TextInput>
+          </View>
+        </View>
+        <View style={{ flex: 2 }}>
+          <Text style={{ textAlign: "center", color: "#fff", fontSize: 15 }}>
+            Acceso al Sistema
+          </Text>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Contraseña
+            </Text>
+
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={(value) => setPassword(value)}
+            ></TextInput>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Repetir Contraseña
+            </Text>
+
+            <TextInput
+              style={styles.input}
+              value={repetirPassword}
+              onChangeText={(value) => setRepetirPassword(value)}
+            ></TextInput>
+          </View>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            style={{ height: 50 }}
+            onPress={isConfig ? saveNewData : setData}
+          >
+            <View
+              title="Hola"
+              style={{
+                flex: 1,
+                backgroundColor: "white",
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{ fontSize: 15, color: "#2572FF", fontWeight: "bold" }}
+              >
+                {isConfig ? "Guardar" : "Continuar"}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
     </View>
   );
 }

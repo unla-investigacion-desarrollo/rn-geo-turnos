@@ -42,7 +42,7 @@ function MenuConfig(props) {
                   : props.colorIcon,
             }}
           >
-            Configuracion
+            Configuración
           </Text>
         </View>
       </TouchableOpacity>

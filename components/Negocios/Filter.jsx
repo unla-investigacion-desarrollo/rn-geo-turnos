@@ -20,7 +20,7 @@ export default function Filter() {
           <FontAwesomeIcon
             icon={faFilter}
             size={20}
-            style={{ marginTop: 20, marginLeft: 5, color: "rgba(57,147,255,0.7)" }}
+            style={{ marginTop: 20, marginLeft: 5, color: "#2572FF" }}
           />
         </TouchableOpacity>
       </View>

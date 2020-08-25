@@ -11,6 +11,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function RegistroDni(props) {
   const [documento, setDocumento] = useState("");
@@ -45,100 +46,107 @@ export default function RegistroDni(props) {
     <View
       style={{
         flex: 1,
-        backgroundColor: "rgba(57,147,255,0.7)",
-        padding: 10,
       }}
     >
-      <View
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
         style={{
           flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
+          padding: 10,
         }}
       >
         <View
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
-            borderWidth: 3,
-            borderColor: "#ccc",
-            backgroundColor: "white",
-          }}
-        ></View>
-        <View style={{ marginTop: 25 }}>
-          <Text style={{ fontSize: 20, color: "white" }}>
-            #Nombre de la Aplicación#
-          </Text>
-        </View>
-      </View>
-      <View style={{ flex: 1 }}>
-        <View>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
-            Número de DNI
-          </Text>
-
-          <TextInput
-            style={styles.input}
-            value={documento}
-            onChangeText={(value) => setDocumento(value)}
-          ></TextInput>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
-            Número de Trámite
-          </Text>
-
-          <TextInput
-            style={styles.input}
-            value={nroTramite}
-            onChangeText={(value) => setNroTramite(value)}
-          ></TextInput>
-        </View>
-        <TouchableOpacity
-          style={{
-            padding: 15,
-            paddingLeft: 0,
             flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
           }}
-          onPress={() => props.navigation.navigate("Cámara")}
         >
           <View
             style={{
-              flex: 1,
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <FontAwesomeIcon icon={faCamera} style={{ color: "white" }} />
-            </View>
-            <View style={{ flex: 12 }}>
-              <Text style={{ color: "#fff" }}>Escanear Documento</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity style={{ height: 50 }} onPress={setData}>
-          <View
-            title="Hola"
-            style={{
-              flex: 1,
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              borderWidth: 3,
+              borderColor: "#ccc",
               backgroundColor: "white",
-              borderRadius: 10,
-              alignItems: "center",
-              justifyContent: "center",
             }}
-          >
-            <Text
-              style={{ fontSize: 15, color: "rgba(57,147,255,0.7)", fontWeight: "bold" }}
-            >
-              Continuar
+          ></View>
+          <View style={{ marginTop: 25 }}>
+            <Text style={{ fontSize: 20, color: "white" }}>
+              #Nombre de la Aplicación#
             </Text>
           </View>
-        </TouchableOpacity>
-      </View>
+        </View>
+        <View style={{ flex: 1 }}>
+          <View>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Número de DNI
+            </Text>
+
+            <TextInput
+              style={styles.input}
+              value={documento}
+              onChangeText={(value) => setDocumento(value)}
+            ></TextInput>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Número de Trámite
+            </Text>
+
+            <TextInput
+              style={styles.input}
+              value={nroTramite}
+              onChangeText={(value) => setNroTramite(value)}
+            ></TextInput>
+          </View>
+          <TouchableOpacity
+            style={{
+              padding: 15,
+              paddingLeft: 0,
+              flex: 1,
+            }}
+            onPress={() => props.navigation.navigate("Cámara")}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                width: "100%",
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <FontAwesomeIcon icon={faCamera} style={{ color: "white" }} />
+              </View>
+              <View style={{ flex: 12 }}>
+                <Text style={{ color: "#fff" }}>Escanear Documento</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity style={{ height: 50 }} onPress={setData}>
+            <View
+              title="Hola"
+              style={{
+                flex: 1,
+                backgroundColor: "white",
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{ fontSize: 15, color: "#2572FF", fontWeight: "bold" }}
+              >
+                Continuar
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
     </View>
   );
 }

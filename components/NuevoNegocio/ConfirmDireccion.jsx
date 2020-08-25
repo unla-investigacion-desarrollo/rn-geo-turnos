@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addNegocios } from "../../actions/negociosListActions";
@@ -19,11 +19,27 @@ function ConfirmDireccion(props) {
             <Text style={styles.text}>{negocio.direccion}</Text>
           </View>
           <View style={styles.container_button}>
-            <Button
-              title={"Confirmar Dirección"}
+            <TouchableOpacity
               onPress={agregarNegocio}
-              style={styles.confirm_button}
-            />
+              style={{
+                backgroundColor: "white",
+                height: 30,
+                marginLeft: 50,
+                marginRight: 50,
+                borderRadius: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#2572FF",
+                  fontSize: 18,
+                  textAlign: "center",
+                  paddingTop: 5,
+                }}
+              >
+                Confirmar Dirección
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       ) : null}
