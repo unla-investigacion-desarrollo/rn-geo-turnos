@@ -144,7 +144,14 @@ export default function RegistroDni(props) {
           </View>
         </View>
         <View style={{ flex: 2 }}>
-          <Text style={{ textAlign: "center", color: "#fff", fontSize: 15 }}>
+          <Text
+            style={{
+              textAlign: "center",
+              color: "#fff",
+              fontSize: 15,
+              fontWeight: "bold",
+            }}
+          >
             Acceso al Sistema
           </Text>
           <View style={{ marginTop: 10 }}>
