@@ -46,7 +46,8 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setLogged = () => {
-    if (direccion > 0 && localidad > 0 && provincia > 0) {
+    console.log (registro.registerData)
+    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
       apiCalls
         .postAltaUsuario({
           apellido: registro.registerData.apellido,

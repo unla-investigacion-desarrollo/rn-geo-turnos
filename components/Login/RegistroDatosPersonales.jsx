@@ -9,6 +9,10 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function RegistroDni(props) {
   const [nombre, setNombre] = useState("");
@@ -36,7 +40,7 @@ export default function RegistroDni(props) {
     if (registerOjecto.celular) {
       setCelular(registerOjecto.celular);
     }
-    if (registerOjecto.password) {
+    if (registerOjecto.password && !isConfig ) {
       setPassword(registerOjecto.password);
     }
   }, [registro]);
@@ -85,7 +89,7 @@ export default function RegistroDni(props) {
 
     dispatch(setRegisterData(registroObject));
 
-    props.navigation.navigate("Configuracion de usuario");
+    props.navigation.navigate("Configuración");
   };
 
   return (
@@ -103,18 +107,20 @@ export default function RegistroDni(props) {
         }}
       >
         <View style={{ flex: 3 }}>
-          <View>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Nombre</Text>
+      <Text style={{ color: "white", fontWeight: "bold" }}>{isConfig && <FontAwesomeIcon icon={faLock} style={{ color: "white" }} />}   Nombre</Text>
 
             <TextInput
               style={isConfig ? styles.blockedInput : styles.input}
               editable={!isConfig}
               value={nombre}
               onChangeText={(value) => setNombre(value)}
-            ></TextInput>
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Apellido</Text>
+            >
+              
+
+            </TextInput>
+            
+          <View style={{ marginTop: 10}}>
+      <Text style={{ color: "white", fontWeight: "bold" }}>{isConfig && <FontAwesomeIcon icon={faLock} style={{ color: "white" }} />}   Apellido</Text>
 
             <TextInput
               style={isConfig ? styles.blockedInput : styles.input}
@@ -124,7 +130,7 @@ export default function RegistroDni(props) {
             ></TextInput>
           </View>
           <View style={{ marginTop: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Cuil</Text>
+      <Text style={{ color: "white", fontWeight: "bold" }}>{isConfig && <FontAwesomeIcon icon={faLock} style={{ color: "white" }} />}   Cuil</Text>
 
             <TextInput
               style={isConfig ? styles.blockedInput : styles.input}
@@ -239,4 +245,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
+  iconContainer:{
+    
+  }
 });
