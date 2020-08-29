@@ -9,9 +9,11 @@ export default class Pdf extends React.Component {
     constructor(props) {
         super(props)
         this.state = { qrData: "" }
+        this.callback = this.callback.bind(this)
     }
     
     componentDidMount () {
+      this.getDataURL(); // => Calling this in here to make sure the QRCode component did mount
     }
     
     print = () => {
@@ -23,15 +25,20 @@ export default class Pdf extends React.Component {
       });
     }
     
-
+    getDataURL() {
+      this.svg.toDataURL(this.callback);
+    }
+    callback(dataURL) {
+      this.setState({qrData: dataURL});
+    }
     render() {
       return (
-          <View style={{flex:1, alignItems:'center', alignContent:'center'}}>
+          <View>
         <QRCode
-          value={"http://google.com.ar"}
-          size={300}
-          bgColor='purple'
-          fgColor='white'/>
+          value="Just some string value"
+          size={200}
+          getRef={(c) => (this.svg = c)}
+        />
         <Button title="Print QR to HTML" onPress={this.print} />
         </View>
       );
