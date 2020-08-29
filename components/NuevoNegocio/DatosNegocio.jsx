@@ -15,7 +15,8 @@ export default function DatosNegocio(props) {
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
   const [nombre, setNombre] = useState("");
   const [cuit, setCuit] = useState("");
-  const [direccion, setDireccion] = useState("");
+  const [calle, setCalle] = useState("");
+  const [numero, setNumero] = useState("");
   const [piso, setPiso] = useState("");
   const [depto, setDepto] = useState("");
   const [rubro, setRubro] = useState(0);
@@ -34,8 +35,11 @@ export default function DatosNegocio(props) {
     if (datosNegocio.cuit) {
       setCuit(datosNegocio.cuit);
     }
-    if (datosNegocio.direccion) {
-      setDireccion(datosNegocio.direccion);
+    if (datosNegocio.calle) {
+      setCalle(datosNegocio.calle);
+    }
+    if (datosNegocio.numero) {
+      setNumero(datosNegocio.numero);
     }
     if (datosNegocio.piso) {
       setPiso(datosNegocio.piso);
@@ -61,7 +65,8 @@ export default function DatosNegocio(props) {
     let dataNegocio = {
       nombre: nombre,
       cuit: cuit,
-      direccion: direccion,
+      calle: calle,
+      numero: numero,
       piso: piso,
       depto: depto,
       rubro: rubro,
@@ -73,7 +78,7 @@ export default function DatosNegocio(props) {
       longitude: 0,
     };
     if (validarCamposDatosNegocio(dataNegocio)) {
-      searchPosition(direccion).then((response) => {
+      searchPosition(calle + " " + numero).then((response) => {
         dataNegocio.latitude = response.latitude;
         dataNegocio.longitude = response.longitude;
 
@@ -117,16 +122,28 @@ export default function DatosNegocio(props) {
           </View>
 
           <View style={{ marginTop: 7 }}>
-            <Text style={styles.labelText}>Dirección</Text>
+            <Text style={styles.labelText}>Calle</Text>
             <View style={styles.viewContainer}>
               <TextInput
                 style={styles.input}
-                value={direccion}
-                onChangeText={(e) => setDireccion(e)}
+                value={calle}
+                onChangeText={(e) => setCalle(e)}
               ></TextInput>
             </View>
           </View>
           <View style={{ flexDirection: "row" }}>
+            <View style={{ marginTop: 7, flex: 1, paddingRight: 10 }}>
+              <View>
+                <Text style={styles.labelText}>Número</Text>
+                <View style={styles.viewContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={numero}
+                    onChangeText={(e) => setNumero(e)}
+                  ></TextInput>
+                </View>
+              </View>
+            </View>
             <View style={{ marginTop: 7, flex: 1, paddingRight: 10 }}>
               <View>
                 <Text style={styles.labelText}>Piso</Text>

@@ -16,7 +16,8 @@ import { apiCalls } from "../../api/apiCalls";
 import { LinearGradient } from "expo-linear-gradient";
 export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
-  const [direccion, setDireccion] = useState("");
+  const [calle, setCalle] = useState("");
+  const [numero, setNumero] = useState("");
   const [piso, setPiso] = useState("");
   const [depto, setDepto] = useState("");
   const [localidad, setLocalidad] = useState(0);
@@ -28,8 +29,11 @@ export default function RegistroDni(props) {
   useEffect(() => {
     let registerOjecto = registro.registerData;
 
-    if (registerOjecto.direccion) {
-      setDireccion(registerOjecto.direccion);
+    if (registerOjecto.calle) {
+      setCalle(registerOjecto.calle);
+    }
+    if (registerOjecto.numero) {
+      setNumero(registerOjecto.numero);
     }
     if (registerOjecto.piso) {
       setPiso(registerOjecto.piso);
@@ -46,7 +50,7 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setLogged = () => {
-    console.log (registro.registerData)
+    console.log(registro.registerData);
     if (direccion.length > 0 && localidad > 0 && provincia > 0) {
       apiCalls
         .postAltaUsuario({
@@ -62,7 +66,8 @@ export default function RegistroDni(props) {
           },
           nombre: registro.registerData.nombre,
           ubicacionVo: {
-            calleNumero: direccion,
+            calle: calle,
+            numero: numero,
             departamento: depto,
             idLocalidad: parseInt(registro.registerData.localidad),
             idProvincia: parseInt(registro.registerData.provincia),
@@ -89,14 +94,15 @@ export default function RegistroDni(props) {
 
   const validarDireccion = () => {
     if (direccion.length > 0 && localidad > 0 && provincia > 0) {
-      searchPosition(direccion).then((response) => {
+      searchPosition(calle + " " + numero).then((response) => {
         let registroObject = {
           documento: registro.registerData.documento,
           nroTramite: registro.registerData.nroTramite,
           latitude: response.latitude,
           celular: registro.registerData.celular,
           longitude: response.longitude,
-          direccion: direccion,
+          calle: calle,
+          numero: numero,
           piso: piso,
           depto: depto,
           localidad: localidad,
@@ -131,12 +137,24 @@ export default function RegistroDni(props) {
             <View style={styles.viewContainer}>
               <TextInput
                 style={styles.input}
-                value={direccion}
-                onChangeText={(e) => setDireccion(e)}
+                value={calle}
+                onChangeText={(e) => setCalle(e)}
               ></TextInput>
             </View>
           </View>
           <View style={{ flexDirection: "row" }}>
+            <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+              <View>
+                <Text style={styles.labelText}>Número</Text>
+                <View style={styles.viewContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={numero}
+                    onChangeText={(e) => setNumero(e)}
+                  ></TextInput>
+                </View>
+              </View>
+            </View>
             <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
               <View>
                 <Text style={styles.labelText}>Piso</Text>

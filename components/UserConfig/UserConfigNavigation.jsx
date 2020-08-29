@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Configuraciones from "./Configuraciones";
-import MisTurnos from "./MisTurnos";
+import Turnos from "./Turnos";
 import RegistroUbicacion from "../Login/RegistroUbicacion";
 import RegistroDatosPersonales from "../Login/RegistroDatosPersonales";
 import DatosNegocio from "../NuevoNegocio/DatosNegocio";
@@ -54,7 +54,7 @@ export default function UserConfigNavigation() {
         ></Stack.Screen>
         {/* FIN NEGOCIO */}
 
-        <Stack.Screen name="Mis turnos" component={MisTurnos}></Stack.Screen>
+        <Stack.Screen name="Turnos" component={Turnos}></Stack.Screen>
       </Stack.Navigator>
     );
   };

@@ -64,11 +64,11 @@ export default function Configuraciones(props) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigateConfiguraciones("Mis turnos")}
+            onPress={() => navigateConfiguraciones("Turnos")}
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faCalendar} style={styles.icon} />
-              <Text style={styles.textButton}> Mis turnos </Text>
+              <Text style={styles.textButton}> Turnos </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>

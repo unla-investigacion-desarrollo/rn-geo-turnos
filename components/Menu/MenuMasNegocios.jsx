@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { switchMenu } from "../../actions/menuSwitchActions";
-import { NUEVO_NEGOCIO, VER_NEGOCIOS } from "../../actions/menuOptions";
+import { VER_NEGOCIOS } from "../../actions/menuOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
 

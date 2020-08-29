@@ -40,7 +40,10 @@ export const validarCamposDatosNegocio = (object) => {
   if (object.cuit === "") {
     return false;
   }
-  if (object.direccion === "") {
+  if (object.calle === "") {
+    return false;
+  }
+  if (object.numero === "") {
     return false;
   }
   if (object.rubro === 0) {

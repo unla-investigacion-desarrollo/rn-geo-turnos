@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Button, Text, TextInput } from "react-native";
-import { Picker, Icon } from "native-base";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+} from "react-native";
+import { Picker, Icon, Left, Right } from "native-base";
 import { useSelector } from "react-redux";
-import { apiCalls } from '../../api/apiCalls'
-
+import { apiCalls } from "../../api/apiCalls";
+import { LinearGradient } from "expo-linear-gradient";
+import DatePicker from "react-native-datepicker";
+import { horarios } from "../../Utils/constantes";
 
 export default function TurnosNegocio(props) {
-  const negocio = useSelector((state) => state.marker_seleccionado.marcador_seleccionado);
+  const negocio = useSelector(
+    (state) => state.marker_seleccionado.marcador_seleccionado
+  );
 
-
-  const [day, setDay] = useState(0);
+  const [day, setDay] = useState(new Date());
   const [hour, setHour] = useState(0);
   const [comments, setComments] = useState("");
 
   const postReservarTurno = () => {
-
     //EJEMPLO API CALL
     // apiCalls.postArticulo({
     //   activoComercial: true,
@@ -32,89 +40,93 @@ export default function TurnosNegocio(props) {
     // }).then((response) => {
     //   console.log(response.data)
     // })
-        
-}
-  
+  };
 
   return (
-    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+    <View style={{ flex: 1 }}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
+        style={{
+          flex: 1,
+        }}
+      >
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
-            <View style={{marginTop: 15 }}>
-                <Text style={styles.name}>
-                  {negocio.name}
-                </Text>
-                <Text style={styles.address}>
-                  Direccion: {negocio.direccion}
-                </Text>
-                <Text></Text>
-                <Text style={styles.labelText}>Dia</Text>
-                <Picker
-                    note
-                    mode="dropdown"
-                    style={styles.input}
-                    selectedValue={day}
-                    onValueChange={(e) => {
-                      setDay(e)
-                    }}
-                    iosIcon={
-                    <Icon
-                        name="arrow-down"
-                        style={{ color: "#ccc", marginRight: 0 }}
-                    />
-                    }
-                >
-                    <Picker.Item label="20/08" value="0" />
-                    <Picker.Item label="21/08" value="1" />
-                    <Picker.Item label="22/08" value="2" />
-                    <Picker.Item label="23/08" value="3" />
-                    <Picker.Item label="24/08" value="4" />
-                    <Picker.Item label="25/08" value="5" />
-                    <Picker.Item label="26/08" value="6" />
-                </Picker>
-            </View> 
-            <View style={{marginTop: 15 }}>
-                <Text style={styles.labelText}>Horario</Text>
-                <Picker
-                    note
-                    mode="dropdown"
-                    style={styles.input}
-                    onValueChange={(e) => setHour(e)}
-                    selectedValue={hour}
-                    iosIcon={
-                    <Icon
-                        name="arrow-down"
-                        style={{ color: "#ccc", marginRight: 0 }}
-                    />
-                    }
-                >
-                    <Picker.Item label="8:30" value="0" />
-                    <Picker.Item label="9:00" value="1" />
-                    <Picker.Item label="9:30" value="2" />
-                    <Picker.Item label="10:00" value="3" />
-                </Picker>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.name}>**Nombre del negocio**</Text>
+            <Text style={styles.address}>Dirección: {negocio.direccion}</Text>
+            <Text></Text>
+            <Text style={styles.labelText}>Dia</Text>
+
+            <DatePicker
+              style={styles.input}
+              onDateChange={(date) => setDay(date)}
+              date={day}
+              customStyles={{
+                dateInput: {
+                  borderWidth: 0,
+                  position: "absolute",
+                  left: 0,
+                },
+                dateIcon: {
+                  position: "absolute",
+                  right: 0,
+                },
+              }}
+              placeholder={"Seleccionar Día"}
+              mode="date"
+              format="DD/MM/yyyy"
+              confirmBtnText="Seleccionar"
+              cancelBtnText="Cancelar"
+            />
+          </View>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.labelText}>Horario</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              onValueChange={(e) => setHour(e)}
+              selectedValue={hour}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              {horarios.map((hora) => {
+                return <Picker.Item label={hora} value={hora} />;
+              })}
+            </Picker>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.labelText}>Comentarios</Text>
+            <View style={styles.viewContainer}>
+              <TextInput
+                style={styles.textBox}
+                multiline={true}
+                onChangeText={(e) => setComments(e)}
+              ></TextInput>
             </View>
-            <View style={{ marginTop: 10 }}>
-                <Text style={styles.labelText}>Comentarios</Text>
-                <View style={styles.viewContainer}>
-                    <TextInput style={styles.textBox}
-                      onChangeText={(e) => setComments(e)}
-                      >
-                    </TextInput>
-                </View>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <View style={styles.viewContainer}>
+              <TouchableOpacity
+                onPress={postReservarTurno}
+                style={styles.button}
+              >
+                <Text style={styles.textButton}>Reservar turno</Text>
+              </TouchableOpacity>
             </View>
-            <View style={{ marginTop: 10 }}>
-                <View style={styles.viewContainer}>
-                <Button title ="Reservar turno"  onPress={postReservarTurno}>
-                </Button>
-                </View>
-            </View>
+          </View>
         </View>
+      </LinearGradient>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   input: {
     height: 35,
     elevation: 8,
@@ -130,6 +142,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+  },
+  labelText: {
+    color: "white",
   },
   textBox: {
     height: 90,
@@ -147,12 +162,28 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
-  name:{
-    fontSize: 30,
-    textAlign:'center',
-    width: "100%",
-  },
-  address:{
+  name: {
     fontSize: 20,
-  }  
+    color: "white",
+    textAlign: "center",
+    width: "100%",
+    marginBottom: 10,
+  },
+  address: {
+    color: "white",
+    fontSize: 15,
+  },
+  button: {
+    backgroundColor: "white",
+    height: 30,
+    marginLeft: 50,
+    marginRight: 50,
+    borderRadius: 5,
+  },
+  textButton: {
+    color: "#2572FF",
+    fontSize: 15,
+    textAlign: "center",
+    paddingTop: 5,
+  },
 });
