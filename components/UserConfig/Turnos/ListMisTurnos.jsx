@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faMapMarkerAlt,
   faTimes,
-  faInfoCircle,
+  faPhone,
   faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -83,7 +83,7 @@ export default function ListMisTurnos(props) {
               </TouchableOpacity>
               <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
                 <FontAwesomeIcon
-                  icon={faInfoCircle}
+                  icon={faPhone}
                   size={35}
                   style={{ color: "white" }}
                 />

@@ -15,6 +15,7 @@ export default function DatosNegocio(props) {
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
   const [nombre, setNombre] = useState("");
   const [cuit, setCuit] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [calle, setCalle] = useState("");
   const [numero, setNumero] = useState("");
   const [piso, setPiso] = useState("");
@@ -34,6 +35,9 @@ export default function DatosNegocio(props) {
     }
     if (datosNegocio.cuit) {
       setCuit(datosNegocio.cuit);
+    }
+    if (datosNegocio.telefono) {
+      setTelefono(datosNegocio.telefono);
     }
     if (datosNegocio.calle) {
       setCalle(datosNegocio.calle);
@@ -65,6 +69,7 @@ export default function DatosNegocio(props) {
     let dataNegocio = {
       nombre: nombre,
       cuit: cuit,
+      telefono: telefono,
       calle: calle,
       numero: numero,
       piso: piso,
@@ -110,14 +115,26 @@ export default function DatosNegocio(props) {
               ></TextInput>
             </View>
           </View>
-          <View style={{ marginTop: 7 }}>
-            <Text style={styles.labelText}>N° Cuit</Text>
-            <View style={styles.viewContainer}>
-              <TextInput
-                style={styles.input}
-                value={cuit}
-                onChangeText={(e) => setCuit(e)}
-              ></TextInput>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ marginTop: 7, flex: 1, paddingRight: 10 }}>
+              <Text style={styles.labelText}>N° Cuit</Text>
+              <View style={styles.viewContainer}>
+                <TextInput
+                  style={styles.input}
+                  value={cuit}
+                  onChangeText={(e) => setCuit(e)}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={{ marginTop: 7, flex: 1 }}>
+              <Text style={styles.labelText}>Teléfono</Text>
+              <View style={styles.viewContainer}>
+                <TextInput
+                  style={styles.input}
+                  value={telefono}
+                  onChangeText={(e) => setTelefono(e)}
+                ></TextInput>
+              </View>
             </View>
           </View>
 

@@ -11,7 +11,7 @@ import {
   faCommentDots,
   faTimes,
   faCheck,
-  faInfoCircle,
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function ListTurnosNegocio(props) {
@@ -84,7 +84,7 @@ export default function ListTurnosNegocio(props) {
               </TouchableOpacity>
               <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
                 <FontAwesomeIcon
-                  icon={faInfoCircle}
+                  icon={faPhone}
                   size={35}
                   style={{ color: "white" }}
                 />
