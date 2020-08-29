@@ -72,6 +72,16 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigateConfiguraciones("PDF")}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <FontAwesomeIcon icon={faCalendar} style={styles.icon} />
+              <Text style={styles.textButton}> PDF </Text>
+              <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={{ backgroundColor: "transparent" }}>
           <View>

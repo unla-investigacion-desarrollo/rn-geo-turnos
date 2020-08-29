@@ -10,6 +10,7 @@ import HorariosNegocio from "../NuevoNegocio/HorariosNegocio";
 import MapContainer from "../NuevoNegocio/MapContainer";
 import MapInput from "../NuevoNegocio/MapInput";
 import TurnosNegocio from "../NuevoNegocio/TurnosNegocio";
+import Pdf from "../NuevoNegocio/Pdf"
 
 export default function UserConfigNavigation() {
   const Stack = createStackNavigator();
@@ -29,6 +30,10 @@ export default function UserConfigNavigation() {
         <Stack.Screen
           name="Ubicación"
           component={RegistroUbicacion}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="PDF"
+          component={Pdf}
         ></Stack.Screen>
         {/* NEGOCIO */}
         <Stack.Screen
