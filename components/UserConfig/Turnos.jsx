@@ -8,67 +8,60 @@ export default function MisTurnos(props) {
   const [tabSeleccionado, setTabSeleccionado] = useState(0);
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 9 }}>
-        <LinearGradient
-          // Background Linear Gradient
-          colors={["#6DCAE1", "#0CA4C9"]}
-          style={{
-            flex: 1,
-          }}
-        >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#6DCAE1", "#0CA4C9"]}
+        style={{
+          flex: 1,
+        }}
+      >
+        <View style={{ flex: 9 }}>
           {tabSeleccionado === 0 ? <ListMisTurnos /> : <ListTurnosNegocio />}
-        </LinearGradient>
-      </View>
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <View style={styles.containerLeft}>
-          <TouchableOpacity
-            style={{ justifyContent: "center", flex: 1 }}
-            onPress={() => setTabSeleccionado(1)}
-          >
-            <Text
-              style={
-                tabSeleccionado === 1
-                  ? styles.textTabSeleccionado
-                  : styles.textTab
-              }
-            >
-              Turnos Negocio
-            </Text>
-          </TouchableOpacity>
         </View>
-        <View style={styles.containerRight}>
-          <TouchableOpacity
-            style={{ justifyContent: "center", flex: 1 }}
-            onPress={() => setTabSeleccionado(0)}
-          >
-            <Text
-              style={
-                tabSeleccionado === 0
-                  ? styles.textTabSeleccionado
-                  : styles.textTab
-              }
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View style={styles.container}>
+            <TouchableOpacity
+              style={{ justifyContent: "center", flex: 1 }}
+              onPress={() => setTabSeleccionado(1)}
             >
-              Mis turnos
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={
+                  tabSeleccionado === 1
+                    ? styles.textTabSeleccionado
+                    : styles.textTab
+                }
+              >
+                Turnos Negocio
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container}>
+            <TouchableOpacity
+              style={{ justifyContent: "center", flex: 1 }}
+              onPress={() => setTabSeleccionado(0)}
+            >
+              <Text
+                style={
+                  tabSeleccionado === 0
+                    ? styles.textTabSeleccionado
+                    : styles.textTab
+                }
+              >
+                Mis turnos
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </LinearGradient>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  containerRight: {
+  container: {
+    margin: 5,
     flex: 1,
-    backgroundColor: "#fff",
-    borderWidth: 2,
-    borderColor: "#ccc",
-    borderLeftWidth: 0,
-  },
-  containerLeft: {
-    flex: 1,
-    backgroundColor: "#fff",
-    borderColor: "#ccc",
-    borderWidth: 2,
+    borderRadius: 5,
+    backgroundColor: "rgba(0, 0, 0, 0.62)",
   },
   textTabSeleccionado: {
     textAlign: "center",
@@ -78,5 +71,6 @@ const styles = StyleSheet.create({
   },
   textTab: {
     textAlign: "center",
+    color: "white",
   },
 });
