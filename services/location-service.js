@@ -1,4 +1,5 @@
 import Geocoder from "react-native-geocoding";
+import { Linking } from "react-native";
 
 export const getLocation = () => {
   //Ubicacion del usuario
@@ -30,4 +31,20 @@ export const geocodeLocationByCoords = (lat, long) => {
       })
       .catch((error) => reject(error));
   });
+};
+
+export const routeDirection = (lat, longitud) => {
+  //Funcion que permite redirigir a google maps/maps
+  const scheme = Platform.select({
+    ios: "maps:0,0?q=",
+    android: "geo:0,0?q=",
+  });
+  const latLng = lat + "," + longitud;
+  const label = "Custom Label";
+  const url = Platform.select({
+    ios: `${scheme}${label}@${latLng}`,
+    android: `${scheme}${latLng}(${label})`,
+  });
+
+  Linking.openURL(url);
 };

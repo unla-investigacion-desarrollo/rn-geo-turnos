@@ -5,6 +5,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -13,11 +14,66 @@ import {
   faCheck,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
+import { callNumber } from "../../../services/phone-services";
+import DatePicker from "react-native-datepicker";
 
 export default function ListTurnosNegocio(props) {
   const [tabSeleccionado, setTabSeleccionado] = useState(0);
+
+  const showCommentTurno = () =>
+    Alert.alert(
+      "Comentario del Cliente",
+      "Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
+    );
+  const rechazarTurno = () =>
+    Alert.alert(
+      "Rechazar Turno",
+      "¿Está seguro que quiere rechazar el turno?",
+      [
+        { text: "Cancelar", onPress: () => console.log("OK Pressed") },
+        { text: "Confirmar", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: false }
+    );
+  const aceptarTurno = () =>
+    Alert.alert(
+      "Aceptar Turno",
+      "¿Está seguro que quiere aceptar el turno?",
+      [
+        { text: "Cancelar", onPress: () => console.log("OK Pressed") },
+        { text: "Confirmar", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: false }
+    );
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View style={{ flex: 1, padding: 20, paddingTop: 0 }}>
+      <View style={{ width: "100%", marginBottom: 15 }}>
+        <DatePicker
+          style={styles.datePicker}
+          date={new Date()}
+          customStyles={{
+            dateInput: {
+              borderWidth: 0,
+              width: "60%",
+              position: "absolute",
+              right: 0,
+              borderBottomColor: "white",
+              borderBottomWidth: 2,
+            },
+            dateIcon: {
+              position: "absolute",
+              right: 0,
+            },
+          }}
+          placeholder={"Seleccionar Día"}
+          mode="date"
+          format="DD/MM/yyyy"
+          confirmBtnText="Seleccionar"
+          cancelBtnText="Cancelar"
+        />
+      </View>
       <ScrollView>
         <View
           style={{
@@ -39,7 +95,7 @@ export default function ListTurnosNegocio(props) {
             }}
           >
             <Text style={{ color: "white", fontSize: 15, flex: 2 }}>
-              Horario: 21/12/1995 14:30
+              Horario: 21/12/1995 14:30hs
             </Text>
             <Text
               style={{
@@ -59,7 +115,10 @@ export default function ListTurnosNegocio(props) {
                 flexDirection: "row",
               }}
             >
-              <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ flex: 1, alignItems: "center" }}
+                onPress={showCommentTurno}
+              >
                 <FontAwesomeIcon
                   icon={faCommentDots}
                   size={35}
@@ -67,7 +126,10 @@ export default function ListTurnosNegocio(props) {
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ flex: 1, alignItems: "center" }}
+                onPress={aceptarTurno}
+              >
                 <FontAwesomeIcon
                   icon={faCheck}
                   size={35}
@@ -75,14 +137,20 @@ export default function ListTurnosNegocio(props) {
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ flex: 1, alignItems: "center" }}
+                onPress={rechazarTurno}
+              >
                 <FontAwesomeIcon
                   icon={faTimes}
                   size={35}
                   style={{ color: "#ff2e2e" }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ flex: 1, alignItems: "center" }}
+                onPress={() => callNumber("1135949261")}
+              >
                 <FontAwesomeIcon
                   icon={faPhone}
                   size={35}
@@ -96,4 +164,21 @@ export default function ListTurnosNegocio(props) {
     </View>
   );
 }
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  datePicker: {
+    height: 35,
+    elevation: 8,
+    borderRadius: 5,
+    backgroundColor: "transparent",
+    paddingHorizontal: 15,
+    marginTop: 8,
+    width: "100%",
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+});
