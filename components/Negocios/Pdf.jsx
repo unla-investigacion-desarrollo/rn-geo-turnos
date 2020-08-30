@@ -1,15 +1,16 @@
 import React, { useState, useEffect} from "react";
-import { StyleSheet, View, TouchableOpacity, Text, Slider, Button } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import {  View, TouchableOpacity, Text, Image } from "react-native";
 import * as Print from 'expo-print';
-
+import {googlePlayBase64} from '../../assets/googlePlayBase64.jsx'
+import {appStoreBase64} from '../../assets/appStoreBase64.jsx'
 import QRCode from 'react-native-qrcode-svg';
 
 export default class Pdf extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { qrData: "", qrCodeData: "www.google.com.ar" }
+        this.state = { qrData: "", qrCodeData: "www.google.com.ar", googlePlay:"",appStore:"" }
         this.callback = this.callback.bind(this)
+
     }
     
     componentDidMount () {
@@ -17,6 +18,7 @@ export default class Pdf extends React.Component {
     }
     
     print = () => {
+      // console.log (this.state.qrData)
       Print.printAsync({
         html: `
           <style>
@@ -27,6 +29,7 @@ export default class Pdf extends React.Component {
           <style>
             .alignRight {
               text-align: right;
+              padding-top: "20px";
             }
           </style>
           <div class= "alignCenter">
@@ -40,7 +43,13 @@ export default class Pdf extends React.Component {
           <br/>
           <br/>
           <br/>
-          <h2 class="alignRight">ReactivAR</h2>
+          <div class="alignRight">
+            <h2 >ReactivAR</h2>
+            <img src="${googlePlayBase64}" alt="Smiley face" height="50" width="100"/>
+            <img src="${appStoreBase64}" alt="Smiley face" height="50" width="100"/>
+            
+          </div>
+          
 
          `
       });
@@ -52,6 +61,8 @@ export default class Pdf extends React.Component {
     callback(dataURL) {
       this.setState({qrData: dataURL});
     }
+
+
     render() {
       return (
         <View style={{ backgroundColor: "#fff", flex: 1,  }}>
@@ -84,6 +95,7 @@ export default class Pdf extends React.Component {
                   Imprimir código QR
                 </Text>
           </TouchableOpacity>
+
             </View>
             
         </View>
