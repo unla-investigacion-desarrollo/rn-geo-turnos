@@ -10,7 +10,7 @@ import HorariosNegocio from "../NuevoNegocio/HorariosNegocio";
 import MapContainer from "../NuevoNegocio/MapContainer";
 import MapInput from "../NuevoNegocio/MapInput";
 import TurnosNegocio from "../NuevoNegocio/TurnosNegocio";
-import Pdf from "../NuevoNegocio/Pdf"
+import Pdf from "../Negocios/Pdf"
 
 export default function UserConfigNavigation() {
   const Stack = createStackNavigator();
