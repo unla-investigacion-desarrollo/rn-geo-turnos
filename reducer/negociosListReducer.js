@@ -1,4 +1,4 @@
-import { ADD_NEGOCIO } from "../actions/types";
+import { ADD_NEGOCIO, actions } from "../actions/types";
 
 const initialState = {
   negocios: [
@@ -8,6 +8,7 @@ const initialState = {
       direccion: "628 ADA, Jacinto Calvo, José Marmol",
     },
   ],
+  showInfoNegocio: false,
 };
 
 export default function (state = initialState, action) {
@@ -17,7 +18,12 @@ export default function (state = initialState, action) {
         ...state,
         negocios: action.payload, //Agrego un local a la lista de locales
       };
-      break;
+
+    case actions.SHOW_INFO_NEGOCIOS: //Dispatch desde NegociosListActions
+      return {
+        ...state,
+        showInfoNegocio: action.payload, //Agrego un local a la lista de locales
+      };
 
     default:
       return state;

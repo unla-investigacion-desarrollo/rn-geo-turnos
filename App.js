@@ -6,7 +6,7 @@ import store from "./store.js";
 import { StatusBar } from "react-native";
 import MenuSwitch from "./components/MenuSwitch";
 import { Root } from "native-base";
-
+console.disableYellowBox = true; //PARA ESCONDER LAS WARNINGS
 function App() {
   return (
     <Provider store={store}>

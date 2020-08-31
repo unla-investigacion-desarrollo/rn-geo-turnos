@@ -1,46 +1,48 @@
-import React, {useState} from "react";
-import { StyleSheet, View, Dimensions, Image, Text, TouchableOpacity} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
 import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 import { addNegocios } from "../../actions/negociosListActions";
-import { set } from "react-native-reanimated";
+import { actions } from "../../actions/types";
 
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
+  const showInfoNegocio = useSelector(
+    (state) => state.lista_negocios.showInfoNegocio
+  ); //Lista de negocios cercanos
   const dispatch = useDispatch();
 
-  const [showInfoNegocio, setShowInfoNegocio] = useState(false);
+  const setShowInfoNegocio = (mostrar) => {
+    dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: mostrar });
+  };
 
   const seleccionarMarker = (lat, longitud, direccion, id, name) => {
     //Selecciono marcador dentro del mapa
-    setShowInfoNegocio(true)
-    
+    setShowInfoNegocio(true);
+
     dispatch(
       selectMarker({
         latitude: lat,
         longitude: longitud,
         direccion: direccion,
-        id: id, 
-        name: name
+        id: id,
+        name: name,
       })
     );
   };
-
-
 
   const getNegocios = () => {
     fetch("https://putsreq.com/TUZwPRfqWsQmH09hi4AO ")
       .then((res) => res.json())
       .then((res) => {
         // console.log(res)
-        dispatch(addNegocios(res))
+        dispatch(addNegocios(res));
       });
   };
-  
 
   const marcarNegocios = () => {
     //Genero los MARKERS de los negocios cercanos
@@ -110,13 +112,13 @@ export default function VerNegocios(props) {
       </View>
       <View style={{ flex: 1 }}>{createMap()}</View>
 
-      {showInfoNegocio &&
+      {showInfoNegocio && (
         <View
           style={{
-            backgroundColor:  "#fff" ,
+            backgroundColor: "#fff",
             height: "30%",
             borderRadius: 10,
-            borderColor:  "#ddd" ,
+            borderColor: "#ddd",
             borderWidth: 1,
             bottom: 10,
             width: "100%",
@@ -124,23 +126,9 @@ export default function VerNegocios(props) {
             paddingTop: 10,
           }}
         >
-         
-          <TouchableOpacity
-            style={{ position: "absolute", width: 40, alignSelf:"flex-end"}}
-            onPress={() =>
-              setShowInfoNegocio(false)
-            }>
-              <Text style={{ fontSize:24}}>
-                X
-              </Text>
-            </TouchableOpacity>
-          
-          
-            <InformacionNegocio navigation={props.navigation} />
-          
-          
+          <InformacionNegocio navigation={props.navigation} />
         </View>
-      }
+      )}
     </View>
   );
 }
