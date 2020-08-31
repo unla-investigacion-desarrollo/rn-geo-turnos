@@ -51,9 +51,13 @@ export default function ListTurnosNegocio(props) {
     <View style={{ flex: 1, padding: 20, paddingTop: 0 }}>
       <View style={{ width: "100%", marginBottom: 15 }}>
         <DatePicker
+          locale={"es"}
           style={styles.datePicker}
           date={new Date()}
           customStyles={{
+            dateText: {
+              color: "#fff",
+            },
             dateInput: {
               borderWidth: 0,
               width: "60%",

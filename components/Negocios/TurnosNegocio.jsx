@@ -59,6 +59,7 @@ export default function TurnosNegocio(props) {
             <Text style={styles.labelText}>Dia</Text>
 
             <DatePicker
+              locale={"es"}
               style={styles.input}
               onDateChange={(date) => setDay(date)}
               date={day}

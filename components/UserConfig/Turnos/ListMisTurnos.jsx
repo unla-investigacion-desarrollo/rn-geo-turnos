@@ -44,12 +44,17 @@ export default function ListMisTurnos(props) {
     <View style={{ flex: 1, padding: 20, paddingTop: 0 }}>
       <View style={{ width: "100%", marginBottom: 15 }}>
         <DatePicker
+          locale={"es"}
           style={styles.datePicker}
           date={new Date()}
           customStyles={{
+            dateText: {
+              color: "#fff",
+            },
             dateInput: {
               borderWidth: 0,
               width: "60%",
+
               position: "absolute",
               right: 0,
               borderBottomColor: "white",
@@ -164,6 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     paddingHorizontal: 15,
     marginTop: 8,
+
     width: "100%",
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
