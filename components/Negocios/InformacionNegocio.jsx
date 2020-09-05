@@ -24,7 +24,7 @@ export default function InformacionNegocio(props) {
     <>
       <View style={{ flexDirection: "row" }}>
         <Text style={{ fontSize: 20, textAlign: "center", width: "90%" }}>
-          **NOMBRE DEL NEGOCIO**
+          {marcador_seleccionado.name}
         </Text>
         <TouchableOpacity
           style={{ width: "10%" }}

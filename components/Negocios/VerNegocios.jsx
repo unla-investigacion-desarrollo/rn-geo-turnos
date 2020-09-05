@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 import { addNegocios } from "../../actions/negociosListActions";
 import { actions } from "../../actions/types";
+import { apiCalls } from "../../api/apiCalls";
 
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
@@ -36,12 +37,22 @@ export default function VerNegocios(props) {
   };
 
   const getNegocios = () => {
-    fetch("https://putsreq.com/TUZwPRfqWsQmH09hi4AO ")
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res)
-        dispatch(addNegocios(res));
-      });
+    apiCalls
+        .getEmprendimientos()
+        .then((response) => {
+          let negocios = response.data
+          
+          negocios.forEach(n => {
+            n.latitude = parseFloat(n.ubicacion.latitud)
+            n.longitude = parseFloat(n.ubicacion.longitud)
+            n.direccion = n.ubicacion.calle 
+            n.name = n.nombre
+          })
+          dispatch(addNegocios(negocios));
+        }).catch((code,message) =>{
+          // console.log(code)
+          // console.log(message)
+        });
   };
 
   const marcarNegocios = () => {

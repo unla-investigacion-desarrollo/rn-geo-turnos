@@ -9,6 +9,7 @@ import {
 } from "./NuevoNegocioFunctions";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
+import { apiCalls } from "../../api/apiCalls";
 
 export default function DatosNegocio(props) {
   const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
@@ -21,12 +22,46 @@ export default function DatosNegocio(props) {
   const [piso, setPiso] = useState("");
   const [depto, setDepto] = useState("");
   const [rubro, setRubro] = useState(0);
+  const [rubros, setRubros] = useState([]);
   const [emprendimiento, setEmprendimiento] = useState(0);
+  const [emprendimientos, setEmprendimientos] = useState([]);
   const [localidad, setLocalidad] = useState(0);
+  const [localidades, setLocalidades] = useState([]);
   const [provincia, setProvincia] = useState(0);
+  const [provincias, setProvincias] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    apiCalls.getLocalidades()
+      .then((response) => {
+        response.data.unshift({id_localidad:"0", nombre:"Seleccione una localidad"})
+        setLocalidades(response.data)
+      }).catch((code,message) =>{
+     });
+
+    apiCalls.getProvincias()
+      .then((response) => {
+        response.data.unshift({id_provincia:"0", nombre:"Seleccione una provincia"})
+        setProvincias(response.data)
+      }).catch((code,message) =>{
+      });
+
+    apiCalls.getRubros()
+      .then((response) => {
+        response.data.unshift({id_rubro:"0", nombre:"Seleccione un rubro"})
+        setRubros(response.data)
+      }).catch((code,message) =>{
+
+      });
+    
+    apiCalls.getTipoEmprendimiento()
+      .then((response) => {
+        response.data.unshift({id_rubro:"0", nombre:"Seleccione tipo de emprendimiento"})
+        setEmprendimientos(response.data)
+      }).catch((code,message) =>{
+
+      });
+
     if (datosNegocio.capacidadPersonas) {
       setCapacidadPersonas(datosNegocio.capacidadPersonas);
     }
@@ -65,6 +100,8 @@ export default function DatosNegocio(props) {
     }
   }, [datosNegocio]);
 
+
+
   const continuar = () => {
     let dataNegocio = {
       nombre: nombre,
@@ -94,6 +131,22 @@ export default function DatosNegocio(props) {
       });
     }
   };
+
+  const pickerItemsLocalidades = localidades.map(i => (
+    <Picker.Item label={i.nombre} value={i.id_localidad} />
+  ))
+
+  const pickerItemsProvincias = provincias.map(i => (
+    <Picker.Item label={i.nombre} value={i.id_provincia} />
+  ))
+
+  const pickerItemsRubros = rubros.map(i => (
+    <Picker.Item label={i.nombre} value={i.id_rubro} />
+  ))
+
+  const pickerItemEmprendimientos = emprendimientos.map(i => (
+    <Picker.Item label={i.nombre} value={i.id_rubro} />
+  ))
 
   return (
     <View style={{ flex: 1 }}>
@@ -187,26 +240,6 @@ export default function DatosNegocio(props) {
             </View>
           </View>
           <View style={{ marginTop: 7 }}>
-            <Text style={styles.labelText}>Localidad</Text>
-            <Picker
-              note
-              mode="dropdown"
-              style={styles.input}
-              selectedValue={localidad}
-              onValueChange={(e) => setLocalidad(e)}
-              iosIcon={
-                <Icon
-                  name="arrow-down"
-                  style={{ color: "#ccc", marginRight: 0 }}
-                />
-              }
-            >
-              <Picker.Item label="Seleccione una localidad" value="0" />
-              <Picker.Item label="Almirante Brown" value="1" />
-              <Picker.Item label="Banfield" value="2" />
-            </Picker>
-          </View>
-          <View style={{ marginTop: 7 }}>
             <Text style={styles.labelText}>Provincia</Text>
             <Picker
               note
@@ -221,11 +254,28 @@ export default function DatosNegocio(props) {
                 />
               }
             >
-              <Picker.Item label="Seleccione una provincia" value="0" />
-              <Picker.Item label="Buenos Aires" value="1" />
-              <Picker.Item label="Chaco" value="2" />
+              {pickerItemsProvincias}
             </Picker>
           </View>
+          <View style={{ marginTop: 7 }}>
+            <Text style={styles.labelText}>Localidad</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={localidad}
+              onValueChange={(e) => setLocalidad(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              {pickerItemsLocalidades}
+            </Picker>
+          </View>
+          
           <View style={{ marginTop: 7 }}>
             <Text style={styles.labelText}>Rubro</Text>
             <Picker
@@ -241,9 +291,7 @@ export default function DatosNegocio(props) {
                 />
               }
             >
-              <Picker.Item label="Seleccione un rubro" value="0" />
-              <Picker.Item label="Almacen" value="1" />
-              <Picker.Item label="Kiosko" value="2" />
+              {pickerItemsRubros}
             </Picker>
           </View>
           <View style={{ marginTop: 7 }}>
@@ -261,9 +309,7 @@ export default function DatosNegocio(props) {
                 />
               }
             >
-              <Picker.Item label="Seleccione un rubro" value="0" />
-              <Picker.Item label="Servicios" value="1" />
-              <Picker.Item label="Comercios" value="2" />
+              {pickerItemEmprendimientos}
             </Picker>
           </View>
           <View style={{ marginTop: 7 }}>
