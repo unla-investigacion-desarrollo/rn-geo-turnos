@@ -50,8 +50,32 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setLogged = () => {
-    console.log(registro.registerData);
-    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
+    console.log({
+      apellido: registro.registerData.apellido,
+          celular: registro.registerData.celular,
+          cuil: registro.registerData.cuil,
+          idPerfil: 1,
+          loginVo: {
+            clave: registro.registerData.password,
+            email: registro.registerData.email
+              ? registro.registerData.email
+              : "@mail",
+          },
+          nombre: registro.registerData.nombre,
+          ubicacionVo: {
+            calle: calle,
+            numero: parseInt(numero),
+            departamento: depto,
+            idLocalidad: parseInt(registro.registerData.localidad),
+            idProvincia: parseInt(registro.registerData.provincia),
+            latitud: registro.registerData.latitude.toString(),
+            longitud: registro.registerData.longitude.toString(),
+            piso: 1, // Falta hacer que el campo sea solo numerico, sino la api pincha
+            usuarioModi: "xlucio",
+          },
+          usuarioModi: "xlucio",
+    });
+    if (calle.length > 0 && localidad > 0 && provincia > 0) {
       apiCalls
         .postAltaUsuario({
           apellido: registro.registerData.apellido,
@@ -82,18 +106,21 @@ export default function RegistroDni(props) {
           console.log("persona dada de alta: ");
           console.log(response.data);
           dispatch({ type: actions.LOGGED, payload: 1 });
+        }).catch((code,message) =>{
+          console.log(code)
+          console.log(message)
         });
     }
   };
 
   const setLocation = () => {
-    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
+    if (calle.length > 0 && localidad > 0 && provincia > 0) {
       props.navigation.navigate("Configuracion de usuario");
     }
   };
 
   const validarDireccion = () => {
-    if (direccion.length > 0 && localidad > 0 && provincia > 0) {
+    if (calle.length > 0 && localidad > 0 && provincia > 0) {
       searchPosition(calle + " " + numero).then((response) => {
         let registroObject = {
           documento: registro.registerData.documento,

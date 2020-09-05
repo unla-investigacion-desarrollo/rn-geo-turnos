@@ -2,10 +2,86 @@ import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Text, Slider } from "react-native";
 import { CheckBox } from "native-base";
 import { LinearGradient } from "expo-linear-gradient";
+import { useDispatch, useSelector } from "react-redux";
+import { setDataNegocio } from "../../actions/NuevoNegocioActions";
+import { apiCalls } from "../../api/apiCalls";
+
 
 export default function TurnosNegocio(props) {
   const [usaTurnos, setUsaTurnos] = useState(false);
   const [intervaloTurno, setIntervaloTurno] = useState(0);
+  const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
+  const dispatch = useDispatch();
+  const horariosNegocio = useSelector((state) => state.nuevoNegocio.horarios);
+
+
+  const setNewNegocio = () => {
+    let newNegocio = datosNegocio
+    newNegocio.usaTurnos = usaTurnos
+    newNegocio.intervaloTurno = intervaloTurno
+    let configuracionLocales = []
+    
+    let tiempoAtencion = horariosNegocio.tiempoAtencion
+    horariosNegocio.horarios.forEach(h => {
+      configuracionLocales.push({
+        diaSemana: h.diaSemana.toString(),
+        intervaloTurnos: intervaloTurno,
+        tiempoAtencion: tiempoAtencion,
+        turno1Desde: h.horaDesde1,
+        turno1Hasta: h.horaDesde2,
+        turno2Desde: h.horaHasta1,
+        turno2Hasta: h.horaHasta2,
+      })
+    })
+    console.log({
+      configuracionLocales: configuracionLocales,
+          cuit: newNegocio.cuit,
+          fechaModi: new Date(),
+          idPersona: 1, // Falta matchear al usuario
+          idRubro: parseInt(newNegocio.rubro),
+          idTipoEmprendimiento: parseInt(newNegocio.emprendimiento),
+          nombre: newNegocio.nombre,
+          ubicacionVo: {
+            calleNumero: newNegocio.calle,
+            departamento: newNegocio.depto.toString(),
+            idLocalidad: parseInt(newNegocio.localidad),
+            idProvincia: parseInt(newNegocio.provincia),
+            latitud: newNegocio.latitude.toString(),
+            longitud: newNegocio.longitude.toString(),
+            piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
+            usuarioModi: "xlucio"
+          },
+          usuarioModi: "xlucio"
+
+    })
+    dispatch(setDataNegocio(newNegocio));
+      apiCalls
+        .postAltaEmprendimiento({
+          configuracionLocales: configuracionLocales,
+          cuit: newNegocio.cuit,
+          fechaModi: new Date(),
+          idPersona: 1, // Falta matchear al usuario
+          idRubro: parseInt(newNegocio.rubro),
+          idTipoEmprendimiento: parseInt(newNegocio.emprendimiento),
+          nombre: newNegocio.nombre,
+          ubicacionVo: {
+            calleNumero: newNegocio.calle,
+            departamento: newNegocio.depto.toString(),
+            idLocalidad: parseInt(newNegocio.localidad),
+            idProvincia: parseInt(newNegocio.provincia),
+            latitud: newNegocio.latitude.toString(),
+            longitud: newNegocio.longitude.toString(),
+            piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
+            usuarioModi: "xlucio"
+          },
+          usuarioModi: "xlucio"
+
+        })
+        .then((response) => {
+          console.log(response)
+        });
+    
+  };
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
@@ -56,7 +132,7 @@ export default function TurnosNegocio(props) {
         </View>
         <View style={{ flex: 2 }}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Turnos Negocio")}
+            onPress={setNewNegocio}
             style={{
               backgroundColor: "white",
               height: 30,

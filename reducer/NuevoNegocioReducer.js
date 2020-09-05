@@ -5,7 +5,7 @@ const initialState = {
     capacidadPersonas: "14",
     cuit: "1234",
     telefono: "1535949261",
-    depto: 1,
+    depto: "1",
     calle: "Jacinto Calvo",
     numero: "628",
     emprendimiento: "1",
