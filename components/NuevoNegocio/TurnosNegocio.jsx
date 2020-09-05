@@ -38,14 +38,14 @@ export default function TurnosNegocio(props) {
           cuit: newNegocio.cuit,
           fechaModi: new Date(),
           idPersona: 1, // Falta matchear al usuario
-          idRubro: parseInt(newNegocio.rubro),
+          idRubro: newNegocio.rubro,
           idTipoEmprendimiento: parseInt(newNegocio.emprendimiento),
           nombre: newNegocio.nombre,
           ubicacionVo: {
             calleNumero: newNegocio.calle,
             departamento: newNegocio.depto.toString(),
-            idLocalidad: parseInt(newNegocio.localidad),
-            idProvincia: parseInt(newNegocio.provincia),
+            idLocalidad: newNegocio.localidad,
+            idProvincia: newNegocio.provincia,
             latitud: newNegocio.latitude.toString(),
             longitud: newNegocio.longitude.toString(),
             piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
@@ -61,14 +61,14 @@ export default function TurnosNegocio(props) {
           cuit: newNegocio.cuit,
           fechaModi: new Date(),
           idPersona: 1, // Falta matchear al usuario
-          idRubro: parseInt(newNegocio.rubro),
-          idTipoEmprendimiento: parseInt(newNegocio.emprendimiento),
+          idRubro: newNegocio.rubro,
+          idTipoEmprendimiento: newNegocio.emprendimiento,
           nombre: newNegocio.nombre,
           ubicacionVo: {
             calleNumero: newNegocio.calle,
             departamento: newNegocio.depto.toString(),
-            idLocalidad: parseInt(newNegocio.localidad),
-            idProvincia: parseInt(newNegocio.provincia),
+            idLocalidad: newNegocio.localidad,
+            idProvincia: newNegocio.provincia,
             latitud: newNegocio.latitude.toString(),
             longitud: newNegocio.longitude.toString(),
             piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
@@ -80,7 +80,28 @@ export default function TurnosNegocio(props) {
         .then((response) => {
           console.log(response)
         });
-    
+    // console.log(newNegocio)
+    // console.log({
+    //   configuracionLocales: configuracionLocales,
+    //   cuit: newNegocio.cuit,
+    //   fechaModi: new Date(),
+    //   idPersona: 1, // Falta matchear al usuario
+    //   idRubro: parseInt(newNegocio.rubro),
+    //   idTipoEmprendimiento: parseInt(newNegocio.emprendimiento),
+    //   nombre: newNegocio.nombre,
+    //   ubicacionVo: {
+    //     calleNumero: newNegocio.calle,
+    //     departamento: newNegocio.depto.toString(),
+    //     idLocalidad: parseInt(newNegocio.localidad),
+    //     idProvincia: parseInt(newNegocio.provincia),
+    //     latitud: newNegocio.latitude.toString(),
+    //     longitud: newNegocio.longitude.toString(),
+    //     piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
+    //     usuarioModi: "xlucio"
+    //   },
+    //   usuarioModi: "xlucio"
+
+    // })
   };
 
   return (

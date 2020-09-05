@@ -34,21 +34,21 @@ export default function DatosNegocio(props) {
   useEffect(() => {
     apiCalls.getLocalidades()
       .then((response) => {
-        response.data.unshift({id_localidad:"0", nombre:"Seleccione una localidad"})
+        response.data.unshift({idLocalidad:"0", nombre:"Seleccione una localidad"})
         setLocalidades(response.data)
       }).catch((code,message) =>{
      });
 
     apiCalls.getProvincias()
       .then((response) => {
-        response.data.unshift({id_provincia:"0", nombre:"Seleccione una provincia"})
+        response.data.unshift({idProvincia:"0", nombre:"Seleccione una provincia"})
         setProvincias(response.data)
       }).catch((code,message) =>{
       });
 
     apiCalls.getRubros()
       .then((response) => {
-        response.data.unshift({id_rubro:"0", nombre:"Seleccione un rubro"})
+        response.data.unshift({idRubro:"0", nombre:"Seleccione un rubro"})
         setRubros(response.data)
       }).catch((code,message) =>{
 
@@ -56,7 +56,7 @@ export default function DatosNegocio(props) {
     
     apiCalls.getTipoEmprendimiento()
       .then((response) => {
-        response.data.unshift({id_rubro:"0", nombre:"Seleccione tipo de emprendimiento"})
+        response.data.unshift({idTipoEmprendimiento:"0", nombre:"Seleccione tipo de emprendimiento"})
         setEmprendimientos(response.data)
       }).catch((code,message) =>{
 
@@ -133,19 +133,19 @@ export default function DatosNegocio(props) {
   };
 
   const pickerItemsLocalidades = localidades.map(i => (
-    <Picker.Item label={i.nombre} value={i.id_localidad} />
+    <Picker.Item label={i.nombre} value={i.idLocalidad} />
   ))
 
   const pickerItemsProvincias = provincias.map(i => (
-    <Picker.Item label={i.nombre} value={i.id_provincia} />
+    <Picker.Item label={i.nombre} value={i.idProvincia} />
   ))
 
   const pickerItemsRubros = rubros.map(i => (
-    <Picker.Item label={i.nombre} value={i.id_rubro} />
+    <Picker.Item label={i.nombre} value={i.idRubro} />
   ))
 
   const pickerItemEmprendimientos = emprendimientos.map(i => (
-    <Picker.Item label={i.nombre} value={i.id_rubro} />
+    <Picker.Item label={i.nombre} value={i.idTipoEmprendimiento} />
   ))
 
   return (
