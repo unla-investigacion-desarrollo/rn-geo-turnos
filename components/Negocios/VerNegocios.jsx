@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
@@ -35,6 +35,11 @@ export default function VerNegocios(props) {
       })
     );
   };
+
+  useEffect(() => {
+    getNegocios()
+  }, []);
+
 
   const getNegocios = () => {
     apiCalls
@@ -98,7 +103,6 @@ export default function VerNegocios(props) {
             longitudeDelta: 0.003,
           }}
         >
-          {getNegocios()}
           {marcarNegocios()}
         </MapView>
       );

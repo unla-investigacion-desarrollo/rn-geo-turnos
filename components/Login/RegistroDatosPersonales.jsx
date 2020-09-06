@@ -136,6 +136,7 @@ export default function RegistroDni(props) {
               style={isConfig ? styles.blockedInput : styles.input}
               editable={!isConfig}
               value={cuil}
+              keyboardType="numeric"
               onChangeText={(value) => setCuil(value)}
             ></TextInput>
           </View>
@@ -145,6 +146,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={styles.input}
               value={celular}
+              keyboardType="numeric"
               onChangeText={(value) => setCelular(value)}
             ></TextInput>
           </View>

@@ -14,6 +14,7 @@ import { searchPosition } from "../NuevoNegocio/NuevoNegocioFunctions";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { apiCalls } from "../../api/apiCalls";
 import { LinearGradient } from "expo-linear-gradient";
+
 export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
   const [calle, setCalle] = useState("");
@@ -21,12 +22,43 @@ export default function RegistroDni(props) {
   const [piso, setPiso] = useState("");
   const [depto, setDepto] = useState("");
   const [localidad, setLocalidad] = useState(0);
+  const [localidades, setLocalidades] = useState([]);
   const [provincia, setProvincia] = useState(0);
+  const [provincias, setProvincias] = useState([]);
   const dispatch = useDispatch();
 
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
+    apiCalls.getLocalidades()
+      .then((response) => {
+        response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
+        setLocalidades(response.data)
+      }).catch((code,message) =>{
+     });
+
+    apiCalls.getProvincias()
+      .then((response) => {
+        response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
+        setProvincias(response.data)
+      }).catch((code,message) =>{
+      });
+
+    apiCalls.getRubros()
+      .then((response) => {
+        response.data.unshift({idRubro:0, nombre:"Seleccione un rubro"})
+        setRubros(response.data)
+      }).catch((code,message) =>{
+
+      });
+    
+    apiCalls.getTipoEmprendimiento()
+      .then((response) => {
+        response.data.unshift({idTipoEmprendimiento:0, nombre:"Seleccione tipo de emprendimiento"})
+        setEmprendimientos(response.data)
+      }).catch((code,message) =>{
+
+      });
     let registerOjecto = registro.registerData;
 
     if (registerOjecto.calle) {
@@ -50,31 +82,6 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setLogged = () => {
-    console.log({
-      apellido: registro.registerData.apellido,
-          celular: registro.registerData.celular,
-          cuil: registro.registerData.cuil,
-          idPerfil: 1,
-          loginVo: {
-            clave: registro.registerData.password,
-            email: registro.registerData.email
-              ? registro.registerData.email
-              : "@mail",
-          },
-          nombre: registro.registerData.nombre,
-          ubicacionVo: {
-            calle: calle,
-            numero: parseInt(numero),
-            departamento: depto,
-            idLocalidad: parseInt(registro.registerData.localidad),
-            idProvincia: parseInt(registro.registerData.provincia),
-            latitud: registro.registerData.latitude.toString(),
-            longitud: registro.registerData.longitude.toString(),
-            piso: 1, // Falta hacer que el campo sea solo numerico, sino la api pincha
-            usuarioModi: "xlucio",
-          },
-          usuarioModi: "xlucio",
-    });
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
       apiCalls
         .postAltaUsuario({
@@ -93,8 +100,8 @@ export default function RegistroDni(props) {
             calle: calle,
             numero: numero,
             departamento: depto,
-            idLocalidad: parseInt(registro.registerData.localidad),
-            idProvincia: parseInt(registro.registerData.provincia),
+            idLocalidad: registro.registerData.localidad,
+            idProvincia: registro.registerData.provincia,
             latitud: registro.registerData.latitude,
             longitud: registro.registerData.longitude,
             piso: 1, // Falta hacer que el campo sea solo numerico, sino la api pincha
@@ -103,8 +110,7 @@ export default function RegistroDni(props) {
           usuarioModi: "xlucio",
         })
         .then((response) => {
-          console.log("persona dada de alta: ");
-          console.log(response.data);
+          console.log("persona dada de alta");
           dispatch({ type: actions.LOGGED, payload: 1 });
         }).catch((code,message) =>{
           console.log(code)
@@ -144,6 +150,14 @@ export default function RegistroDni(props) {
     }
   };
 
+  const pickerItemsLocalidades = localidades.map(i => (
+    <Picker.Item key = {i.nombre} label={i.nombre} value={i.idLocalidad} />
+  ))
+
+  const pickerItemsProvincias = provincias.map(i => (
+    <Picker.Item key = {i.nombre} label={i.nombre} value={i.idProvincia} />
+  ))
+
   return (
     <View
       style={{
@@ -177,6 +191,7 @@ export default function RegistroDni(props) {
                   <TextInput
                     style={styles.input}
                     value={numero}
+                    keyboardType="numeric"
                     onChangeText={(e) => setNumero(e)}
                   ></TextInput>
                 </View>
@@ -189,6 +204,7 @@ export default function RegistroDni(props) {
                   <TextInput
                     style={styles.input}
                     value={piso}
+                    keyboardType="numeric"
                     onChangeText={(e) => setPiso(e)}
                   ></TextInput>
                 </View>
@@ -208,26 +224,6 @@ export default function RegistroDni(props) {
             </View>
           </View>
           <View style={{ marginTop: 10 }}>
-            <Text style={styles.labelText}>Localidad</Text>
-            <Picker
-              note
-              mode="dropdown"
-              style={styles.input}
-              selectedValue={localidad}
-              onValueChange={(e) => setLocalidad(e)}
-              iosIcon={
-                <Icon
-                  name="arrow-down"
-                  style={{ color: "#ccc", marginRight: 0 }}
-                />
-              }
-            >
-              <Picker.Item label="Seleccione una localidad" value="0" />
-              <Picker.Item label="Almirante Brown" value="1" />
-              <Picker.Item label="Banfield" value="2" />
-            </Picker>
-          </View>
-          <View style={{ marginTop: 10 }}>
             <Text style={styles.labelText}>Provincia</Text>
             <Picker
               note
@@ -242,11 +238,28 @@ export default function RegistroDni(props) {
                 />
               }
             >
-              <Picker.Item label="Seleccione una provincia" value="0" />
-              <Picker.Item label="Buenos Aires" value="1" />
-              <Picker.Item label="Chaco" value="2" />
+              {pickerItemsProvincias}
             </Picker>
           </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.labelText}>Localidad</Text>
+            <Picker
+              note
+              mode="dropdown"
+              style={styles.input}
+              selectedValue={localidad}
+              onValueChange={(e) => setLocalidad(e)}
+              iosIcon={
+                <Icon
+                  name="arrow-down"
+                  style={{ color: "#ccc", marginRight: 0 }}
+                />
+              }
+            >
+              {pickerItemsLocalidades}
+            </Picker>
+          </View>
+          
           <View
             style={{
               flex: 1,

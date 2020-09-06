@@ -6,6 +6,7 @@ const initialState = {
       latitude: -34.7922239,
       longitude: -58.38193479999999,
       direccion: "628 ADA, Jacinto Calvo, José Marmol",
+      name: "NegocioTest"
     },
   ],
   showInfoNegocio: false,

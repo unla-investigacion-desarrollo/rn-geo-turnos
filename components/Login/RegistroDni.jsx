@@ -88,6 +88,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={styles.input}
               value={documento}
+              keyboardType="numeric"
               onChangeText={(value) => setDocumento(value)}
             ></TextInput>
           </View>
@@ -99,6 +100,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={styles.input}
               value={nroTramite}
+              keyboardType="numeric"
               onChangeText={(value) => setNroTramite(value)}
             ></TextInput>
           </View>

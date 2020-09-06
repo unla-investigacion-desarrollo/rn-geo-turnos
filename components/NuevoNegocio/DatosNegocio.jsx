@@ -34,21 +34,21 @@ export default function DatosNegocio(props) {
   useEffect(() => {
     apiCalls.getLocalidades()
       .then((response) => {
-        response.data.unshift({idLocalidad:"0", nombre:"Seleccione una localidad"})
+        response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
         setLocalidades(response.data)
       }).catch((code,message) =>{
      });
 
     apiCalls.getProvincias()
       .then((response) => {
-        response.data.unshift({idProvincia:"0", nombre:"Seleccione una provincia"})
+        response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
         setProvincias(response.data)
       }).catch((code,message) =>{
       });
 
     apiCalls.getRubros()
       .then((response) => {
-        response.data.unshift({idRubro:"0", nombre:"Seleccione un rubro"})
+        response.data.unshift({idRubro:0, nombre:"Seleccione un rubro"})
         setRubros(response.data)
       }).catch((code,message) =>{
 
@@ -56,7 +56,7 @@ export default function DatosNegocio(props) {
     
     apiCalls.getTipoEmprendimiento()
       .then((response) => {
-        response.data.unshift({idTipoEmprendimiento:"0", nombre:"Seleccione tipo de emprendimiento"})
+        response.data.unshift({idTipoEmprendimiento:0, nombre:"Seleccione tipo de emprendimiento"})
         setEmprendimientos(response.data)
       }).catch((code,message) =>{
 
@@ -133,19 +133,19 @@ export default function DatosNegocio(props) {
   };
 
   const pickerItemsLocalidades = localidades.map(i => (
-    <Picker.Item label={i.nombre} value={i.idLocalidad} />
+    <Picker.Item key = {i.nombre} label={i.nombre} value={i.idLocalidad} />
   ))
 
   const pickerItemsProvincias = provincias.map(i => (
-    <Picker.Item label={i.nombre} value={i.idProvincia} />
+    <Picker.Item key = {i.nombre} label={i.nombre} value={i.idProvincia} />
   ))
 
   const pickerItemsRubros = rubros.map(i => (
-    <Picker.Item label={i.nombre} value={i.idRubro} />
+    <Picker.Item key = {i.nombre + "rubro"} label={i.nombre} value={i.idRubro} />
   ))
 
   const pickerItemEmprendimientos = emprendimientos.map(i => (
-    <Picker.Item label={i.nombre} value={i.idTipoEmprendimiento} />
+    <Picker.Item key = {i.nombre + "tipoEmprendimiento"} label={i.nombre} value={i.idTipoEmprendimiento} />
   ))
 
   return (
@@ -175,6 +175,7 @@ export default function DatosNegocio(props) {
                 <TextInput
                   style={styles.input}
                   value={cuit}
+                  keyboardType="numeric"
                   onChangeText={(e) => setCuit(e)}
                 ></TextInput>
               </View>
@@ -185,6 +186,7 @@ export default function DatosNegocio(props) {
                 <TextInput
                   style={styles.input}
                   value={telefono}
+                  keyboardType="numeric"
                   onChangeText={(e) => setTelefono(e)}
                 ></TextInput>
               </View>
@@ -208,6 +210,7 @@ export default function DatosNegocio(props) {
                 <View style={styles.viewContainer}>
                   <TextInput
                     style={styles.input}
+                    keyboardType="numeric"
                     value={numero}
                     onChangeText={(e) => setNumero(e)}
                   ></TextInput>
@@ -220,6 +223,7 @@ export default function DatosNegocio(props) {
                 <View style={styles.viewContainer}>
                   <TextInput
                     style={styles.input}
+                    keyboardType="numeric"
                     value={piso}
                     onChangeText={(e) => setPiso(e)}
                   ></TextInput>
