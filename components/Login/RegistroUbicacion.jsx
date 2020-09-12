@@ -110,7 +110,7 @@ export default function RegistroDni(props) {
           usuarioModi: "xlucio",
         })
         .then((response) => {
-          console.log("persona dada de alta");
+          //Toast type: 'success', text1: 'Bienvenido a ReactivAR', text2: "Su usuario ha sido dado de alta correctamente"
           dispatch({ type: actions.LOGGED, payload: 1 });
         }).catch((code,message) =>{
           console.log(code)

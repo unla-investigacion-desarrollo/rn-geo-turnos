@@ -35,31 +35,40 @@ export const searchPosition = async (direccion) => {
 };
 export const validarCamposDatosNegocio = (object) => {
   if (object.nombre === "") {
+    //Toast type: info, text1: 'Faltan completar datos:', text2: Nombre"
     return false;
   }
   if (object.cuit === "") {
+    //Toast type: info, text1: 'Faltan completar datos:', text2: N° cuit"
     return false;
   }
   if (object.calle === "") {
+    //Toast type: info, text1: 'Faltan completar datos:', text2: Calle"
     return false;
   }
   if (object.numero === "") {
+    //Toast type: info, text1: 'Faltan completar datos:', text2: Numero"
     return false;
   }
   if (object.rubro === 0) {
+    //Toast type: info, text1: 'Faltan completar datos: ', text2: Rubro"
     return false;
   }
   if (object.emprendimiento === 0) {
+    //Toast type: info, text1: 'Faltan completar datos: ', text2: Emprendimiento"
     return false;
   }
   if (object.localidad === 0) {
+    //Toast type: info, text1: 'Faltan completar datos: ', text2: Localidad"
     return false;
   }
   if (object.provincia === 0) {
+    //Toast type: info, text1: 'Faltan completar datos: ', text2: Provincia"
     return false;
   }
 
   if (object.capacidadPersonas === 0) {
+    //Toast type: info, text1: 'Faltan completar datos: ', text2: Capacidad de personas"
     return false;
   }
   return true;

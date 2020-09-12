@@ -5,6 +5,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";
 import { apiCalls } from "../../api/apiCalls";
+import { switchMenu } from "../../actions/menuSwitchActions";
+import { VER_NEGOCIOS } from "../../actions/menuOptions";
 
 
 export default function TurnosNegocio(props) {
@@ -33,6 +35,7 @@ export default function TurnosNegocio(props) {
         turno2Hasta: h.horaHasta2,
       })
     })
+
     dispatch(setDataNegocio(newNegocio));
       apiCalls
         .postAltaEmprendimiento({
@@ -57,7 +60,8 @@ export default function TurnosNegocio(props) {
 
         })
         .then((response) => {
-          console.log(response)
+          //Toast type: 'success', text1: 'Su negocio ha sido de alta correctamente'
+          dispatch(switchMenu(VER_NEGOCIOS))
         });
 
   };

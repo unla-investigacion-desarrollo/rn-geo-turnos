@@ -6,6 +6,8 @@ import store from "./store.js";
 import { StatusBar } from "react-native";
 import MenuSwitch from "./components/MenuSwitch";
 import { Root } from "native-base";
+import Toast from 'react-native-toast-message'
+
 console.disableYellowBox = true; //PARA ESCONDER LAS WARNINGS
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
         <View style={styles.container} style={{ flex: 1 }}>
           <MenuSwitch></MenuSwitch>
         </View>
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </Root>
     </Provider>
   );

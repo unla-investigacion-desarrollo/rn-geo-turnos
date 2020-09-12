@@ -16,8 +16,17 @@ export default function Ingreso(props) {
   const dispatch = useDispatch();
 
   const setLogged = () => {
-    if (documento.length > 0 && password.length > 0)
-      dispatch({ type: actions.LOGGED, payload: 1 });
+    
+    if (documento.length > 0 ){
+      if( password.length > 0){
+        dispatch({ type: actions.LOGGED, payload: 1 });
+      }else{
+          //Toast type: info, text1: 'Debe ingresar una contraseña'
+      }
+    }else{
+          //Toast type: info, text1: 'Debe ingresar su dni valida'
+
+    }
   };
 
   return (

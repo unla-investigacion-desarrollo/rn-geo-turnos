@@ -30,15 +30,21 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setData = () => {
-    if (documento.length > 0 && nroTramite.length > 0) {
-      let registroObject = {
-        documento: documento,
-        nroTramite: nroTramite,
-      };
-
-      dispatch(setRegisterData(registroObject));
-
-      props.navigation.navigate("Datos Personales");
+    if (documento.length > 0 ) {
+      if (nroTramite.length > 0){
+        let registroObject = {
+          documento: documento,
+          nroTramite: nroTramite,
+        };
+  
+        dispatch(setRegisterData(registroObject));
+  
+        props.navigation.navigate("Datos Personales");
+      }else{
+        //Toast type: info, text1: 'Debe ingresar su numero de tramite', text2: "Puede encontrarlo en la parte inferior de su DNI"
+      }
+    }else{
+      //Toast type: info, text1: 'Debe ingresar su numero de documento'
     }
   };
 

@@ -46,17 +46,19 @@ export default function VerNegocios(props) {
         .getEmprendimientos()
         .then((response) => {
           let negocios = response.data
+          if (negocios.length > 0){
+            negocios.forEach(n => {
+              n.latitude = parseFloat(n.ubicacion.latitud)
+              n.longitude = parseFloat(n.ubicacion.longitud)
+              n.direccion = n.ubicacion.calle 
+              n.name = n.nombre
+            })
+            dispatch(addNegocios(negocios));
+          }else{
+            //Toast type: info, text1: 'No se encontraron negocios con esos parametros'
+          }
           
-          negocios.forEach(n => {
-            n.latitude = parseFloat(n.ubicacion.latitud)
-            n.longitude = parseFloat(n.ubicacion.longitud)
-            n.direccion = n.ubicacion.calle 
-            n.name = n.nombre
-          })
-          dispatch(addNegocios(negocios));
         }).catch((code,message) =>{
-          // console.log(code)
-          // console.log(message)
         });
   };
 
