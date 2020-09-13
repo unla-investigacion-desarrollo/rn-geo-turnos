@@ -45,7 +45,15 @@ export default function ToastrInfo({ message, cerrarToastr }) {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <TouchableOpacity onPress={cerrarToastr}>
+          <TouchableOpacity
+            onPress={cerrarToastr}
+            style={{
+              height: 50,
+              width: 50,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <FontAwesomeIcon icon={faTimes} size={17} color="#ccc" />
           </TouchableOpacity>
         </View>

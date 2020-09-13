@@ -29,7 +29,7 @@ export default function Toastr() {
     dispatch(
       showToast({
         message: "",
-        type: "success",
+        type: "succes",
         visibilityTime: 20000,
       })
     );
