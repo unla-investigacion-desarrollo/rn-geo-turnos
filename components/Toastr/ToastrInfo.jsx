@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { TouchableOpacity } from "react-native";
 
 export default function ToastrInfo({ message, cerrarToastr }) {
   return (

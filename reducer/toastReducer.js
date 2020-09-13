@@ -1,8 +1,8 @@
 import { actions } from "../actions/types";
 
 const initialState = {
-  message: "",
-  type: "warning",
+  message: "Toastr Creado para ReactivAR",
+  type: "error",
   visibilityTime: 0,
 };
 

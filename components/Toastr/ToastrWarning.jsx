@@ -5,7 +5,7 @@ import {
   faExclamationTriangle,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 export default function ToastrWarning({ message, cerrarToastr }) {
   return (
