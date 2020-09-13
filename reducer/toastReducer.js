@@ -1,10 +1,9 @@
 import { actions } from "../actions/types";
 
 const initialState = {
-  text1:"",
-  text2:"",
-  type:"error",
-  visibilityTime:2000
+  message: "",
+  type: "warning",
+  visibilityTime: 0,
 };
 
 export default function (state = initialState, action) {
@@ -12,8 +11,7 @@ export default function (state = initialState, action) {
     case actions.TOAST:
       return {
         ...state,
-        text1: action.payload.text1,
-        text2: action.payload.text2,
+        message: action.payload.message,
         type: action.payload.type,
         visibilityTime: action.payload.visibilityTime,
       };

@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
 import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
-import { addNegocios } from "../../actions/negociosListActions";
 import { actions } from "../../actions/types";
-import { apiCalls } from "../../api/apiCalls";
-import { showToast } from "../../actions/toastActions"
 
+import { showToast } from "../../actions/toastActions";
 
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
@@ -37,39 +35,6 @@ export default function VerNegocios(props) {
         name: name,
       })
     );
-  };
-
-  useEffect(() => {
-    getNegocios()
-    
-  }, []);
-
-
-
-  const getNegocios = () => {
-    
-    apiCalls
-        .getEmprendimientos()
-        .then((response) => {
-          let negocios = response.data
-          if (negocios.length > 0){
-            negocios.forEach(n => {
-              n.latitude = parseFloat(n.ubicacion.latitud)
-              n.longitude = parseFloat(n.ubicacion.longitud)
-              n.calle = n.ubicacion.calle
-              n.numero = n.ubicacion.numero
-              n.name = n.nombre
-              n.idEmprendimiento = n.idEmprendimiento
-              
-            })
-            dispatch(addNegocios(negocios));
-            // dispatch(showToast({text1: "traje negoicos", text2:"piola", type:"success", visibilityTime:20000}))
-          }else{
-            //Toast type: info, text1: 'No se encontraron negocios con esos parametros'
-          }
-          
-        }).catch((code,message) =>{
-        });
   };
 
   const marcarNegocios = () => {
