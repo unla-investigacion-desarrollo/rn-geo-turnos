@@ -10,8 +10,8 @@ function MenuSwitch() {
 
   return (
     <>
-      {toast_info.message !== "" && <Toastr></Toastr>}
       {login.logged === 1 ? <Logged /> : <Login />}
+      {toast_info.message !== "" && <Toastr></Toastr>}
     </>
   );
 }

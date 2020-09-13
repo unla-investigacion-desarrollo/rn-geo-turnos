@@ -16,6 +16,7 @@ export default function ToastrWarning({ message, cerrarToastr }) {
         width: "100%",
         borderRadius: 10,
         borderLeftWidth: 6,
+        elevation: 20,
         borderLeftColor: "#ffd24d",
         shadowColor: "#000000",
         shadowOpacity: 0.8,
@@ -40,7 +41,7 @@ export default function ToastrWarning({ message, cerrarToastr }) {
           style={{
             flex: 3,
             justifyContent: "center",
-            alignItems: "left",
+
             width: "70%",
           }}
         >

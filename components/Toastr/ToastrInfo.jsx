@@ -12,6 +12,7 @@ export default function ToastrInfo({ message, cerrarToastr }) {
         height: 70,
         width: "100%",
         borderRadius: 10,
+        elevation: 20,
         borderLeftWidth: 6,
         borderLeftColor: "#19d0e1",
         shadowColor: "#000000",
@@ -33,7 +34,7 @@ export default function ToastrInfo({ message, cerrarToastr }) {
           style={{
             flex: 3,
             justifyContent: "center",
-            alignItems: "left",
+
             width: "70%",
           }}
         >
