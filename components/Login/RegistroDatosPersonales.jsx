@@ -19,6 +19,7 @@ export default function RegistroDni(props) {
   const [apellido, setApellido] = useState("");
   const [cuil, setCuil] = useState("");
   const [celular, setCelular] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
   const registro = useSelector((state) => state.registro);
@@ -40,6 +41,9 @@ export default function RegistroDni(props) {
     if (registerOjecto.celular) {
       setCelular(registerOjecto.celular);
     }
+    if (registerOjecto.email) {
+      setEmail(registerOjecto.email);
+    }
     if (registerOjecto.password && !isConfig ) {
       setPassword(registerOjecto.password);
     }
@@ -51,6 +55,7 @@ export default function RegistroDni(props) {
       apellido.length > 0 &&
       cuil.length > 0 &&
       celular.length > 0 &&
+      email.length > 0 &&
       password.length > 0
     ) {
       let registroObject = {
@@ -58,6 +63,7 @@ export default function RegistroDni(props) {
         apellido: apellido,
         cuil: cuil,
         celular: celular,
+        email: email,
         password: password,
         documento: registro.registerData.documento,
         nroTramite: registro.registerData.nroTramite,
@@ -84,6 +90,7 @@ export default function RegistroDni(props) {
       nombre: registro.registerData.nombre,
       apellido: registro.registerData.apellido,
       cuil: registro.registerData.cuil,
+      email: email,
       password: password,
     };
 
@@ -164,6 +171,17 @@ export default function RegistroDni(props) {
           </Text>
           <View style={{ marginTop: 10 }}>
             <Text style={{ color: "white", fontWeight: "bold" }}>
+              Correo electronico
+            </Text>
+
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={(value) => setEmail(value)}
+            ></TextInput>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
               Contraseña
             </Text>
 
@@ -185,9 +203,10 @@ export default function RegistroDni(props) {
             ></TextInput>
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+        
+        <View style={{ flex: 1, paddingTop: 50 }}>
           <TouchableOpacity
-            style={{ height: 50 }}
+            style={{ height: 50}}
             onPress={isConfig ? saveNewData : setData}
           >
             <View

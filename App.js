@@ -3,13 +3,24 @@ import { View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import { Provider } from "react-redux";
 import store from "./store.js";
-import { StatusBar } from "react-native";
+import { StatusBar, Text } from "react-native";
 import MenuSwitch from "./components/MenuSwitch";
 import { Root } from "native-base";
 import Toast from 'react-native-toast-message'
 
 console.disableYellowBox = true; //PARA ESCONDER LAS WARNINGS
 function App() {
+
+  const toastConfig = {
+    'success': (internalState) => (
+      <View style={{ height: 60, width: '100%', borderRadius: 10, margin: 10, padding: 10, borderWidth: 3, borderColor: "green" }}>
+        <Text>{internalState.text1}</Text>
+      </View>  
+    ),
+    'error': () => {},
+    'info': () => {},
+  }
+
   return (
     <Provider store={store}>
       <Root>
@@ -35,7 +46,7 @@ function App() {
         <View style={styles.container} style={{ flex: 1 }}>
           <MenuSwitch></MenuSwitch>
         </View>
-        <Toast ref={(ref) => Toast.setRef(ref)} />
+        <Toast  ref={(ref) => Toast.setRef(ref)} />
       </Root>
     </Provider>
   );

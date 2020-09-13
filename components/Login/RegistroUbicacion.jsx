@@ -87,6 +87,7 @@ export default function RegistroDni(props) {
 
   const setLogged = () => {
     
+   
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
       apiCalls
         .postAltaUsuario({
@@ -97,8 +98,6 @@ export default function RegistroDni(props) {
           loginVo: {
             clave: registro.registerData.password,
             email: registro.registerData.email
-              ? registro.registerData.email
-              : "@asdmail",
           },
           nombre: registro.registerData.nombre,
           ubicacionVo: {
@@ -159,6 +158,7 @@ export default function RegistroDni(props) {
           nombre: registro.registerData.nombre,
           apellido: registro.registerData.apellido,
           cuil: registro.registerData.cuil,
+          email:registro.registerData.email,
           password: registro.registerData.password,
         };
         dispatch(setRegisterData(registroObject));

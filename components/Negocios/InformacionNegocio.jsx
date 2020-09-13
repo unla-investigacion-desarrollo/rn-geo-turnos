@@ -70,7 +70,7 @@ export default function InformacionNegocio(props) {
               width: "100%",
             }}
           >
-            {marcador_seleccionado.direccion}
+            {marcador_seleccionado.calle + " " + marcador_seleccionado.numero}
           </Text>
 
           <FontAwesomeIcon

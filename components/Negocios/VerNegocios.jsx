@@ -8,10 +8,13 @@ import { selectMarker } from "../../actions/selectMarkerActions";
 import { addNegocios } from "../../actions/negociosListActions";
 import { actions } from "../../actions/types";
 import { apiCalls } from "../../api/apiCalls";
+import { showToast } from "../../actions/toastActions"
+
 
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
+
   const showInfoNegocio = useSelector(
     (state) => state.lista_negocios.showInfoNegocio
   ); //Lista de negocios cercanos
@@ -21,15 +24,15 @@ export default function VerNegocios(props) {
     dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: mostrar });
   };
 
-  const seleccionarMarker = (lat, longitud, direccion, id, name) => {
+  const seleccionarMarker = (lat, longitud, calle, numero, id, name) => {
     //Selecciono marcador dentro del mapa
     setShowInfoNegocio(true);
-
     dispatch(
       selectMarker({
         latitude: lat,
         longitude: longitud,
-        direccion: direccion,
+        calle: calle,
+        numero: numero,
         id: id,
         name: name,
       })
@@ -38,10 +41,13 @@ export default function VerNegocios(props) {
 
   useEffect(() => {
     getNegocios()
+    
   }, []);
 
 
+
   const getNegocios = () => {
+    
     apiCalls
         .getEmprendimientos()
         .then((response) => {
@@ -50,11 +56,14 @@ export default function VerNegocios(props) {
             negocios.forEach(n => {
               n.latitude = parseFloat(n.ubicacion.latitud)
               n.longitude = parseFloat(n.ubicacion.longitud)
-              n.direccion = n.ubicacion.calle 
+              n.calle = n.ubicacion.calle
+              n.numero = n.ubicacion.numero
               n.name = n.nombre
               n.idEmprendimiento = n.idEmprendimiento
+              
             })
             dispatch(addNegocios(negocios));
+            // dispatch(showToast({text1: "traje negoicos", text2:"piola", type:"success", visibilityTime:20000}))
           }else{
             //Toast type: info, text1: 'No se encontraron negocios con esos parametros'
           }
@@ -73,7 +82,8 @@ export default function VerNegocios(props) {
             seleccionarMarker(
               marker.latitude,
               marker.longitude,
-              marker.direccion,
+              marker.calle,
+              marker.numero,
               marker.idEmprendimiento,
               marker.name
             )

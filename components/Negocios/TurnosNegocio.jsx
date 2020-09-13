@@ -17,15 +17,17 @@ export default function TurnosNegocio(props) {
   const negocio = useSelector(
     (state) => state.marker_seleccionado.marcador_seleccionado
   );
-  const [day, setDay] = useState(new Date());
-  const [hour, setHour] = useState(0);
+  const [day, setDay] = useState(new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear());
+  const [hour, setHour] = useState(horarios[0]);
   const [comments, setComments] = useState("");
 
+  console.log(negocio)
+
+
   const postReservarTurno = () => {
-    // console.log(day)
-    // console.log(hour)
+
     let splitDay = day.split("/")
-    let fechaHora = splitDay[2] + "-" + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
+    let fechaHora = splitDay[2] + (parseInt(splitDay[1]) <= 9 ? "-0" : "-") + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
     console.log(fechaHora)
     apiCalls.postTurnos({
       fechaHora: fechaHora,
@@ -35,6 +37,7 @@ export default function TurnosNegocio(props) {
       observaciones: comments,
       usuarioModi: "xlucio"
     }).then((response) => {
+      console.log("Turno dado de alta correctamente")
     }).catch((code,message) => {
       console.log("Error al reservar turno")
     })
@@ -51,8 +54,8 @@ export default function TurnosNegocio(props) {
       >
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
           <View style={{ marginTop: 15 }}>
-            <Text style={styles.name}>**Nombre del negocio**</Text>
-            <Text style={styles.address}>Dirección: {negocio.direccion}</Text>
+            <Text style={styles.name}>{negocio.name}</Text>
+            <Text style={styles.address}>Dirección: {negocio.calle} {negocio.numero}</Text>
             <Text></Text>
             <Text style={styles.labelText}>Dia</Text>
 
