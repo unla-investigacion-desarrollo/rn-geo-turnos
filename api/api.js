@@ -9,7 +9,6 @@ export default axios.create({
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
         'Accept': 'application/json',
-        'token_auth': 'eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFjdGl2YXIiLCJzdWIiOiJhZG1pbkB1bmxhIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU5ODgxOTAyNiwiZXhwIjoxNTk4ODE5MzI2fQ._GYnl5DL7M55Ra83sLjHy6nDLtPwBbJ2nZhvev4ns9O8n27XkE6p9JRYk3LS7ccbxmeOvGWuwWPhIDujPYEU6w'
     }
 });
 

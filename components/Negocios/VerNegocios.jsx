@@ -52,6 +52,7 @@ export default function VerNegocios(props) {
               n.longitude = parseFloat(n.ubicacion.longitud)
               n.direccion = n.ubicacion.calle 
               n.name = n.nombre
+              n.idEmprendimiento = n.idEmprendimiento
             })
             dispatch(addNegocios(negocios));
           }else{
@@ -73,7 +74,7 @@ export default function VerNegocios(props) {
               marker.latitude,
               marker.longitude,
               marker.direccion,
-              marker.idNegocio,
+              marker.idEmprendimiento,
               marker.name
             )
           }

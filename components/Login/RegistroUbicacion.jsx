@@ -25,16 +25,20 @@ export default function RegistroDni(props) {
   const [localidades, setLocalidades] = useState([]);
   const [provincia, setProvincia] = useState(0);
   const [provincias, setProvincias] = useState([]);
+  const [enableLocalidades, setEnableLocalidades] = useState(false);
   const dispatch = useDispatch();
 
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
+    setEnableLocalidades(false)
     apiCalls.getLocalidades()
       .then((response) => {
         response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
         setLocalidades(response.data)
       }).catch((code,message) =>{
+          console.log(code)
+          console.log(message)
      });
 
     apiCalls.getProvincias()
@@ -42,7 +46,7 @@ export default function RegistroDni(props) {
         response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
         setProvincias(response.data)
       }).catch((code,message) =>{
-      });
+    });
 
     apiCalls.getRubros()
       .then((response) => {
@@ -82,6 +86,7 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setLogged = () => {
+    
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
       apiCalls
         .postAltaUsuario({
@@ -93,7 +98,7 @@ export default function RegistroDni(props) {
             clave: registro.registerData.password,
             email: registro.registerData.email
               ? registro.registerData.email
-              : "@mail",
+              : "@asdmail",
           },
           nombre: registro.registerData.nombre,
           ubicacionVo: {
@@ -118,6 +123,17 @@ export default function RegistroDni(props) {
         });
     }
   };
+
+  const getLocalidadesPorProvincia = (e) => {
+    setProvincia(e)
+    apiCalls.getLocalidadesPorProvincia(e)
+      .then((response) => {
+        setEnableLocalidades(true)
+        response.data.unshift({idProvincia:0, nombre:"Seleccione una localidad"})
+        setLocalidades(response.data)
+      }).catch((code,message) =>{
+    });
+  }
 
   const setLocation = () => {
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
@@ -230,7 +246,7 @@ export default function RegistroDni(props) {
               mode="dropdown"
               style={styles.input}
               selectedValue={provincia}
-              onValueChange={(e) => setProvincia(e)}
+              onValueChange={(e) => getLocalidadesPorProvincia(e)}
               iosIcon={
                 <Icon
                   name="arrow-down"
@@ -248,6 +264,7 @@ export default function RegistroDni(props) {
               mode="dropdown"
               style={styles.input}
               selectedValue={localidad}
+              enabled={enableLocalidades}
               onValueChange={(e) => setLocalidad(e)}
               iosIcon={
                 <Icon

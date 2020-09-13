@@ -17,29 +17,27 @@ export default function TurnosNegocio(props) {
   const negocio = useSelector(
     (state) => state.marker_seleccionado.marcador_seleccionado
   );
-
   const [day, setDay] = useState(new Date());
   const [hour, setHour] = useState(0);
   const [comments, setComments] = useState("");
 
   const postReservarTurno = () => {
-    //EJEMPLO API CALL
-    // apiCalls.postArticulo({
-    //   activoComercial: true,
-    //   codBarra: "asd",
-    //   descripcion: "asd",
-    //   foto: "asd",
-    //   idCategoria: 1,
-    //   idMarca: 1,
-    //   idUnidadMedida: 1,
-    //   nombre: "asd",
-    //   peso: "asd",
-    //   precio: 1,
-    //   usuarioModi: "asd",
-    //   visible: true
-    // }).then((response) => {
-    //   console.log(response.data)
-    // })
+    // console.log(day)
+    // console.log(hour)
+    let splitDay = day.split("/")
+    let fechaHora = splitDay[2] + "-" + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
+    console.log(fechaHora)
+    apiCalls.postTurnos({
+      fechaHora: fechaHora,
+      idEmprendimiento: negocio.id,
+      idEstadoTurno: 1,
+      idPersona: 2,
+      observaciones: comments,
+      usuarioModi: "xlucio"
+    }).then((response) => {
+    }).catch((code,message) => {
+      console.log("Error al reservar turno")
+    })
   };
 
   return (
@@ -107,6 +105,7 @@ export default function TurnosNegocio(props) {
               <TextInput
                 style={styles.textBox}
                 multiline={true}
+                value={comments}
                 onChangeText={(e) => setComments(e)}
               ></TextInput>
             </View>

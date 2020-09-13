@@ -29,9 +29,11 @@ export default function DatosNegocio(props) {
   const [localidades, setLocalidades] = useState([]);
   const [provincia, setProvincia] = useState(0);
   const [provincias, setProvincias] = useState([]);
+  const [enableLocalidades, setEnableLocalidades] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setEnableLocalidades(false)
     apiCalls.getLocalidades()
       .then((response) => {
         response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
@@ -44,7 +46,7 @@ export default function DatosNegocio(props) {
         response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
         setProvincias(response.data)
       }).catch((code,message) =>{
-      });
+    });
 
     apiCalls.getRubros()
       .then((response) => {
@@ -100,6 +102,16 @@ export default function DatosNegocio(props) {
     }
   }, [datosNegocio]);
 
+  const getLocalidadesPorProvincia = (e) => {
+    setProvincia(e)
+    apiCalls.getLocalidadesPorProvincia(e)
+      .then((response) => {
+        setEnableLocalidades(true)
+        response.data.unshift({idProvincia:0, nombre:"Seleccione una localidad"})
+        setLocalidades(response.data)
+      }).catch((code,message) =>{
+    });
+  }
 
 
   const continuar = () => {
@@ -250,7 +262,7 @@ export default function DatosNegocio(props) {
               mode="dropdown"
               style={styles.input}
               selectedValue={provincia}
-              onValueChange={(e) => setProvincia(e)}
+              onValueChange={(e) => getLocalidadesPorProvincia(e)}
               iosIcon={
                 <Icon
                   name="arrow-down"
@@ -268,6 +280,7 @@ export default function DatosNegocio(props) {
               mode="dropdown"
               style={styles.input}
               selectedValue={localidad}
+              enabled={enableLocalidades}
               onValueChange={(e) => setLocalidad(e)}
               iosIcon={
                 <Icon
