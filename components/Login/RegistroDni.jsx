@@ -12,6 +12,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
+import { actions } from "../../actions/types";
+
 
 export default function RegistroDni(props) {
   const [documento, setDocumento] = useState("");
@@ -41,10 +43,22 @@ export default function RegistroDni(props) {
   
         props.navigation.navigate("Datos Personales");
       }else{
-        //Toast type: info, text1: 'Debe ingresar su numero de tramite', text2: "Puede encontrarlo en la parte inferior de su DNI"
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Debe ingresar su N° de tramite. Puede encontrarlo en la parte inferior de su documento" ,
+            type: "warning",
+            visibilityTime: 10000
+          }
+        })
       }
     }else{
-      //Toast type: info, text1: 'Debe ingresar su numero de documento'
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Debe ingresar su N° de documento" ,
+          type: "warning",
+          visibilityTime: 10000
+        }
+      })
     }
   };
 

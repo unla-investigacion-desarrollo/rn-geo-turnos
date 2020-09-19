@@ -108,13 +108,19 @@ export default function RegistroDni(props) {
             idProvincia: registro.registerData.provincia,
             latitud: registro.registerData.latitude,
             longitud: registro.registerData.longitude,
-            piso: 1, // Falta hacer que el campo sea solo numerico, sino la api pincha
-            usuarioModi: "xlucio",
+            piso: piso, 
+            usuarioModi: registro.registerData.cuil,
           },
-          usuarioModi: "xlucio",
+          usuarioModi: registro.registerData.cuil,
         })
         .then((response) => {
-          //Toast type: 'success', text1: 'Bienvenido a ReactivAR', text2: "Su usuario ha sido dado de alta correctamente"
+          dispatch( {
+            type: actions.TOAST, payload: {
+              message: "Bienvenido a ReactivAR " +registro.registerData.nombre ,
+              type: "success",
+              visibilityTime: 10000
+            }
+          } )
           dispatch({ type: actions.LOGGED, payload: 1 });
         }).catch((code,message) =>{
           console.log(code)

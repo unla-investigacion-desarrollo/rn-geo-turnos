@@ -10,6 +10,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { apiCalls } from "../../api/apiCalls";
+import { actions } from "../../actions/types";
 
 export default function DatosNegocio(props) {
   const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
@@ -131,7 +132,8 @@ export default function DatosNegocio(props) {
       latitude: 0,
       longitude: 0,
     };
-    if (validarCamposDatosNegocio(dataNegocio)) {
+    let dataNegocioValida = validarCamposDatosNegocio(dataNegocio)
+    if (dataNegocioValida === "") {
       searchPosition(calle + " " + numero).then((response) => {
         dataNegocio.latitude = response.latitude;
         dataNegocio.longitude = response.longitude;
@@ -141,6 +143,15 @@ export default function DatosNegocio(props) {
           props.navigation.navigate("Ubicación Negocio");
         }
       });
+    }else{
+      console.log(dataNegocioValida)
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Faltan completar campos: " + dataNegocioValida ,
+          type: "warning",
+          visibilityTime: 10000
+        }
+      })
     }
   };
 

@@ -7,40 +7,64 @@ import {
   TextInput,
 } from "react-native";
 import { Picker, Icon, Left, Right } from "native-base";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { apiCalls } from "../../api/apiCalls";
 import { LinearGradient } from "expo-linear-gradient";
 import DatePicker from "react-native-datepicker";
 import { horarios } from "../../Utils/constantes";
+import { actions } from "../../actions/types";
 
-export default function TurnosNegocio(props) {
+
+export default function TurnosNegocio ( props ) {
   const negocio = useSelector(
-    (state) => state.marker_seleccionado.marcador_seleccionado
+    ( state ) => state.marker_seleccionado.marcador_seleccionado
   );
-  const [day, setDay] = useState(new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear());
-  const [hour, setHour] = useState(horarios[0]);
-  const [comments, setComments] = useState("");
+  const dispatch = useDispatch();
 
-  console.log(negocio)
+  const [day, setDay] = useState( new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
+  const [hour, setHour] = useState( horarios[0] );
+  const [comments, setComments] = useState( "" );
+
+  console.log( negocio )
 
 
   const postReservarTurno = () => {
 
-    let splitDay = day.split("/")
-    let fechaHora = splitDay[2] + (parseInt(splitDay[1]) <= 9 ? "-0" : "-") + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
-    console.log(fechaHora)
-    apiCalls.postTurnos({
+    let splitDay = day.split( "/" )
+    let fechaHora = splitDay[2] + ( parseInt( splitDay[1] ) <= 9 ? "-0" : "-" ) + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
+    console.log( {
       fechaHora: fechaHora,
       idEmprendimiento: negocio.id,
       idEstadoTurno: 1,
       idPersona: 2,
       observaciones: comments,
       usuarioModi: "xlucio"
-    }).then((response) => {
-      console.log("Turno dado de alta correctamente")
-    }).catch((code,message) => {
-      console.log("Error al reservar turno")
-    })
+    } )
+    apiCalls.postTurnos( {
+      fechaHora: fechaHora,
+      idEmprendimiento: negocio.id ? negocio.id : 1,
+      idEstadoTurno: 1,
+      idPersona: 2,
+      observaciones: comments,
+      usuarioModi: "xlucio"
+    } ).then( ( response ) => {
+      console.log( "Turno dado de alta correctamente" )
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Turno dado de alta correctamente",
+          type: "success",
+          visibilityTime: 10000
+        }
+      } )
+    } ).catch( ( code, message ) => {
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Error al reservar un turno",
+          type: "error",
+          visibilityTime: 3000
+        }
+      } )
+    } )
   };
 
   return (
@@ -62,7 +86,7 @@ export default function TurnosNegocio(props) {
             <DatePicker
               locale={"es"}
               style={styles.input}
-              onDateChange={(date) => setDay(date)}
+              onDateChange={( date ) => setDay( date )}
               date={day}
               customStyles={{
                 dateInput: {
@@ -88,7 +112,7 @@ export default function TurnosNegocio(props) {
               note
               mode="dropdown"
               style={styles.input}
-              onValueChange={(e) => setHour(e)}
+              onValueChange={( e ) => setHour( e )}
               selectedValue={hour}
               iosIcon={
                 <Icon
@@ -97,9 +121,9 @@ export default function TurnosNegocio(props) {
                 />
               }
             >
-              {horarios.map((hora) => {
+              {horarios.map( ( hora ) => {
                 return <Picker.Item label={hora} value={hora} />;
-              })}
+              } )}
             </Picker>
           </View>
           <View style={{ marginTop: 10 }}>
@@ -109,7 +133,7 @@ export default function TurnosNegocio(props) {
                 style={styles.textBox}
                 multiline={true}
                 value={comments}
-                onChangeText={(e) => setComments(e)}
+                onChangeText={( e ) => setComments( e )}
               ></TextInput>
             </View>
           </View>
@@ -129,7 +153,7 @@ export default function TurnosNegocio(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
   input: {
     height: 35,
     elevation: 8,
@@ -189,4 +213,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 5,
   },
-});
+} );

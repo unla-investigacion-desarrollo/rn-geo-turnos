@@ -21,10 +21,22 @@ export default function Ingreso(props) {
       if( password.length > 0){
         dispatch({ type: actions.LOGGED, payload: 1 });
       }else{
-          //Toast type: info, text1: 'Debe ingresar una contraseña'
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Debe ingresar una contraseña" ,
+            type: "warning",
+            visibilityTime: 10000
+          }
+        } )
       }
     }else{
-          //Toast type: info, text1: 'Debe ingresar su dni valida'
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Debe ingresar su DNI" ,
+          type: "warning",
+          visibilityTime: 10000
+        }
+      } )
 
     }
   };
