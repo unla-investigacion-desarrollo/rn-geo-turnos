@@ -10,7 +10,7 @@ export default function NavigationVerNegocios() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //getNegocios(dispatch);
+    getNegocios(dispatch);
   });
 
   const createHomeStack = () => {

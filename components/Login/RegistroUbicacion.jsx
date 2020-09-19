@@ -65,24 +65,44 @@ export default function RegistroDni(props) {
       });
     let registerOjecto = registro.registerData;
 
-    if (registerOjecto.calle) {
-      setCalle(registerOjecto.calle);
-    }
-    if (registerOjecto.numero) {
-      setNumero(registerOjecto.numero);
-    }
-    if (registerOjecto.piso) {
-      setPiso(registerOjecto.piso);
-    }
-    if (registerOjecto.depto) {
-      setDepto(registerOjecto.depto);
-    }
-    if (registerOjecto.localidad) {
-      setLocalidad(registerOjecto.localidad);
-    }
-    if (registerOjecto.provincia) {
-      setProvincia(registerOjecto.provincia);
-    }
+    // if (registerOjecto.calle) {
+    //   setCalle(registerOjecto.calle);
+    // }
+    // if (registerOjecto.numero) {
+    //   setNumero(registerOjecto.numero);
+    // }
+    // if (registerOjecto.piso) {
+    //   setPiso(registerOjecto.piso);
+    // }
+    // if (registerOjecto.depto) {
+    //   setDepto(registerOjecto.depto);
+    // }
+    // if (registerOjecto.localidad) {
+    //   setLocalidad(registerOjecto.localidad);
+    // }
+    // if (registerOjecto.provincia) {
+    //   setProvincia(registerOjecto.provincia);
+    apiCalls.getInfoUsuario( 
+      1 // TODO Remplazar por token
+      ).then( ( response ) => {
+        console.log(response.data)
+        setCalle(response.data.ubicacion.calle);
+        setNumero(response.data.ubicacion.numero.toString());
+        setDepto(response.data.ubicacion.departamento);
+        setPiso(response.data.ubicacion.piso.toString())
+        setProvincia(response.data.ubicacion.localidad.provincia.idProvincia);
+        setLocalidad(response.data.ubicacion.localidad.idLocalidad);
+    }).catch( ( code, message ) => {
+
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Error al traer la informacion del usuario",
+          type: "error",
+          visibilityTime: 5000
+        }
+      } )
+    } )
+    
   }, [registro]);
 
   const setLogged = () => {

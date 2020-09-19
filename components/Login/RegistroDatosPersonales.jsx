@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-
+import { apiCalls } from "../../api/apiCalls";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -28,26 +28,49 @@ export default function RegistroDni(props) {
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
-    let registerOjecto = registro.registerData;
-    if (registerOjecto.nombre) {
-      setNombre(registerOjecto.nombre);
+    if (!isConfig){
+      let registerOjecto = registro.registerData;
+      if (registerOjecto.nombre) {
+        setNombre(registerOjecto.nombre);
+      }
+      if (registerOjecto.apellido) {
+        setApellido(registerOjecto.apellido);
+      }
+      if (registerOjecto.cuil) {
+        setCuil(registerOjecto.cuil);
+      }
+      if (registerOjecto.celular) {
+        setCelular(registerOjecto.celular);
+      }
+      if (registerOjecto.email) {
+        setEmail(registerOjecto.email);
+      }
+      if (registerOjecto.password && !isConfig ) {
+        setPassword(registerOjecto.password);
+      }
+    }else{
+      apiCalls.getInfoUsuario( 
+        2 // TODO Remplazar por token
+        ).then( ( response ) => {
+          console.log(response.data)
+          setNombre(response.data.nombre);
+          setApellido(response.data.apellido);
+          setCuil(response.data.cuil);
+          setCelular(response.data.celular);
+          setEmail(response.data.login.email);
+      }).catch( ( code, message ) => {
+
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Error al traer la informacion del usuario",
+            type: "error",
+            visibilityTime: 5000
+          }
+        } )
+      } )
     }
-    if (registerOjecto.apellido) {
-      setApellido(registerOjecto.apellido);
-    }
-    if (registerOjecto.cuil) {
-      setCuil(registerOjecto.cuil);
-    }
-    if (registerOjecto.celular) {
-      setCelular(registerOjecto.celular);
-    }
-    if (registerOjecto.email) {
-      setEmail(registerOjecto.email);
-    }
-    if (registerOjecto.password && !isConfig ) {
-      setPassword(registerOjecto.password);
-    }
-  }, [registro]);
+    
+  }, []);
 
   const setData = () => {
     if (

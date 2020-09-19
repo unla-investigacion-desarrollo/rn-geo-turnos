@@ -160,7 +160,6 @@ export default function HorariosNegocio(props) {
               </Picker>
             </View>
             <View style={{ flex: 1 }}>
-              <View>
                 <Text style={styles.labelText}>Hora Hasta</Text>
                 <Picker
                   note
@@ -182,7 +181,6 @@ export default function HorariosNegocio(props) {
                   })}
                 </Picker>
               </View>
-            </View>
           </View>
           <View style={{ flexDirection: "row", flex: 1 }}>
             <View style={{ flex: 1, paddingRight: 10 }}>
@@ -206,7 +204,6 @@ export default function HorariosNegocio(props) {
               </Picker>
             </View>
             <View style={{ flex: 1 }}>
-              <View>
                 <Text style={styles.labelText}>Hora Hasta</Text>
                 <Picker
                   note
@@ -227,7 +224,6 @@ export default function HorariosNegocio(props) {
                     );
                   })}
                 </Picker>
-              </View>
             </View>
           </View>
           <View
@@ -244,6 +240,7 @@ export default function HorariosNegocio(props) {
                   backgroundColor: "#2572FF",
                   padding: 5,
                   borderRadius: 5,
+                  bottom:-20
                 }}
               >
                 <Text style={{ color: "#fff" }}>Añadir Horario</Text>

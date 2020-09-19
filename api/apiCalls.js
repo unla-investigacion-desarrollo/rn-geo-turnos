@@ -40,7 +40,12 @@ function postTurnos(parameters){
     return api.post('/turno/', parameters);
 }
 
+function getInfoUsuario(idPersona){
+    return api.get('/fisica/' + idPersona)
+}
+
 export const apiCalls = {
+    getInfoUsuario,
     getLocalidades,
     getRubros,
     getTipoEmprendimiento,

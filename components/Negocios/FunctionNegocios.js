@@ -16,6 +16,7 @@ export const getNegocios = (dispatch) => {
           n.name = n.nombre;
           n.idEmprendimiento = n.idEmprendimiento;
         });
+        console.log(negocios.length)
         dispatch(addNegocios(negocios));
       } else {
         //Toast type: info, text1: 'No se encontraron negocios con esos parametros'
