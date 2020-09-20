@@ -44,8 +44,13 @@ function getInfoUsuario(idPersona){
     return api.get('/fisica/' + idPersona)
 }
 
+function postResetPassword(parameters){
+    return api.post('/persona/resetpassword/', parameters);
+}
+
 export const apiCalls = {
     getInfoUsuario,
+    postResetPassword,
     getLocalidades,
     getRubros,
     getTipoEmprendimiento,

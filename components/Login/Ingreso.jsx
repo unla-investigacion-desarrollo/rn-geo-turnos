@@ -134,6 +134,28 @@ export default function Ingreso(props) {
               </View>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              padding: 15,
+              paddingLeft: 0,
+              flex: 1,
+            }}
+            onPress={() => props.navigation.navigate("Restablecer contraseña")}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                width: "100%",
+              }}
+            >
+              <View style={{ flex: 12 }}>
+                <Text style={{ color: "#fff" }}>
+                  ¿Olvido su contraseña?
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={{ flex: 1 }}>
           <TouchableOpacity style={{ height: 50 }} onPress={setLogged}>

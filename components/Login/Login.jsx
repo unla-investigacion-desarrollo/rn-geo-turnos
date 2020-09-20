@@ -5,6 +5,7 @@ import RegistroDni from "./RegistroDni";
 import RegistroDatosPersonales from "./RegistroDatosPersonales";
 import RegistroUbicacion from "./RegistroUbicacion";
 import Ingreso from "./Ingreso";
+import RestablecerPw from "./RestablecerPw";
 import QrReader from "../QR/QrReader";
 
 export default function Login(props) {
@@ -27,6 +28,8 @@ export default function Login(props) {
           component={RegistroUbicacion}
         ></Stack.Screen>
         <Stack.Screen name="Cámara" component={QrReader}></Stack.Screen>
+        <Stack.Screen name="Restablecer contraseña" component={RestablecerPw}></Stack.Screen>
+
       </Stack.Navigator>
     );
   };
