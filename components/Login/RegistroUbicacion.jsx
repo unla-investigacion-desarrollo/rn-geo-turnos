@@ -64,44 +64,49 @@ export default function RegistroDni(props) {
 
       });
     let registerOjecto = registro.registerData;
-
-    // if (registerOjecto.calle) {
-    //   setCalle(registerOjecto.calle);
-    // }
-    // if (registerOjecto.numero) {
-    //   setNumero(registerOjecto.numero);
-    // }
-    // if (registerOjecto.piso) {
-    //   setPiso(registerOjecto.piso);
-    // }
-    // if (registerOjecto.depto) {
-    //   setDepto(registerOjecto.depto);
-    // }
-    // if (registerOjecto.localidad) {
-    //   setLocalidad(registerOjecto.localidad);
-    // }
-    // if (registerOjecto.provincia) {
-    //   setProvincia(registerOjecto.provincia);
-    apiCalls.getInfoUsuario( 
-      1 // TODO Remplazar por token
-      ).then( ( response ) => {
-        console.log(response.data)
-        setCalle(response.data.ubicacion.calle);
-        setNumero(response.data.ubicacion.numero.toString());
-        setDepto(response.data.ubicacion.departamento);
-        setPiso(response.data.ubicacion.piso.toString())
-        setProvincia(response.data.ubicacion.localidad.provincia.idProvincia);
-        setLocalidad(response.data.ubicacion.localidad.idLocalidad);
-    }).catch( ( code, message ) => {
-
-      dispatch( {
-        type: actions.TOAST, payload: {
-          message: "Error al traer la informacion del usuario",
-          type: "error",
-          visibilityTime: 5000
-        }
+    if (!isConfig){
+      if (registerOjecto.calle) {
+        setCalle(registerOjecto.calle);
+      }
+      if (registerOjecto.numero) {
+        setNumero(registerOjecto.numero);
+      }
+      if (registerOjecto.piso) {
+        setPiso(registerOjecto.piso);
+      }
+      if (registerOjecto.depto) {
+        setDepto(registerOjecto.depto);
+      }
+      if (registerOjecto.localidad) {
+        setLocalidad(registerOjecto.localidad);
+      }
+      if (registerOjecto.provincia) {
+        setProvincia(registerOjecto.provincia);
+      }
+    }else{
+      apiCalls.getInfoUsuario( 
+        1 // TODO Remplazar por token
+        ).then( ( response ) => {
+          console.log(response.data)
+          setCalle(response.data.ubicacion.calle);
+          setNumero(response.data.ubicacion.numero.toString());
+          setDepto(response.data.ubicacion.departamento);
+          setPiso(response.data.ubicacion.piso.toString())
+          setProvincia(response.data.ubicacion.localidad.provincia.idProvincia);
+          setLocalidad(response.data.ubicacion.localidad.idLocalidad);
+      }).catch( ( code, message ) => {
+  
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Error al traer la informacion del usuario",
+            type: "error",
+            visibilityTime: 5000
+          }
+        } )
       } )
-    } )
+    }
+    
+    
     
   }, [registro]);
 
@@ -109,10 +114,35 @@ export default function RegistroDni(props) {
     
    
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
+      console.log({
+        apellido: registro.registerData.apellido,
+        celular: registro.registerData.celular,
+        sexo: registro.registerData.sexo,
+        cuil: registro.registerData.cuil,
+        idPerfil: 1,
+        loginVo: {
+          clave: registro.registerData.password,
+          email: registro.registerData.email
+        },
+        nombre: registro.registerData.nombre,
+        ubicacionVo: {
+          calle: calle,
+          numero: parseInt(numero),
+          departamento: depto,
+          idLocalidad: registro.registerData.localidad,
+          idProvincia: registro.registerData.provincia,
+          latitud: registro.registerData.latitude,
+          longitud: registro.registerData.longitude,
+          piso: parseInt(piso), 
+          usuarioModi: registro.registerData.cuil,
+        },
+        usuarioModi: registro.registerData.cuil,
+      })
       apiCalls
         .postAltaUsuario({
           apellido: registro.registerData.apellido,
           celular: registro.registerData.celular,
+          sexo: registro.registerData.sexo,
           cuil: registro.registerData.cuil,
           idPerfil: 1,
           loginVo: {
@@ -122,13 +152,13 @@ export default function RegistroDni(props) {
           nombre: registro.registerData.nombre,
           ubicacionVo: {
             calle: calle,
-            numero: numero,
+            numero: parseInt(numero),
             departamento: depto,
             idLocalidad: registro.registerData.localidad,
             idProvincia: registro.registerData.provincia,
             latitud: registro.registerData.latitude,
             longitud: registro.registerData.longitude,
-            piso: piso, 
+            piso: parseInt(numero), 
             usuarioModi: registro.registerData.cuil,
           },
           usuarioModi: registro.registerData.cuil,
@@ -174,6 +204,7 @@ export default function RegistroDni(props) {
           nroTramite: registro.registerData.nroTramite,
           latitude: response.latitude,
           celular: registro.registerData.celular,
+          sexo: registro.registerData.sexo,
           longitude: response.longitude,
           calle: calle,
           numero: numero,
@@ -220,6 +251,7 @@ export default function RegistroDni(props) {
             <View style={styles.viewContainer}>
               <TextInput
                 style={styles.input}
+                placeholder='Ingrese su dirección'
                 value={calle}
                 onChangeText={(e) => setCalle(e)}
               ></TextInput>
@@ -233,6 +265,7 @@ export default function RegistroDni(props) {
                   <TextInput
                     style={styles.input}
                     value={numero}
+                    placeholder='Numero'
                     keyboardType="numeric"
                     onChangeText={(e) => setNumero(e)}
                   ></TextInput>
@@ -246,6 +279,7 @@ export default function RegistroDni(props) {
                   <TextInput
                     style={styles.input}
                     value={piso}
+                    placeholder='Piso'
                     keyboardType="numeric"
                     onChangeText={(e) => setPiso(e)}
                   ></TextInput>
@@ -259,6 +293,7 @@ export default function RegistroDni(props) {
                   <TextInput
                     style={styles.input}
                     value={depto}
+                    placeholder='Departamento'
                     onChangeText={(e) => setDepto(e)}
                   ></TextInput>
                 </View>

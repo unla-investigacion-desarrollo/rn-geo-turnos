@@ -7,6 +7,7 @@ import {
   faStore,
   faCalendar,
   faChevronRight,
+  faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { actions } from "../../actions/types";
 import { useDispatch } from "react-redux";
@@ -77,7 +78,7 @@ export default function Configuraciones(props) {
             onPress={() => navigateConfiguraciones("PDF")}
           >
             <View style={{ flexDirection: "row" }}>
-              <FontAwesomeIcon icon={faCalendar} style={styles.icon} />
+              <FontAwesomeIcon icon={faFilePdf} style={styles.icon} />
               <Text style={styles.textButton}> PDF </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>

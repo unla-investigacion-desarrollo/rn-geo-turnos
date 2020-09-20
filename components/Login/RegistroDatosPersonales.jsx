@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { Picker, Icon } from "native-base";
 import { useSelector, useDispatch } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
@@ -19,6 +20,7 @@ export default function RegistroDni(props) {
   const [apellido, setApellido] = useState("");
   const [cuil, setCuil] = useState("");
   const [celular, setCelular] = useState("");
+  const [sexo, setSexo] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
@@ -28,6 +30,7 @@ export default function RegistroDni(props) {
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
+    console.log(registro)
     if (!isConfig){
       let registerOjecto = registro.registerData;
       if (registerOjecto.nombre) {
@@ -45,19 +48,22 @@ export default function RegistroDni(props) {
       if (registerOjecto.email) {
         setEmail(registerOjecto.email);
       }
+      if (registerOjecto.sexo) {
+        setSexo(registerOjecto.sexo);
+      }
       if (registerOjecto.password && !isConfig ) {
         setPassword(registerOjecto.password);
       }
     }else{
       apiCalls.getInfoUsuario( 
-        2 // TODO Remplazar por token
+        1 // TODO Remplazar por token
         ).then( ( response ) => {
-          console.log(response.data)
           setNombre(response.data.nombre);
           setApellido(response.data.apellido);
           setCuil(response.data.cuil);
           setCelular(response.data.celular);
           setEmail(response.data.login.email);
+          setSexo(respoonsa.data.sexo)
       }).catch( ( code, message ) => {
 
         dispatch( {
@@ -79,7 +85,8 @@ export default function RegistroDni(props) {
       cuil.length > 0 &&
       celular.length > 0 &&
       email.length > 0 &&
-      password.length > 0
+      password.length > 0 &&
+      sexo.length > 0 
     ) {
       let registroObject = {
         nombre: nombre,
@@ -88,6 +95,7 @@ export default function RegistroDni(props) {
         celular: celular,
         email: email,
         password: password,
+        sexo: sexo,
         documento: registro.registerData.documento,
         nroTramite: registro.registerData.nroTramite,
       };
@@ -107,6 +115,7 @@ export default function RegistroDni(props) {
       longitude: registro.registerData.longitude,
       direccion: registro.registerData.direccion,
       piso: registro.registerData.piso,
+      sexo: registro.registerData.sexo,
       depto: registro.registerData.depto,
       localidad: registro.registerData.localidad,
       provincia: registro.registerData.provincia,
@@ -142,6 +151,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={isConfig ? styles.blockedInput : styles.input}
               editable={!isConfig}
+              placeholder='Ingrese su nombre'
               value={nombre}
               onChangeText={(value) => setNombre(value)}
             >
@@ -155,6 +165,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={isConfig ? styles.blockedInput : styles.input}
               editable={!isConfig}
+              placeholder='Ingrese su apellido'
               value={apellido}
               onChangeText={(value) => setApellido(value)}
             ></TextInput>
@@ -166,19 +177,43 @@ export default function RegistroDni(props) {
               style={isConfig ? styles.blockedInput : styles.input}
               editable={!isConfig}
               value={cuil}
+              placeholder='Ingrese su N° de CUIL'
               keyboardType="numeric"
               onChangeText={(value) => setCuil(value)}
             ></TextInput>
           </View>
-          <View style={{ marginTop: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Celular</Text>
+          <View style={{ marginTop: 10, flexDirection: 'row' }}>
+            <View style={{ width: "45%" }}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>Celular</Text>
 
-            <TextInput
-              style={styles.input}
-              value={celular}
-              keyboardType="numeric"
-              onChangeText={(value) => setCelular(value)}
-            ></TextInput>
+              <TextInput
+                style={styles.input}
+                value={celular}
+                placeholder='Ingrese su celular'
+                keyboardType="numeric"
+                onChangeText={( value ) => setCelular( value )}
+              ></TextInput>
+            </View>
+            <View style={{ width: "55%", paddingLeft: 20 }}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>Sexo</Text>
+              <Picker
+                note
+                mode="dropdown"
+                style={styles.input}
+                selectedValue={sexo}
+                onValueChange={( e ) => setSexo( e )}
+                iosIcon={
+                  <Icon
+                    name="arrow-down"
+                    style={{ color: "#ccc", marginRight: 0 }}
+                  />
+                }>
+                <Picker.Item key={"Seleccione un sexo"} label={"Seleccione un sexo"} value={""} />
+                <Picker.Item key={"Mujer"} label={"Mujer"} value={"mujer"} />
+                <Picker.Item key={"Hombre"} label={"Hombre"} value={"hombre"} />
+              </Picker>
+            </View>
+
           </View>
         </View>
         <View style={{ flex: 2 }}>
@@ -200,6 +235,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={styles.input}
               value={email}
+              placeholder='Ingrese su correo electronico'
               onChangeText={(value) => setEmail(value)}
             ></TextInput>
           </View>
@@ -211,6 +247,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={styles.input}
               value={password}
+              placeholder='Ingrese una contraseña'
               onChangeText={(value) => setPassword(value)}
             ></TextInput>
           </View>
@@ -222,6 +259,7 @@ export default function RegistroDni(props) {
             <TextInput
               style={styles.input}
               value={repetirPassword}
+              placeholder='Repita su contraseña'
               onChangeText={(value) => setRepetirPassword(value)}
             ></TextInput>
           </View>

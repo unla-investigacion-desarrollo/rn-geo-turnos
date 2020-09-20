@@ -2,7 +2,6 @@ import { apiCalls } from "../../api/apiCalls";
 import { addNegocios } from "../../actions/negociosListActions";
 
 export const getNegocios = (dispatch) => {
-  console.log("Hola");
   apiCalls
     .getEmprendimientos()
     .then((response) => {

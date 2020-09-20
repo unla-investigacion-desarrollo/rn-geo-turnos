@@ -41,13 +41,13 @@ export default function QrReader(props) {
     let registroObject = registro.registerData;
 
     if (data[0] === "@"){
-
+      registroObject.sexo = lecturaDocumento[8] === "M" ? "hombre" : "mujer";
       registroObject.documento = lecturaDocumento[1];
       registroObject.nroTramite = lecturaDocumento[10];
       registroObject.nombre = lecturaDocumento[5];
       registroObject.apellido = lecturaDocumento[4];
     }else{
-  
+      registroObject.sexo = lecturaDocumento[3] === "M" ? "hombre" : "mujer";
       registroObject.documento = lecturaDocumento[4];
       registroObject.nroTramite = lecturaDocumento[0];
       registroObject.nombre = lecturaDocumento[2];
@@ -57,9 +57,10 @@ export default function QrReader(props) {
     }
     //Cuando logro escanear algo con la camara
     setScanned(true);
+    console.log(registroObject)
     dispatch(setRegisterData(registroObject));
 
-    props.navigation.navigate("Registro DNI");
+    props.navigation.navigate("Datos Personales");
     
 
     //fetchApi(data);
