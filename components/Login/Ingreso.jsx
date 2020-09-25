@@ -9,6 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 import { actions } from "../../actions/types";
 import { LinearGradient } from "expo-linear-gradient";
+import * as SecureStore from 'expo-secure-store';
 
 export default function Ingreso(props) {
   const [documento, setDocumento] = useState("");
@@ -19,6 +20,7 @@ export default function Ingreso(props) {
     
     if (documento.length > 0 ){
       if( password.length > 0){
+        remember()
         dispatch({ type: actions.LOGGED, payload: 1 });
       }else{
         dispatch( {
@@ -30,6 +32,7 @@ export default function Ingreso(props) {
         } )
       }
     }else{
+      read()
       dispatch( {
         type: actions.TOAST, payload: {
           message: "Debe ingresar su DNI" ,
@@ -40,6 +43,30 @@ export default function Ingreso(props) {
 
     }
   };
+
+  const remember = async () => {
+    try{
+      await SecureStore.setItemAsync(
+        'userAndPassword',
+        documento + " " + password
+      );
+      setDocumento('')
+      setPassword('')
+    }catch (e){
+      console.log(e)
+    }
+  }
+
+  const read = async () => {
+    try {
+      const credentials = await SecureStore.getItemAsync('userAndPassword');
+      console.log('value of credentials: ', credentials);
+
+      
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <View
