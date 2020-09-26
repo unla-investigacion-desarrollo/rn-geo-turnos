@@ -9,7 +9,7 @@ export default function MarkUbicacion(props) {
 
   return (
     <MapView
-      style={{ flex: 1 }}
+      style={{ flex: 1, height:250 }}
       provider={MapView.PROVIDER_GOOGLE}
       region={{
         latitude: registro.registerData.latitude? registro.registerData.latitude : -34.603773,

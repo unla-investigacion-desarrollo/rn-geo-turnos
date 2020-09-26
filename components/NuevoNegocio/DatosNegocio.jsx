@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, TextInput, Text, Slider } from "react-native";
+import { StyleSheet, View, TextInput, Text, Slider, ScrollView } from "react-native";
 import { Picker, Icon } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";
@@ -180,6 +180,7 @@ export default function DatosNegocio(props) {
           flex: 1,
         }}
       >
+        <ScrollView>
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
           <View style={{ marginTop: 7 }}>
             <Text style={styles.labelText}>Nombre del Negocio</Text>
@@ -187,6 +188,7 @@ export default function DatosNegocio(props) {
               <TextInput
                 style={styles.input}
                 value={nombre}
+                placeholder='Ingrese el nombre del negocio'
                 onChangeText={(e) => setNombre(e)}
               ></TextInput>
             </View>
@@ -199,6 +201,7 @@ export default function DatosNegocio(props) {
                   style={styles.input}
                   value={cuit}
                   keyboardType="numeric"
+                  placeholder='Ingrese el N° de CUIT'
                   onChangeText={(e) => setCuit(e)}
                 ></TextInput>
               </View>
@@ -209,6 +212,7 @@ export default function DatosNegocio(props) {
                 <TextInput
                   style={styles.input}
                   value={telefono}
+                  placeholder='Ingrese telefono'
                   keyboardType="numeric"
                   onChangeText={(e) => setTelefono(e)}
                 ></TextInput>
@@ -222,6 +226,7 @@ export default function DatosNegocio(props) {
               <TextInput
                 style={styles.input}
                 value={calle}
+                placeholder='Ingrese la calle del negocio'
                 onChangeText={(e) => setCalle(e)}
               ></TextInput>
             </View>
@@ -234,6 +239,7 @@ export default function DatosNegocio(props) {
                   <TextInput
                     style={styles.input}
                     keyboardType="numeric"
+                    placeholder='Numeracion'
                     value={numero}
                     onChangeText={(e) => setNumero(e)}
                   ></TextInput>
@@ -247,6 +253,7 @@ export default function DatosNegocio(props) {
                   <TextInput
                     style={styles.input}
                     keyboardType="numeric"
+                    placeholder='Piso '
                     value={piso}
                     onChangeText={(e) => setPiso(e)}
                   ></TextInput>
@@ -259,6 +266,7 @@ export default function DatosNegocio(props) {
                 <View style={styles.viewContainer}>
                   <TextInput
                     style={styles.input}
+                    placeholder='Departamento'
                     value={depto}
                     onChangeText={(e) => setDepto(e)}
                   ></TextInput>
@@ -273,6 +281,7 @@ export default function DatosNegocio(props) {
               mode="dropdown"
               style={styles.input}
               selectedValue={provincia}
+            
               onValueChange={(e) => getLocalidadesPorProvincia(e)}
               iosIcon={
                 <Icon
@@ -379,6 +388,7 @@ export default function DatosNegocio(props) {
             </Text>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </LinearGradient>
     </View>
   );

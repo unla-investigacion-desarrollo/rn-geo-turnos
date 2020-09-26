@@ -116,7 +116,7 @@ export default function HorariosNegocio(props) {
               <ListaHorarios />
             </ScrollView>
           </View>
-          <View style={{ flex: 1, marginTop: 15 }}>
+          <View style={{ flex: 0.5, marginTop: 10 }}>
             <Text style={styles.labelText}>Día de la semana</Text>
             <Picker
               note
@@ -138,7 +138,7 @@ export default function HorariosNegocio(props) {
               })}
             </Picker>
           </View>
-          <View style={{ flexDirection: "row", flex: 1 }}>
+          <View style={{ flexDirection: "row", flex: 0.5, paddingBottom: 10 }}>
             <View style={{ flex: 1, paddingRight: 10 }}>
               <Text style={styles.labelText}>Hora Desde</Text>
               <Picker
@@ -182,7 +182,7 @@ export default function HorariosNegocio(props) {
                 </Picker>
               </View>
           </View>
-          <View style={{ flexDirection: "row", flex: 1 }}>
+          <View style={{ flexDirection: "row", flex: 0.5 }}>
             <View style={{ flex: 1, paddingRight: 10 }}>
               <Text style={styles.labelText}>Hora Desde</Text>
               <Picker

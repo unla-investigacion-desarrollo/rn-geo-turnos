@@ -7,6 +7,7 @@ import { setDataNegocio } from "../../actions/NuevoNegocioActions";
 import { apiCalls } from "../../api/apiCalls";
 import { switchMenu } from "../../actions/menuSwitchActions";
 import { VER_NEGOCIOS } from "../../actions/menuOptions";
+import { actions } from "../../actions/types";
 
 
 export default function TurnosNegocio(props) {
@@ -42,7 +43,7 @@ export default function TurnosNegocio(props) {
           configuracionLocales: configuracionLocales,
           cuit: newNegocio.cuit,
           fechaModi: new Date(),
-          idPersona: 1, // Falta matchear al usuario
+          idPersona: 15, // Falta matchear al usuario
           idRubro: newNegocio.rubro,
           idTipoEmprendimiento: newNegocio.emprendimiento,
           nombre: newNegocio.nombre,
@@ -60,8 +61,17 @@ export default function TurnosNegocio(props) {
 
         })
         .then((response) => {
-          //Toast type: 'success', text1: 'Su negocio ha sido de alta correctamente'
+          dispatch( {
+            type: actions.TOAST, payload: {
+              message: "Negocio dado de alta correctamente",
+              type: "success",
+              visibilityTime: 10000
+            }
+          } )
           dispatch(switchMenu(VER_NEGOCIOS))
+        }).catch((error, message)=> {
+          console.log(error)
+          console.log(message)
         });
 
   };

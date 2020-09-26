@@ -4,7 +4,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  StyleSheet,
+  StyleSheet, ScrollView
 } from "react-native";
 import { Picker, Icon } from "native-base";
 import MarkUbicacion from "./MarkUbicacion";
@@ -245,6 +245,7 @@ export default function RegistroDni(props) {
           padding: 10,
         }}
       >
+        <ScrollView>
         <View style={{ flex: 3 }}>
           <View>
             <Text style={styles.labelText}>Dirección</Text>
@@ -397,6 +398,7 @@ export default function RegistroDni(props) {
             </View>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </LinearGradient>
     </View>
   );
