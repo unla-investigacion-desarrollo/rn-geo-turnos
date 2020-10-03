@@ -41,7 +41,9 @@ function postTurnos(parameters) {
 }
 
 function getInfoUsuario(idPersona, token) {
-  return api.get("/fisica/" + idPersona);
+  return api.get("/fisica/" + idPersona, {
+    headers: { token_auth: token },
+  });
 }
 
 function postResetPassword(parameters) {

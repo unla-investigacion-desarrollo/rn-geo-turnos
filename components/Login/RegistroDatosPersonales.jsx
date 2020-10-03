@@ -12,12 +12,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { apiCalls } from "../../api/apiCalls";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { actions } from "../../actions/types";
-import { getIdPersona } from "../../Utils/functions";
 
 export default function RegistroDatosPersonales(props) {
+  const access = useSelector((state) => state.access);
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [cuil, setCuil] = useState("");
@@ -29,7 +27,7 @@ export default function RegistroDatosPersonales(props) {
   const registro = useSelector((state) => state.registro);
   const dispatch = useDispatch();
 
-  const isConfig = props?.route?.params?.source === "config";
+  const isConfig = props.isConfig;
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
@@ -86,25 +84,13 @@ export default function RegistroDatosPersonales(props) {
 
   const saveNewData = () => {
     let registroObject = {
-      documento: registro.registerData.documento,
-      nroTramite: registro.registerData.nroTramite,
-      latitude: registro.registerData.latitude,
+      idPersona: access.idPersona,
       celular: celular,
-      longitude: registro.registerData.longitude,
-      direccion: registro.registerData.direccion,
-      piso: registro.registerData.piso,
-      sexo: registro.registerData.sexo,
-      depto: registro.registerData.depto,
-      localidad: registro.registerData.localidad,
-      provincia: registro.registerData.provincia,
-      nombre: registro.registerData.nombre,
-      apellido: registro.registerData.apellido,
-      cuil: registro.registerData.cuil,
       email: email,
       password: password,
     };
 
-    dispatch(setRegisterData(registroObject));
+    //APICALL
 
     props.navigation.navigate("Configuración");
   };
@@ -192,6 +178,7 @@ export default function RegistroDatosPersonales(props) {
                 <Picker
                   note
                   mode="dropdown"
+                  enabled={!isConfig}
                   style={styles.input}
                   selectedValue={sexo}
                   onValueChange={(e) => setSexo(e)}

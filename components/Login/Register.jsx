@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCalls } from "../../api/apiCalls";
 import { actions } from "../../actions/types";
 import RegistroDatosPersonales from "./RegistroDatosPersonales";
+import { setRegisterData } from "../../actions/RegisterActions";
+import { PickerIOS } from "@react-native-community/picker";
 
 export default function Register(props) {
   const access = useSelector((state) => state.access);
@@ -22,14 +16,24 @@ export default function Register(props) {
   useEffect(() => {
     if (isConfig) {
       apiCalls
-        .getInfoUsuario(access.idPersona)
+        .getInfoUsuario(access.idPersona, access.token)
         .then((response) => {
-          setNombre(response.data.nombre);
-          setApellido(response.data.apellido);
-          setCuil(response.data.cuil);
-          setCelular(response.data.celular);
-          setEmail(response.data.login.email);
-          setSexo(respoonsa.data.sexo);
+          const registerData = {
+            nombre: response.data.nombre,
+            apellido: response.data.apellido,
+            cuil: response.data.cuil,
+            celular: response.data.celular,
+            email: response.data.login.email,
+            sexo: response.data.sexo,
+            calle: response.data.ubicacion.calle,
+            numero: response.data.ubicacion.numero,
+            piso: response.data.ubicacion.piso,
+            departamento: response.data.ubicacion.departamento,
+            provincia: response.data.ubicacion.localidad.provincia.idProvincia,
+            localidad: response.data.ubicacion.localidad.idLocalidad,
+          };
+
+          dispatch(setRegisterData(registerData));
         })
         .catch((code, message) => {
           dispatch({
@@ -44,5 +48,10 @@ export default function Register(props) {
     }
   }, []);
 
-  return <RegistroDatosPersonales isConfig={isConfig} />;
+  return (
+    <RegistroDatosPersonales
+      isConfig={isConfig}
+      navigation={props.navigation}
+    />
+  );
 }
