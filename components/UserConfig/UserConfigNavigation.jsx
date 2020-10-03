@@ -4,13 +4,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Configuraciones from "./Configuraciones";
 import Turnos from "./Turnos";
 import RegistroUbicacion from "../Login/RegistroUbicacion";
-import RegistroDatosPersonales from "../Login/RegistroDatosPersonales";
+import Register from "../Login/Register";
 import DatosNegocio from "../NuevoNegocio/DatosNegocio";
 import HorariosNegocio from "../NuevoNegocio/HorariosNegocio";
 import MapContainer from "../NuevoNegocio/MapContainer";
 import MapInput from "../NuevoNegocio/MapInput";
 import TurnosNegocio from "../NuevoNegocio/TurnosNegocio";
-import Pdf from "../Negocios/Pdf"
+import Pdf from "../Negocios/Pdf";
 
 export default function UserConfigNavigation() {
   const Stack = createStackNavigator();
@@ -24,17 +24,14 @@ export default function UserConfigNavigation() {
 
         <Stack.Screen
           name="Datos personales"
-          component={RegistroDatosPersonales}
+          component={Register}
         ></Stack.Screen>
 
         <Stack.Screen
           name="Ubicación"
           component={RegistroUbicacion}
         ></Stack.Screen>
-        <Stack.Screen
-          name="PDF"
-          component={Pdf}
-        ></Stack.Screen>
+        <Stack.Screen name="PDF" component={Pdf}></Stack.Screen>
         {/* NEGOCIO */}
         <Stack.Screen
           name="Información Negocio"

@@ -4,7 +4,7 @@ import Constants from "expo-constants";
 import { Provider } from "react-redux";
 import store from "./store.js";
 import { StatusBar, Text } from "react-native";
-import MenuSwitch from "./components/MenuSwitch";
+import Init from "./components/Init";
 import { Root } from "native-base";
 
 console.disableYellowBox = true; //PARA ESCONDER LAS WARNINGS
@@ -52,7 +52,7 @@ function App() {
           />
         </View>
         <View style={styles.container} style={{ flex: 1 }}>
-          <MenuSwitch></MenuSwitch>
+          <Init></Init>
         </View>
       </Root>
     </Provider>

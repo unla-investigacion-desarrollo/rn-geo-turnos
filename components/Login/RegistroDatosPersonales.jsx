@@ -17,8 +17,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { actions } from "../../actions/types";
 import { getIdPersona } from "../../Utils/functions";
 
-export default function RegistroDni(props) {
-  const [idPersona, setIdPersona] = useState(0);
+export default function RegistroDatosPersonales(props) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [cuil, setCuil] = useState("");
@@ -33,53 +32,27 @@ export default function RegistroDni(props) {
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
-    const prueba = getIdPersona();
-    //  console.log(getToken());
-
-    if (!isConfig) {
-      let registerOjecto = registro.registerData;
-      if (registerOjecto.nombre) {
-        setNombre(registerOjecto.nombre);
-      }
-      if (registerOjecto.apellido) {
-        setApellido(registerOjecto.apellido);
-      }
-      if (registerOjecto.cuil) {
-        setCuil(registerOjecto.cuil);
-      }
-      if (registerOjecto.celular) {
-        setCelular(registerOjecto.celular);
-      }
-      if (registerOjecto.email) {
-        setEmail(registerOjecto.email);
-      }
-      if (registerOjecto.sexo) {
-        setSexo(registerOjecto.sexo);
-      }
-      if (registerOjecto.password && !isConfig) {
-        setPassword(registerOjecto.password);
-      }
-    } else {
-      apiCalls
-        .getInfoUsuario(idPersona)
-        .then((response) => {
-          setNombre(response.data.nombre);
-          setApellido(response.data.apellido);
-          setCuil(response.data.cuil);
-          setCelular(response.data.celular);
-          setEmail(response.data.login.email);
-          setSexo(respoonsa.data.sexo);
-        })
-        .catch((code, message) => {
-          dispatch({
-            type: actions.TOAST,
-            payload: {
-              message: "Error al traer la informacion del usuario",
-              type: "error",
-              visibilityTime: 5000,
-            },
-          });
-        });
+    let registerOjecto = registro.registerData;
+    if (registerOjecto.nombre) {
+      setNombre(registerOjecto.nombre);
+    }
+    if (registerOjecto.apellido) {
+      setApellido(registerOjecto.apellido);
+    }
+    if (registerOjecto.cuil) {
+      setCuil(registerOjecto.cuil);
+    }
+    if (registerOjecto.celular) {
+      setCelular(registerOjecto.celular);
+    }
+    if (registerOjecto.email) {
+      setEmail(registerOjecto.email);
+    }
+    if (registerOjecto.sexo) {
+      setSexo(registerOjecto.sexo);
+    }
+    if (registerOjecto.password && !isConfig) {
+      setPassword(registerOjecto.password);
     }
   }, []);
 

@@ -40,7 +40,7 @@ function postTurnos(parameters) {
   return api.post("/turno/", parameters);
 }
 
-function getInfoUsuario(idPersona) {
+function getInfoUsuario(idPersona, token) {
   return api.get("/fisica/" + idPersona);
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import RegistroDni from "./RegistroDni";
-import RegistroDatosPersonales from "./RegistroDatosPersonales";
+import Register from "./Register";
 import RegistroUbicacion from "./RegistroUbicacion";
 import Ingreso from "./Ingreso";
 import RestablecerPw from "./RestablecerPw";
@@ -21,15 +21,17 @@ export default function Login(props) {
         ></Stack.Screen>
         <Stack.Screen
           name="Datos Personales"
-          component={RegistroDatosPersonales}
+          component={Register}
         ></Stack.Screen>
         <Stack.Screen
           name="Ubicación"
           component={RegistroUbicacion}
         ></Stack.Screen>
         <Stack.Screen name="Cámara" component={QrReader}></Stack.Screen>
-        <Stack.Screen name="Restablecer contraseña" component={RestablecerPw}></Stack.Screen>
-
+        <Stack.Screen
+          name="Restablecer contraseña"
+          component={RestablecerPw}
+        ></Stack.Screen>
       </Stack.Navigator>
     );
   };

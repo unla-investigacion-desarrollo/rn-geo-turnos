@@ -11,6 +11,8 @@ import { actions } from "../../actions/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { apiCalls } from "../../api/apiCalls";
 import * as SecureStore from "expo-secure-store";
+import { setCredentials } from "../../actions/AccessActions";
+import { setTokenAxios } from "../../api/api";
 
 export default function Ingreso(props) {
   const [email, setEmail] = useState("berro.gonza2195@gmail.com");
@@ -67,15 +69,20 @@ export default function Ingreso(props) {
   };
 
   const remember = async (loginResponse) => {
-    setCredentials(loginResponse);
+    setAccessCredentials(loginResponse);
     setEmail("");
     setPassword("");
     dispatch({ type: actions.LOGGED, payload: 1 });
   };
 
-  const setCredentials = async (credentials) => {
+  const setAccessCredentials = async (credentials) => {
     try {
-      await SecureStore.setItemAsync("loginData", JSON.stringify(credentials));
+      await SecureStore.setItemAsync(
+        "credentials",
+        JSON.stringify(credentials)
+      );
+      dispatch(setCredentials(credentials));
+      setTokenAxios(credentials.token);
     } catch (e) {
       console.log(e);
     }
