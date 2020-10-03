@@ -9,64 +9,77 @@ import {
 import { useDispatch } from "react-redux";
 import { actions } from "../../actions/types";
 import { LinearGradient } from "expo-linear-gradient";
-import * as SecureStore from 'expo-secure-store';
+import { apiCalls } from "../../api/apiCalls";
+import * as SecureStore from "expo-secure-store";
 
 export default function Ingreso(props) {
-  const [documento, setDocumento] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("berro.gonza2195@gmail.com");
+  const [password, setPassword] = useState("1234");
   const dispatch = useDispatch();
 
   const setLogged = () => {
-    
-    if (documento.length > 0 ){
-      if( password.length > 0){
-        remember()
-        dispatch({ type: actions.LOGGED, payload: 1 });
-      }else{
-        dispatch( {
-          type: actions.TOAST, payload: {
-            message: "Debe ingresar una contraseña" ,
-            type: "warning",
-            visibilityTime: 10000
-          }
-        } )
-      }
-    }else{
-      read()
-      dispatch( {
-        type: actions.TOAST, payload: {
-          message: "Debe ingresar su DNI" ,
-          type: "warning",
-          visibilityTime: 10000
-        }
-      } )
+    if (email.length > 0) {
+      if (password.length > 0) {
+        apiCalls
+          .postLogin({
+            clave: password,
+            email: email,
+          })
+          .then((response) => {
+            const responseLogin = {
+              token: response.data.token,
+              idPersona: response.data.idPersona,
+            };
 
+            remember(responseLogin);
+          })
+          .catch((resp) => {
+            dispatch({
+              type: actions.TOAST,
+              payload: {
+                message: "Error al ingresar al sistema",
+                type: "error",
+                visibilityTime: 3000,
+              },
+            });
+          });
+      } else {
+        dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "Debe ingresar su contraseña",
+            type: "warning",
+            visibilityTime: 3000,
+          },
+        });
+      }
+    } else {
+      read();
+      dispatch({
+        type: actions.TOAST,
+        payload: {
+          message: "Debe ingresar su Email",
+          type: "warning",
+          visibilityTime: 3000,
+        },
+      });
     }
   };
 
-  const remember = async () => {
-    try{
-      await SecureStore.setItemAsync(
-        'userAndPassword',
-        documento + " " + password
-      );
-      setDocumento('')
-      setPassword('')
-    }catch (e){
-      console.log(e)
-    }
-  }
+  const remember = async (loginResponse) => {
+    setCredentials(loginResponse);
+    setEmail("");
+    setPassword("");
+    dispatch({ type: actions.LOGGED, payload: 1 });
+  };
 
-  const read = async () => {
+  const setCredentials = async (credentials) => {
     try {
-      const credentials = await SecureStore.getItemAsync('userAndPassword');
-      console.log('value of credentials: ', credentials);
-
-      
+      await SecureStore.setItemAsync("loginData", JSON.stringify(credentials));
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <View
@@ -118,14 +131,12 @@ export default function Ingreso(props) {
         </View>
         <View style={{ flex: 1 }}>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold" }}>
-              Número de DNI
-            </Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Email</Text>
 
             <TextInput
               style={styles.input}
-              value={documento}
-              onChangeText={(value) => setDocumento(value)}
+              value={email}
+              onChangeText={(value) => setEmail(value)}
             ></TextInput>
           </View>
           <View style={{ marginTop: 10 }}>
@@ -134,6 +145,7 @@ export default function Ingreso(props) {
             </Text>
 
             <TextInput
+              type="password"
               style={styles.input}
               value={password}
               onChangeText={(value) => setPassword(value)}
@@ -177,9 +189,7 @@ export default function Ingreso(props) {
               }}
             >
               <View style={{ flex: 12 }}>
-                <Text style={{ color: "#fff" }}>
-                  ¿Olvido su contraseña?
-                </Text>
+                <Text style={{ color: "#fff" }}>¿Olvido su contraseña?</Text>
               </View>
             </View>
           </TouchableOpacity>

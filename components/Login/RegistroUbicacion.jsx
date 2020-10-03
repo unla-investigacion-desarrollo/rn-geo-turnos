@@ -4,7 +4,8 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  StyleSheet, ScrollView
+  StyleSheet,
+  ScrollView,
 } from "react-native";
 import { Picker, Icon } from "native-base";
 import MarkUbicacion from "./MarkUbicacion";
@@ -19,7 +20,7 @@ export default function RegistroDni(props) {
   const registro = useSelector((state) => state.registro);
   const [calle, setCalle] = useState("");
   const [numero, setNumero] = useState("");
-  const [piso, setPiso] = useState("");
+  const [piso, setPiso] = useState(0);
   const [depto, setDepto] = useState("");
   const [localidad, setLocalidad] = useState(0);
   const [localidades, setLocalidades] = useState([]);
@@ -31,40 +32,52 @@ export default function RegistroDni(props) {
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
-    setEnableLocalidades(false)
-    apiCalls.getLocalidades()
+    setEnableLocalidades(false);
+    apiCalls
+      .getLocalidades()
       .then((response) => {
-        response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
-        setLocalidades(response.data)
-      }).catch((code,message) =>{
-          console.log(code)
-          console.log(message)
-     });
-
-    apiCalls.getProvincias()
-      .then((response) => {
-        response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
-        setProvincias(response.data)
-      }).catch((code,message) =>{
-    });
-
-    apiCalls.getRubros()
-      .then((response) => {
-        response.data.unshift({idRubro:0, nombre:"Seleccione un rubro"})
-        setRubros(response.data)
-      }).catch((code,message) =>{
-
+        response.data.unshift({
+          idLocalidad: 0,
+          nombre: "Seleccione una localidad",
+        });
+        setLocalidades(response.data);
+      })
+      .catch((code, message) => {
+        console.log(code);
+        console.log(message);
       });
-    
-    apiCalls.getTipoEmprendimiento()
-      .then((response) => {
-        response.data.unshift({idTipoEmprendimiento:0, nombre:"Seleccione tipo de emprendimiento"})
-        setEmprendimientos(response.data)
-      }).catch((code,message) =>{
 
-      });
+    apiCalls
+      .getProvincias()
+      .then((response) => {
+        response.data.unshift({
+          idProvincia: 0,
+          nombre: "Seleccione una provincia",
+        });
+        setProvincias(response.data);
+      })
+      .catch((code, message) => {});
+
+    apiCalls
+      .getRubros()
+      .then((response) => {
+        response.data.unshift({ idRubro: 0, nombre: "Seleccione un rubro" });
+        setRubros(response.data);
+      })
+      .catch((code, message) => {});
+
+    apiCalls
+      .getTipoEmprendimiento()
+      .then((response) => {
+        response.data.unshift({
+          idTipoEmprendimiento: 0,
+          nombre: "Seleccione tipo de emprendimiento",
+        });
+        setEmprendimientos(response.data);
+      })
+      .catch((code, message) => {});
     let registerOjecto = registro.registerData;
-    if (!isConfig){
+    if (!isConfig) {
       if (registerOjecto.calle) {
         setCalle(registerOjecto.calle);
       }
@@ -83,36 +96,33 @@ export default function RegistroDni(props) {
       if (registerOjecto.provincia) {
         setProvincia(registerOjecto.provincia);
       }
-    }else{
-      apiCalls.getInfoUsuario( 
-        1 // TODO Remplazar por token
-        ).then( ( response ) => {
-          console.log(response.data)
+    } else {
+      apiCalls
+        .getInfoUsuario(
+          1 // TODO Remplazar por token
+        )
+        .then((response) => {
           setCalle(response.data.ubicacion.calle);
           setNumero(response.data.ubicacion.numero.toString());
           setDepto(response.data.ubicacion.departamento);
-          setPiso(response.data.ubicacion.piso.toString())
+          setPiso(response.data.ubicacion.piso.toString());
           setProvincia(response.data.ubicacion.localidad.provincia.idProvincia);
           setLocalidad(response.data.ubicacion.localidad.idLocalidad);
-      }).catch( ( code, message ) => {
-  
-        dispatch( {
-          type: actions.TOAST, payload: {
-            message: "Error al traer la informacion del usuario",
-            type: "error",
-            visibilityTime: 5000
-          }
-        } )
-      } )
+        })
+        .catch((code, message) => {
+          dispatch({
+            type: actions.TOAST,
+            payload: {
+              message: "Error al traer la informacion del usuario",
+              type: "error",
+              visibilityTime: 5000,
+            },
+          });
+        });
     }
-    
-    
-    
   }, [registro]);
 
   const setLogged = () => {
-    
-   
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
       console.log({
         apellido: registro.registerData.apellido,
@@ -122,7 +132,7 @@ export default function RegistroDni(props) {
         idPerfil: 1,
         loginVo: {
           clave: registro.registerData.password,
-          email: registro.registerData.email
+          email: registro.registerData.email,
         },
         nombre: registro.registerData.nombre,
         ubicacionVo: {
@@ -133,11 +143,11 @@ export default function RegistroDni(props) {
           idProvincia: registro.registerData.provincia,
           latitud: registro.registerData.latitude,
           longitud: registro.registerData.longitude,
-          piso: parseInt(piso), 
+          piso: parseInt(piso),
           usuarioModi: registro.registerData.cuil,
         },
         usuarioModi: registro.registerData.cuil,
-      })
+      });
       apiCalls
         .postAltaUsuario({
           apellido: registro.registerData.apellido,
@@ -147,7 +157,7 @@ export default function RegistroDni(props) {
           idPerfil: 1,
           loginVo: {
             clave: registro.registerData.password,
-            email: registro.registerData.email
+            email: registro.registerData.email,
           },
           nombre: registro.registerData.nombre,
           ubicacionVo: {
@@ -158,37 +168,43 @@ export default function RegistroDni(props) {
             idProvincia: registro.registerData.provincia,
             latitud: registro.registerData.latitude,
             longitud: registro.registerData.longitude,
-            piso: parseInt(numero), 
+            piso: parseInt(piso),
             usuarioModi: registro.registerData.cuil,
           },
           usuarioModi: registro.registerData.cuil,
         })
         .then((response) => {
-          dispatch( {
-            type: actions.TOAST, payload: {
-              message: "Bienvenido a ReactivAR " +registro.registerData.nombre ,
+          dispatch({
+            type: actions.TOAST,
+            payload: {
+              message: "Bienvenido a ReactivAR " + registro.registerData.nombre,
               type: "success",
-              visibilityTime: 10000
-            }
-          } )
+              visibilityTime: 10000,
+            },
+          });
           dispatch({ type: actions.LOGGED, payload: 1 });
-        }).catch((code,message) =>{
-          console.log(code)
-          console.log(message)
+        })
+        .catch((code, message) => {
+          console.log(code);
+          console.log(message);
         });
     }
   };
 
   const getLocalidadesPorProvincia = (e) => {
-    setProvincia(e)
-    apiCalls.getLocalidadesPorProvincia(e)
+    setProvincia(e);
+    apiCalls
+      .getLocalidadesPorProvincia(e)
       .then((response) => {
-        setEnableLocalidades(true)
-        response.data.unshift({idProvincia:0, nombre:"Seleccione una localidad"})
-        setLocalidades(response.data)
-      }).catch((code,message) =>{
-    });
-  }
+        setEnableLocalidades(true);
+        response.data.unshift({
+          idProvincia: 0,
+          nombre: "Seleccione una localidad",
+        });
+        setLocalidades(response.data);
+      })
+      .catch((code, message) => {});
+  };
 
   const setLocation = () => {
     if (calle.length > 0 && localidad > 0 && provincia > 0) {
@@ -197,7 +213,7 @@ export default function RegistroDni(props) {
   };
 
   const validarDireccion = () => {
-    if (calle.length > 0 && localidad > 0 && provincia > 0) {
+    if (calle.length > 0 && numero > 0 && localidad > 0 && provincia > 0) {
       searchPosition(calle + " " + numero).then((response) => {
         let registroObject = {
           documento: registro.registerData.documento,
@@ -215,21 +231,31 @@ export default function RegistroDni(props) {
           nombre: registro.registerData.nombre,
           apellido: registro.registerData.apellido,
           cuil: registro.registerData.cuil,
-          email:registro.registerData.email,
+          email: registro.registerData.email,
           password: registro.registerData.password,
         };
         dispatch(setRegisterData(registroObject));
       });
+    } else {
+      dispatch({
+        type: actions.TOAST,
+        payload: {
+          message:
+            "Debe completar la calle, el número, la provincia y la localidad",
+          type: "error",
+          visibilityTime: 3000,
+        },
+      });
     }
   };
 
-  const pickerItemsLocalidades = localidades.map(i => (
-    <Picker.Item key = {i.nombre} label={i.nombre} value={i.idLocalidad} />
-  ))
+  const pickerItemsLocalidades = localidades.map((i) => (
+    <Picker.Item key={i.nombre} label={i.nombre} value={i.idLocalidad} />
+  ));
 
-  const pickerItemsProvincias = provincias.map(i => (
-    <Picker.Item key = {i.nombre} label={i.nombre} value={i.idProvincia} />
-  ))
+  const pickerItemsProvincias = provincias.map((i) => (
+    <Picker.Item key={i.nombre} label={i.nombre} value={i.idProvincia} />
+  ));
 
   return (
     <View
@@ -246,158 +272,158 @@ export default function RegistroDni(props) {
         }}
       >
         <ScrollView>
-        <View style={{ flex: 3 }}>
-          <View>
-            <Text style={styles.labelText}>Dirección</Text>
-            <View style={styles.viewContainer}>
-              <TextInput
+          <View style={{ flex: 3 }}>
+            <View>
+              <Text style={styles.labelText}>Calle</Text>
+              <View style={styles.viewContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Ingrese su dirección"
+                  value={calle}
+                  onChangeText={(e) => setCalle(e)}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+                <View>
+                  <Text style={styles.labelText}>Número</Text>
+                  <View style={styles.viewContainer}>
+                    <TextInput
+                      style={styles.input}
+                      value={numero}
+                      placeholder="Numero"
+                      keyboardType="numeric"
+                      onChangeText={(e) => setNumero(e)}
+                    ></TextInput>
+                  </View>
+                </View>
+              </View>
+              <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
+                <View>
+                  <Text style={styles.labelText}>Piso</Text>
+                  <View style={styles.viewContainer}>
+                    <TextInput
+                      style={styles.input}
+                      value={piso}
+                      placeholder="Piso"
+                      keyboardType="numeric"
+                      onChangeText={(e) => setPiso(e)}
+                    ></TextInput>
+                  </View>
+                </View>
+              </View>
+              <View style={{ marginTop: 10, flex: 1 }}>
+                <View>
+                  <Text style={styles.labelText}>Departamento</Text>
+                  <View style={styles.viewContainer}>
+                    <TextInput
+                      style={styles.input}
+                      value={depto}
+                      placeholder="Departamento"
+                      onChangeText={(e) => setDepto(e)}
+                    ></TextInput>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <Text style={styles.labelText}>Provincia</Text>
+              <Picker
+                note
+                mode="dropdown"
                 style={styles.input}
-                placeholder='Ingrese su dirección'
-                value={calle}
-                onChangeText={(e) => setCalle(e)}
-              ></TextInput>
+                selectedValue={provincia}
+                onValueChange={(e) => getLocalidadesPorProvincia(e)}
+                iosIcon={
+                  <Icon
+                    name="arrow-down"
+                    style={{ color: "#ccc", marginRight: 0 }}
+                  />
+                }
+              >
+                {pickerItemsProvincias}
+              </Picker>
             </View>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
-              <View>
-                <Text style={styles.labelText}>Número</Text>
-                <View style={styles.viewContainer}>
-                  <TextInput
-                    style={styles.input}
-                    value={numero}
-                    placeholder='Numero'
-                    keyboardType="numeric"
-                    onChangeText={(e) => setNumero(e)}
-                  ></TextInput>
-                </View>
-              </View>
+            <View style={{ marginTop: 10 }}>
+              <Text style={styles.labelText}>Localidad</Text>
+              <Picker
+                note
+                mode="dropdown"
+                style={styles.input}
+                selectedValue={localidad}
+                enabled={enableLocalidades}
+                onValueChange={(e) => setLocalidad(e)}
+                iosIcon={
+                  <Icon
+                    name="arrow-down"
+                    style={{ color: "#ccc", marginRight: 0 }}
+                  />
+                }
+              >
+                {pickerItemsLocalidades}
+              </Picker>
             </View>
-            <View style={{ marginTop: 10, flex: 1, paddingRight: 10 }}>
-              <View>
-                <Text style={styles.labelText}>Piso</Text>
-                <View style={styles.viewContainer}>
-                  <TextInput
-                    style={styles.input}
-                    value={piso}
-                    placeholder='Piso'
-                    keyboardType="numeric"
-                    onChangeText={(e) => setPiso(e)}
-                  ></TextInput>
-                </View>
-              </View>
-            </View>
-            <View style={{ marginTop: 10, flex: 1 }}>
-              <View>
-                <Text style={styles.labelText}>Departamento</Text>
-                <View style={styles.viewContainer}>
-                  <TextInput
-                    style={styles.input}
-                    value={depto}
-                    placeholder='Departamento'
-                    onChangeText={(e) => setDepto(e)}
-                  ></TextInput>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <Text style={styles.labelText}>Provincia</Text>
-            <Picker
-              note
-              mode="dropdown"
-              style={styles.input}
-              selectedValue={provincia}
-              onValueChange={(e) => getLocalidadesPorProvincia(e)}
-              iosIcon={
-                <Icon
-                  name="arrow-down"
-                  style={{ color: "#ccc", marginRight: 0 }}
-                />
-              }
+
+            <View
+              style={{
+                flex: 1,
+                paddingTop: 10,
+                paddingBottom: 10,
+              }}
             >
-              {pickerItemsProvincias}
-            </Picker>
+              <MarkUbicacion />
+            </View>
           </View>
-          <View style={{ marginTop: 10 }}>
-            <Text style={styles.labelText}>Localidad</Text>
-            <Picker
-              note
-              mode="dropdown"
-              style={styles.input}
-              selectedValue={localidad}
-              enabled={enableLocalidades}
-              onValueChange={(e) => setLocalidad(e)}
-              iosIcon={
-                <Icon
-                  name="arrow-down"
-                  style={{ color: "#ccc", marginRight: 0 }}
-                />
-              }
+          <View style={{ flex: 1 }}>
+            <View
+              style={{
+                bottom: 10,
+                flex: 0.3,
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                marginTop: 10,
+              }}
             >
-              {pickerItemsLocalidades}
-            </Picker>
-          </View>
-          
-          <View
-            style={{
-              flex: 1,
-              paddingTop: 10,
-              paddingBottom: 10,
-            }}
-          >
-            <MarkUbicacion />
-          </View>
-        </View>
-        <View style={{ flex: 1 }}>
-          <View
-            style={{
-              bottom: 10,
-              flex: 0.3,
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              marginTop: 10,
-            }}
-          >
-            <TouchableOpacity onPress={validarDireccion}>
+              <TouchableOpacity onPress={validarDireccion}>
+                <View
+                  style={{
+                    backgroundColor: "#0fc224",
+                    padding: 5,
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text style={{ color: "#fff" }}>Validar Dirección</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              style={{ height: 50 }}
+              onPress={isConfig ? setLocation : setLogged}
+            >
               <View
+                title="Hola"
                 style={{
-                  backgroundColor: "#0fc224",
-                  padding: 5,
-                  borderRadius: 5,
+                  flex: 1,
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <Text style={{ color: "#fff" }}>Validar Dirección</Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#2572FF",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            style={{ height: 50 }}
-            onPress={isConfig ? setLocation : setLogged}
-          >
-            <View
-              title="Hola"
-              style={{
-                flex: 1,
-                backgroundColor: "white",
-                borderRadius: 10,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#2572FF",
-                  fontWeight: "bold",
-                }}
-              >
-                {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
         </ScrollView>
       </LinearGradient>
     </View>

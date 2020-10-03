@@ -1,64 +1,68 @@
-import api from './api';
+import api from "./api";
 
-function postArticulo(parameters){
-    return api.post('/articulo', parameters)
+function postArticulo(parameters) {
+  return api.post("/articulo", parameters);
 }
 
-function postAltaUsuario(parameters){
-    return api.post('/fisica', parameters)
+function postAltaUsuario(parameters) {
+  return api.post("/fisica", parameters);
 }
 
-function postAltaEmprendimiento(parameters){
-    return api.post('/emprendimiento', parameters)
+function postAltaEmprendimiento(parameters) {
+  return api.post("/emprendimiento", parameters);
 }
 
 function getEmprendimientos() {
-    return api.get('/emprendimiento/');
+  return api.get("/emprendimiento/");
 }
 
 function getLocalidades() {
-    return api.get('/localidad/');
+  return api.get("/localidad/");
 }
 
-function getProvincias(){
-    return api.get('/provincia/');
+function getProvincias() {
+  return api.get("/provincia");
 }
 
-function getLocalidadesPorProvincia(idLocalidad){
-    return api.get('/provincia/' + idLocalidad + "/localidades");
+function getLocalidadesPorProvincia(idLocalidad) {
+  return api.get("/provincia/" + idLocalidad + "/localidades");
 }
 
-function getRubros(){
-    return api.get('/rubro/');
+function getRubros() {
+  return api.get("/rubro/");
 }
 
-function getTipoEmprendimiento(){
-    return api.get('/tipoEmprendimiento/');
+function getTipoEmprendimiento() {
+  return api.get("/tipoEmprendimiento/");
 }
 
-function postTurnos(parameters){
-    return api.post('/turno/', parameters);
+function postTurnos(parameters) {
+  return api.post("/turno/", parameters);
 }
 
-function getInfoUsuario(idPersona){
-    return api.get('/fisica/' + idPersona)
+function getInfoUsuario(idPersona) {
+  return api.get("/fisica/" + idPersona);
 }
 
-function postResetPassword(parameters){
-    return api.post('/persona/resetpassword/', parameters);
+function postResetPassword(parameters) {
+  return api.post("/persona/resetpassword/", parameters);
+}
+function postLogin(parameters) {
+  return api.post("/login", parameters);
 }
 
 export const apiCalls = {
-    getInfoUsuario,
-    postResetPassword,
-    getLocalidades,
-    getRubros,
-    getTipoEmprendimiento,
-    postArticulo,
-    postAltaUsuario,
-    postAltaEmprendimiento,
-    getEmprendimientos,
-    getProvincias,
-    getLocalidadesPorProvincia,
-    postTurnos,
-}
+  getInfoUsuario,
+  postResetPassword,
+  getLocalidades,
+  getRubros,
+  getTipoEmprendimiento,
+  postArticulo,
+  postAltaUsuario,
+  postAltaEmprendimiento,
+  getEmprendimientos,
+  getProvincias,
+  getLocalidadesPorProvincia,
+  postTurnos,
+  postLogin,
+};

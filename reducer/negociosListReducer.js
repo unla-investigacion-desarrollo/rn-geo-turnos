@@ -1,14 +1,7 @@
 import { ADD_NEGOCIO, actions } from "../actions/types";
 
 const initialState = {
-  negocios: [
-    {
-      latitude: -34.7922239,
-      longitude: -58.38193479999999,
-      direccion: "628 ADA, Jacinto Calvo, José Marmol",
-      name: "NegocioTest"
-    },
-  ],
+  negocios: [],
   showInfoNegocio: false,
 };
 
