@@ -14,14 +14,13 @@ export default function RegistroUbicacion(props) {
   const isConfig = props?.route?.params?.source === "config";
 
   useEffect(() => {
-    console.log(isConfig);
     if (isConfig) {
       apiCalls
         .getInfoUsuario(access.idPersona, access.token)
         .then((response) => {
           let registroObject = {
             latitude: response.data.ubicacion.latitud,
-            longitude: response.data.ubicacion.longitude,
+            longitude: response.data.ubicacion.longitud,
             calle: response.data.ubicacion.calle,
             numero: response.data.ubicacion.numero.toString(),
             piso:

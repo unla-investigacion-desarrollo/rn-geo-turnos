@@ -108,9 +108,15 @@ export default function FormUbicacion(props) {
           });
           dispatch({ type: actions.LOGGED, payload: 1 });
         })
-        .catch((code, message) => {
-          console.log(code);
-          console.log(message);
+        .catch((response) => {
+          dispatch({
+            type: actions.TOAST,
+            payload: {
+              message: "Error al completar el registro",
+              type: "error",
+              visibilityTime: 3000,
+            },
+          });
         });
     } else {
       dispatch({
@@ -162,9 +168,10 @@ export default function FormUbicacion(props) {
     }
   };
 
-  const searchDireccionGoogle = (calle, numero, localidad) => {
-    const localidadSeleccionada = localidades.filter(
-      (localidad) => localidad.idLocalidad === localidad
+  const searchDireccionGoogle = (calle, numero, locali) => {
+    console.log(localidades);
+    const localidadSeleccionada = localidades.find(
+      (localidad) => localidad.idLocalidad === locali
     );
 
     searchPosition(
