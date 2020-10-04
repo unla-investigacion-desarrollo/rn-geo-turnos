@@ -4,13 +4,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TurnosNegocio from "./TurnosNegocio";
 import VerNegocios from "./VerNegocios";
 import { getNegocios } from "./FunctionNegocios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {filterNegocioDistance} from "../../Utils/constantes"
 export default function NavigationVerNegocios() {
   const Stack = createStackNavigator();
   const dispatch = useDispatch();
+  const access = useSelector((state) => state.access);
 
   useEffect(() => {
-    getNegocios(dispatch);
+    getNegocios(dispatch, 0, access.idPersona, filterNegocioDistance,access.token );
   });
 
   const createHomeStack = () => {

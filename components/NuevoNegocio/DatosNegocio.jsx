@@ -37,13 +37,6 @@ export default function DatosNegocio(props) {
 
   useEffect(() => {
     setEnableLocalidades(false)
-    apiCalls.getLocalidades()
-      .then((response) => {
-        response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
-        setLocalidades(response.data)
-      }).catch((code,message) =>{
-        console.log(code.message)
-     });
 
     apiCalls.getProvincias()
       .then((response) => {
