@@ -34,7 +34,6 @@ export default function FormUbicacion(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
-
     apiCalls
       .getProvincias()
       .then((response) => {
@@ -114,6 +113,7 @@ export default function FormUbicacion(props) {
           props.navigation.navigate("Ingreso");
         })
         .catch((response) => {
+          console.log(response.message)
           dispatch({
             type: actions.TOAST,
             payload: {

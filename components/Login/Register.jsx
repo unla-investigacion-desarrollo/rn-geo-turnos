@@ -51,6 +51,8 @@ export default function Register(props) {
             },
           });
         });
+    }else{
+      setLoadPage(true);
     }
   }, []);
 

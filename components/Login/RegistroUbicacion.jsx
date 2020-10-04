@@ -41,7 +41,7 @@ export default function RegistroUbicacion(props) {
           dispatch(setRegisterData(registroObject));
           setLoadPage( true )
         })
-        .catch((code, message) => {
+        .catch((res) => {
           dispatch({
             type: actions.TOAST,
             payload: {
@@ -51,6 +51,8 @@ export default function RegistroUbicacion(props) {
             },
           });
         });
+    }else{
+      setLoadPage(true)
     }
   }, []);
 
