@@ -13,7 +13,7 @@ import { actions } from "../../actions/types";
 import { useDispatch } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import * as SecureStore from "expo-secure-store";
-import { setCredentials } from "../../Utils/functions";
+import { setRegisterData } from "../../actions/RegisterActions";
 
 export default function Configuraciones(props) {
   const dispatch = useDispatch();
@@ -24,11 +24,12 @@ export default function Configuraciones(props) {
   const cerrarSesion = () => {
     clearCredentials();
     dispatch({ type: actions.LOGGED, payload: 0 });
+    dispatch(setRegisterData({}));
   };
 
   const clearCredentials = async () => {
     try {
-      await SecureStore.deleteItemAsync("loginData");
+      await SecureStore.deleteItemAsync("credentials");
     } catch (e) {
       console.log(e);
     }

@@ -21,7 +21,7 @@ export default function FormUbicacion(props) {
   const registro = useSelector((state) => state.registro);
   const [calle, setCalle] = useState("");
   const [numero, setNumero] = useState("");
-  const [piso, setPiso] = useState("");
+  const [piso, setPiso] = useState(0);
   const [depto, setDepto] = useState("");
   const [localidad, setLocalidad] = useState(0);
   const [localidades, setLocalidades] = useState([]);
@@ -34,7 +34,7 @@ export default function FormUbicacion(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
-    console.log(registro.registerData);
+
     apiCalls
       .getProvincias()
       .then((response) => {
@@ -72,31 +72,35 @@ export default function FormUbicacion(props) {
 
   const setLogged = () => {
     if (calle.length > 0 && numero > 0 && localidad > 0 && provincia > 0) {
-      apiCalls
-        .postAltaUsuario({
-          apellido: registro.registerData.apellido,
-          celular: registro.registerData.celular,
-          sexo: registro.registerData.sexo,
-          cuil: registro.registerData.cuil,
-          idPerfil: 1,
-          loginVo: {
-            clave: registro.registerData.password,
-            email: registro.registerData.email,
-          },
-          nombre: registro.registerData.nombre,
-          ubicacionVo: {
-            calle: calle,
-            numero: parseInt(numero),
-            departamento: depto,
-            idLocalidad: registro.registerData.localidad,
-            idProvincia: registro.registerData.provincia,
-            latitud: registro.registerData.latitude,
-            longitud: registro.registerData.longitude,
-            piso: parseInt(numero),
-            usuarioModi: registro.registerData.cuil,
-          },
+      const userInfo = {
+        apellido: registro.registerData.apellido,
+        celular: registro.registerData.celular,
+        sexo: registro.registerData.sexo,
+        cuil: registro.registerData.cuil,
+        dni: registro.registerData.documento,
+        numeroTramite: registro.registerData.nroTramite,
+        idPerfil: 1,
+        loginVo: {
+          clave: registro.registerData.password,
+          email: registro.registerData.email,
+        },
+        nombre: registro.registerData.nombre,
+        ubicacionVo: {
+          calle: calle,
+          numero: parseInt(numero),
+          departamento: depto,
+          idLocalidad: registro.registerData.localidad,
+          idProvincia: registro.registerData.provincia,
+          latitud: registro.registerData.latitude,
+          longitud: registro.registerData.longitude,
+          piso: parseInt(piso),
           usuarioModi: registro.registerData.cuil,
-        })
+        },
+        usuarioModi: registro.registerData.cuil,
+      };
+      console.log(userInfo);
+      apiCalls
+        .postAltaUsuario(userInfo)
         .then((response) => {
           dispatch({
             type: actions.TOAST,
@@ -106,9 +110,11 @@ export default function FormUbicacion(props) {
               visibilityTime: 5000,
             },
           });
+          dispatch(setRegisterData({}));
           props.navigation.navigate("Ingreso");
         })
         .catch((response) => {
+          console.log(response);
           dispatch({
             type: actions.TOAST,
             payload: {
