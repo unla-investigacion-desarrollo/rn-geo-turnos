@@ -46,6 +46,12 @@ function getInfoUsuario(idPersona, token) {
   });
 }
 
+function setNewInfoUsuario(idPersona, parameters, token) {
+  return api.get("/fisica/" + idPersona, parameters, {
+    headers: { token_auth: token },
+  });
+}
+
 function postResetPassword(parameters) {
   return api.post("/persona/resetpassword/", parameters);
 }
@@ -67,4 +73,5 @@ export const apiCalls = {
   getLocalidadesPorProvincia,
   postTurnos,
   postLogin,
+  setNewInfoUsuario,
 };

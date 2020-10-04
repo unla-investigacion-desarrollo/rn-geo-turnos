@@ -25,14 +25,19 @@ export default function Register(props) {
             celular: response.data.celular,
             email: response.data.login.email,
             sexo: response.data.sexo,
+            latitude: response.data.ubicacion.latitud,
+            longitude: response.data.ubicacion.longitud,
             calle: response.data.ubicacion.calle,
-            numero: response.data.ubicacion.numero,
-            piso: response.data.ubicacion.piso,
-            departamento: response.data.ubicacion.departamento,
-            provincia: response.data.ubicacion.localidad.provincia.idProvincia,
+            numero: response.data.ubicacion.numero.toString(),
+            piso:
+              response.data.ubicacion.piso > 0
+                ? response.data.ubicacion.piso.toString()
+                : "",
+            depto: response.data.ubicacion.departamento,
             localidad: response.data.ubicacion.localidad.idLocalidad,
+            provincia: response.data.ubicacion.localidad.provincia.idProvincia,
           };
-
+          //console.log(registerData);
           dispatch(setRegisterData(registerData));
         })
         .catch((code, message) => {

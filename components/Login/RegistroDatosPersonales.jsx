@@ -13,6 +13,7 @@ import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { apiCalls } from "../../api/apiCalls";
 
 export default function RegistroDatosPersonales(props) {
   const access = useSelector((state) => state.access);
@@ -31,6 +32,7 @@ export default function RegistroDatosPersonales(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
+    console.log(registerOjecto.nombre);
     if (registerOjecto.nombre) {
       setNombre(registerOjecto.nombre);
     }
@@ -84,13 +86,17 @@ export default function RegistroDatosPersonales(props) {
 
   const saveNewData = () => {
     let registroObject = {
-      idPersona: access.idPersona,
+      nombre: nombre,
+      apellido: apellido,
+      sexo: sexo,
+      cuil: cuil,
       celular: celular,
-      email: email,
-      password: password,
+      usuarioModi: cuil,
+      //email: email,
+      //password: password,
     };
 
-    //APICALL
+    apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token);
 
     props.navigation.navigate("Configuración");
   };

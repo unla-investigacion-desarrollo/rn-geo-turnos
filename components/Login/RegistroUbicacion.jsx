@@ -19,6 +19,12 @@ export default function RegistroUbicacion(props) {
         .getInfoUsuario(access.idPersona, access.token)
         .then((response) => {
           let registroObject = {
+            nombre: response.data.nombre,
+            apellido: response.data.apellido,
+            cuil: response.data.cuil,
+            celular: response.data.celular,
+            email: response.data.login.email,
+            sexo: response.data.sexo,
             latitude: response.data.ubicacion.latitud,
             longitude: response.data.ubicacion.longitud,
             calle: response.data.ubicacion.calle,

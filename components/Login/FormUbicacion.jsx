@@ -34,7 +34,7 @@ export default function FormUbicacion(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
-
+    console.log(registro.registerData);
     apiCalls
       .getProvincias()
       .then((response) => {
@@ -101,12 +101,12 @@ export default function FormUbicacion(props) {
           dispatch({
             type: actions.TOAST,
             payload: {
-              message: "Bienvenido a ReactivAR " + registro.registerData.nombre,
-              type: "success",
-              visibilityTime: 10000,
+              message: "Te enviamos un mail para que valides tu correo",
+              type: "info",
+              visibilityTime: 5000,
             },
           });
-          dispatch({ type: actions.LOGGED, payload: 1 });
+          props.navigation.navigate("Ingreso");
         })
         .catch((response) => {
           dispatch({
@@ -200,16 +200,16 @@ export default function FormUbicacion(props) {
 
         dispatch(setRegisterData(registroObject));
       } else {
-        let registroObject = {
-          latitude: response.latitude,
-          longitude: response.longitude,
-          calle: calle,
-          numero: numero,
-          piso: piso,
-          depto: depto,
-          localidad: localidad,
-          provincia: provincia,
-        };
+        let registroObject = registro.registerData;
+        registroObject.latitude = response.latitude;
+        registroObject.longitude = response.longitude;
+        registroObject.calle = response.calle;
+        registroObject.numero = response.numero;
+        registroObject.piso = response.piso;
+        registroObject.depto = response.depto;
+        registroObject.localidad = response.localidad;
+        registroObject.provincia = response.provincia;
+
         dispatch(setRegisterData(registroObject));
       }
     });
