@@ -7,30 +7,33 @@ export default function MarkUbicacion(props) {
   const registro = useSelector((state) => state.registro);
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
 
+
   return (
+    
     <MapView
       style={{ flex: 1, height: 250 }}
       provider={MapView.PROVIDER_GOOGLE}
       region={{
         latitude: registro.registerData.latitude
-          ? registro.registerData.latitude
+          ? parseFloat(registro.registerData.latitude)
           : -34.603773,
         longitude: registro.registerData.longitude
-          ? registro.registerData.longitude
+          ? parseFloat(registro.registerData.longitude)
           : -58.381706,
         latitudeDelta: 0.003,
         longitudeDelta: 0.003,
       }}
     >
+      {console.log(registro.registerData)}
       {registro.registerData.latitude !== 0 &&
       registro.registerData.longitude !== 0 ? (
         <MapView.Marker
           coordinate={{
             latitude: registro.registerData.latitude
-              ? registro.registerData.latitude
+              ? parseFloat(registro.registerData.latitude)
               : -34.603773,
             longitude: registro.registerData.longitude
-              ? registro.registerData.longitude
+              ? parseFloat(registro.registerData.longitude)
               : -58.381706,
           }}
         ></MapView.Marker>

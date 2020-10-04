@@ -35,6 +35,7 @@ export default function FormUbicacion(props) {
   useEffect(() => {
     let registerOjecto = registro.registerData;
 
+  
     apiCalls
       .getProvincias()
       .then((response) => {
@@ -140,7 +141,7 @@ export default function FormUbicacion(props) {
   const getLocalidadesPorProvincia = (e) => {
     setProvincia(e);
     apiCalls
-      .getLocalidadesPorProvincia(e)
+      .getLocalidades(e)
       .then((response) => {
         setEnableLocalidades(true);
         response.data.unshift({
@@ -149,7 +150,9 @@ export default function FormUbicacion(props) {
         });
         setLocalidades(response.data);
       })
-      .catch((code, message) => {});
+      .catch((code, message) => {
+        console.log(res.message)
+      });
   };
 
   const setLocation = () => {

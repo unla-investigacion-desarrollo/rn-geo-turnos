@@ -13,6 +13,8 @@ import { apiCalls } from "../../api/apiCalls";
 import { actions } from "../../actions/types";
 
 export default function DatosNegocio(props) {
+
+  const access = useSelector((state) => state.access);
   const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
   const [nombre, setNombre] = useState("");
@@ -40,6 +42,7 @@ export default function DatosNegocio(props) {
         response.data.unshift({idLocalidad:0, nombre:"Seleccione una localidad"})
         setLocalidades(response.data)
       }).catch((code,message) =>{
+        console.log(code.message)
      });
 
     apiCalls.getProvincias()
@@ -49,20 +52,20 @@ export default function DatosNegocio(props) {
       }).catch((code,message) =>{
     });
 
-    apiCalls.getRubros()
+    apiCalls.getRubros(access.token)
       .then((response) => {
         response.data.unshift({idRubro:0, nombre:"Seleccione un rubro"})
         setRubros(response.data)
-      }).catch((code,message) =>{
-
+      }).catch((res) =>{
+        console.log(res.message)
       });
     
-    apiCalls.getTipoEmprendimiento()
+    apiCalls.getTipoEmprendimiento(access.token)
       .then((response) => {
         response.data.unshift({idTipoEmprendimiento:0, nombre:"Seleccione tipo de emprendimiento"})
         setEmprendimientos(response.data)
-      }).catch((code,message) =>{
-
+      }).catch((res) =>{
+        console.log(res.message)
       });
 
     if (datosNegocio.capacidadPersonas) {
@@ -110,7 +113,8 @@ export default function DatosNegocio(props) {
         setEnableLocalidades(true)
         response.data.unshift({idProvincia:0, nombre:"Seleccione una localidad"})
         setLocalidades(response.data)
-      }).catch((code,message) =>{
+      }).catch((res) =>{
+        console.log(res.message)
     });
   }
 

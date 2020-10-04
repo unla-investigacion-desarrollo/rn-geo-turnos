@@ -69,9 +69,8 @@ export default function TurnosNegocio(props) {
             }
           } )
           dispatch(switchMenu(VER_NEGOCIOS))
-        }).catch((error, message)=> {
-          console.log(error)
-          console.log(message)
+        }).catch((res)=> {
+          console.log(res.message)
         });
 
   };

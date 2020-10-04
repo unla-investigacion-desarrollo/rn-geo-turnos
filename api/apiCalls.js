@@ -28,12 +28,16 @@ function getLocalidadesPorProvincia(idLocalidad) {
   return api.get("/provincia/" + idLocalidad + "/localidades");
 }
 
-function getRubros() {
-  return api.get("/rubro/");
+function getRubros(token) {
+  return api.get("/rubro/",{
+    headers: { token_auth: token },
+  });
 }
 
-function getTipoEmprendimiento() {
-  return api.get("/tipoEmprendimiento/");
+function getTipoEmprendimiento(token) {
+  return api.get("/tipoEmprendimiento/",{
+    headers: { token_auth: token },
+  });
 }
 
 function postTurnos(parameters) {
