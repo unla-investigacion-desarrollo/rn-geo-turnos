@@ -8,6 +8,7 @@ import { PickerIOS } from "@react-native-community/picker";
 
 export default function RegistroUbicacion(props) {
   const access = useSelector((state) => state.access);
+  const [loadPage, setLoadPage] = React.useState( false )
 
   const dispatch = useDispatch();
 
@@ -38,6 +39,7 @@ export default function RegistroUbicacion(props) {
             provincia: response.data.ubicacion.localidad.provincia.idProvincia,
           };
           dispatch(setRegisterData(registroObject));
+          setLoadPage( true )
         })
         .catch((code, message) => {
           dispatch({
@@ -52,5 +54,9 @@ export default function RegistroUbicacion(props) {
     }
   }, []);
 
-  return <FormUbicacion isConfig={isConfig} navigation={props.navigation} />;
+  return (
+    <>
+      {loadPage && <FormUbicacion isConfig={isConfig} navigation={props.navigation} />}
+    </>
+  );
 }

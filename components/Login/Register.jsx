@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCalls } from "../../api/apiCalls";
+import { View } from "react-native"
 import { actions } from "../../actions/types";
 import RegistroDatosPersonales from "./RegistroDatosPersonales";
 import { setRegisterData } from "../../actions/RegisterActions";
 import { PickerIOS } from "@react-native-community/picker";
 
-export default function Register(props) {
-  const access = useSelector((state) => state.access);
-
+export default function Register ( props ) {
+  const access = useSelector( ( state ) => state.access );
+  const [loadPage, setLoadPage] = React.useState( false )
   const dispatch = useDispatch();
 
   const isConfig = props?.route?.params?.source === "config";
 
-  useEffect(() => {
-    if (isConfig) {
+  useEffect( () => {
+    if ( isConfig ) {
+      console.log( access.idPersona )
       apiCalls
-        .getInfoUsuario(access.idPersona, access.token)
-        .then((response) => {
+        .getInfoUsuario( access.idPersona, access.token )
+        .then( ( response ) => {
           const registerData = {
             nombre: response.data.nombre,
             apellido: response.data.apellido,
@@ -38,25 +40,28 @@ export default function Register(props) {
             provincia: response.data.ubicacion.localidad.provincia.idProvincia,
           };
           //console.log(registerData);
-          dispatch(setRegisterData(registerData));
-        })
-        .catch((code, message) => {
-          dispatch({
+          dispatch( setRegisterData( registerData ) );
+          setLoadPage( true )
+        } )
+        .catch( ( code, message ) => {
+          dispatch( {
             type: actions.TOAST,
             payload: {
               message: "Error al traer la informacion del usuario",
               type: "error",
               visibilityTime: 3000,
             },
-          });
-        });
+          } );
+        } );
     }
-  }, []);
+  }, [] );
 
   return (
-    <RegistroDatosPersonales
-      isConfig={isConfig}
-      navigation={props.navigation}
-    />
+    <>
+      {loadPage && <RegistroDatosPersonales
+        isConfig={isConfig}
+        navigation={props.navigation}
+      />}
+    </>
   );
 }
