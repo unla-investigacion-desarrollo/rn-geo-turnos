@@ -35,7 +35,6 @@ export default function FormUbicacion(props) {
   useEffect(() => {
     let registerOjecto = registro.registerData;
 
-  
     apiCalls
       .getProvincias()
       .then((response) => {
@@ -47,8 +46,9 @@ export default function FormUbicacion(props) {
       })
       .catch((code, message) => {});
 
+    console.log(isConfig);
     if (isConfig) {
-      getLocalidadesPorProvincia(provincia);
+      getLocalidadesPorProvincia(registerOjecto.provincia);
     }
 
     if (registerOjecto.calle) {
@@ -99,7 +99,7 @@ export default function FormUbicacion(props) {
         },
         usuarioModi: registro.registerData.cuil,
       };
-      console.log(userInfo);
+
       apiCalls
         .postAltaUsuario(userInfo)
         .then((response) => {
@@ -115,7 +115,6 @@ export default function FormUbicacion(props) {
           props.navigation.navigate("Ingreso");
         })
         .catch((response) => {
-          console.log(response);
           dispatch({
             type: actions.TOAST,
             payload: {
@@ -141,7 +140,7 @@ export default function FormUbicacion(props) {
   const getLocalidadesPorProvincia = (e) => {
     setProvincia(e);
     apiCalls
-      .getLocalidades(e)
+      .getLocalidadesPorProvincia(e)
       .then((response) => {
         setEnableLocalidades(true);
         response.data.unshift({
@@ -151,7 +150,7 @@ export default function FormUbicacion(props) {
         setLocalidades(response.data);
       })
       .catch((code, message) => {
-        console.log(res.message)
+        console.log(res.message);
       });
   };
 
@@ -178,7 +177,6 @@ export default function FormUbicacion(props) {
   };
 
   const searchDireccionGoogle = (calle, numero, locali) => {
-    console.log(localidades);
     const localidadSeleccionada = localidades.find(
       (localidad) => localidad.idLocalidad === locali
     );

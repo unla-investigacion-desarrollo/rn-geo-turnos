@@ -17,7 +17,7 @@ function getEmprendimientos() {
 }
 
 function getLocalidades() {
-  return api.get("/localidad/");
+  return api.get("/localidad");
 }
 
 function getProvincias() {
@@ -29,13 +29,13 @@ function getLocalidadesPorProvincia(idLocalidad) {
 }
 
 function getRubros(token) {
-  return api.get("/rubro/",{
+  return api.get("/rubro/", {
     headers: { token_auth: token },
   });
 }
 
 function getTipoEmprendimiento(token) {
-  return api.get("/tipoEmprendimiento/",{
+  return api.get("/tipoEmprendimiento/", {
     headers: { token_auth: token },
   });
 }

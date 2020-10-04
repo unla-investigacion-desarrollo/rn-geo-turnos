@@ -32,7 +32,6 @@ export default function RegistroDatosPersonales(props) {
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
-    console.log(registerOjecto.nombre);
     if (registerOjecto.nombre) {
       setNombre(registerOjecto.nombre);
     }
