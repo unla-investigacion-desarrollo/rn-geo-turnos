@@ -46,7 +46,6 @@ export default function FormUbicacion(props) {
       })
       .catch((code, message) => {});
 
-    console.log(isConfig);
     if (isConfig) {
       getLocalidadesPorProvincia(registerOjecto.provincia);
     }
