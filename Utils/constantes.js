@@ -59,4 +59,4 @@ export const horarios = [
   "23:30",
 ];
 
-export const filterNegocioDistance = "2";
+export const filterNegocioDistance = "3";

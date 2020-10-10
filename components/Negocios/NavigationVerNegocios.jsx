@@ -10,9 +10,10 @@ export default function NavigationVerNegocios() {
   const Stack = createStackNavigator();
   const dispatch = useDispatch();
   const access = useSelector((state) => state.access);
+  const filterNegocio = useSelector((state) => state.filterNegocio);
 
   useEffect(() => {
-    getNegocios(dispatch, 0, access.idPersona, filterNegocioDistance,access.token );
+    getNegocios(dispatch, 0, access.idPersona, filterNegocio.km,access.token );
   });
 
   const createHomeStack = () => {

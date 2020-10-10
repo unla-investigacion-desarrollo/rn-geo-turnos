@@ -12,6 +12,7 @@ import { showToast } from "../../actions/toastActions";
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
+  const filterNegocio = useSelector((state) => state.filterNegocio);
 
   const showInfoNegocio = useSelector(
     (state) => state.lista_negocios.showInfoNegocio
@@ -81,6 +82,13 @@ export default function VerNegocios(props) {
             longitudeDelta: 0.003,
           }}
         >
+          <MapView.Circle
+                center =  {{latitude:parseFloat(region.latitude), longitude:parseFloat(region.longitude)}}
+                radius = { filterNegocio.km*1000 }
+                strokeWidth = { 1 }
+                strokeColor = { '#1a66ff' }
+                fillColor = { 'rgba(230,238,255,0.5)' }
+        />
           {marcarNegocios()}
         </MapView>
       );
