@@ -24,6 +24,7 @@ export default function TurnosNegocio ( props ) {
   const [day, setDay] = useState( new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
   const [hour, setHour] = useState( horarios[0] );
   const [comments, setComments] = useState( "" );
+  const access = useSelector((state) => state.access);
 
   console.log( negocio )
 
@@ -32,22 +33,15 @@ export default function TurnosNegocio ( props ) {
 
     let splitDay = day.split( "/" )
     let fechaHora = splitDay[2] + ( parseInt( splitDay[1] ) <= 9 ? "-0" : "-" ) + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
-    console.log( {
-      fechaHora: fechaHora,
-      idEmprendimiento: negocio.id,
-      idEstadoTurno: 1,
-      idPersona: 2,
-      observaciones: comments,
-      usuarioModi: "xlucio"
-    } )
+
     apiCalls.postTurnos( {
       fechaHora: fechaHora,
       idEmprendimiento: negocio.id ? negocio.id : 1,
       idEstadoTurno: 1,
-      idPersona: 2,
+      idPersona: access.idPersona,
       observaciones: comments,
-      usuarioModi: "xlucio"
-    } ).then( ( response ) => {
+      usuarioModi: access.idPersona
+    }, access.token ).then( ( response ) => {
       console.log( "Turno dado de alta correctamente" )
       dispatch( {
         type: actions.TOAST, payload: {

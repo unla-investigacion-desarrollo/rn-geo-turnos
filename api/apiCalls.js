@@ -38,8 +38,10 @@ function getTipoEmprendimiento(token) {
   });
 }
 
-function postTurnos(parameters) {
-  return api.post("/turno/", parameters);
+function postTurnos(parameters,token) {
+  return api.post("/turno/", parameters, {
+    headers: { token_auth: token },
+  });
 }
 
 function getInfoUsuario(idPersona, token) {
