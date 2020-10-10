@@ -51,7 +51,7 @@ function getInfoUsuario(idPersona, token) {
 }
 
 function setNewInfoUsuario(idPersona, parameters, token) {
-  return api.get("/fisica/" + idPersona, parameters, {
+  return api.put("/fisica/" + idPersona, parameters, {
     headers: { token_auth: token },
   });
 }

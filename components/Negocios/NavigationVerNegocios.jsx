@@ -6,6 +6,10 @@ import VerNegocios from "./VerNegocios";
 import { getNegocios } from "./FunctionNegocios";
 import { useDispatch, useSelector } from "react-redux";
 import {filterNegocioDistance} from "../../Utils/constantes"
+import {getLocation} from "../../services/location-service"
+import {centerMap, centerMapToSetted} from "../../actions/centerMapActions"
+
+
 export default function NavigationVerNegocios() {
   const Stack = createStackNavigator();
   const dispatch = useDispatch();
@@ -13,9 +17,26 @@ export default function NavigationVerNegocios() {
   const filterNegocio = useSelector((state) => state.filterNegocio);
 
   useEffect(() => {
+    // setUserPosition()
     getNegocios(dispatch, 0, access.idPersona, filterNegocio.km,access.token );
   });
 
+
+  // const setUserPosition = () => {
+  //   getLocation().then((data) => {
+  //     dispatch(
+  //       centerMap({
+  //         latitude: data.latitude,
+  //         longitude: data.longitude,
+  //         direccion: "",
+  //       })
+  //     );
+  //   }).catch((err) =>{
+  //     dispatch(centerMapToSetted());
+  //   })
+
+  //   ;
+  // };
   const createHomeStack = () => {
     return (
       <Stack.Navigator>

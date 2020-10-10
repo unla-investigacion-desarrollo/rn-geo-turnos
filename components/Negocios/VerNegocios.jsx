@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
@@ -6,6 +6,9 @@ import InformacionNegocio from "./InformacionNegocio";
 import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 import { actions } from "../../actions/types";
+import { getLocation } from "../../services/location-service"
+import { centerMapToSetted, centerMap } from "../../actions/centerMapActions";
+
 
 import { showToast } from "../../actions/toastActions";
 
@@ -14,10 +17,32 @@ export default function VerNegocios(props) {
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
   const filterNegocio = useSelector((state) => state.filterNegocio);
 
+ 
   const showInfoNegocio = useSelector(
     (state) => state.lista_negocios.showInfoNegocio
   ); //Lista de negocios cercanos
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   setUserPosition()
+  // }, []);
+
+
+  // const setUserPosition = () => {
+  //   getLocation().then((data) => {
+  //     dispatch(
+  //       centerMap({
+  //         latitude: data.latitude,
+  //         longitude: data.longitude,
+  //         direccion: "",
+  //       })
+  //     );
+  //   }).catch((err) =>{
+  //     dispatch(centerMapToSetted());
+  //   })
+
+  //   ;
+  // };
 
   const setShowInfoNegocio = (mostrar) => {
     dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: mostrar });
@@ -75,6 +100,7 @@ export default function VerNegocios(props) {
         <MapView
           style={{ flex: 1 }}
           provider={MapView.PROVIDER_GOOGLE}
+          showsUserLocation={true}
           region={{
             latitude: region.latitude, //Marco el centro del mapa con la ubicacion del usuario
             longitude: region.longitude,
