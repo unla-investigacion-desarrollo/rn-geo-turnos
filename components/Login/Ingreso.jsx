@@ -34,8 +34,8 @@ export default function Ingreso(props) {
             const responseLogin = {
               token: response.data.token,
               idPersona: response.data.idPersona,
+              idPerfil:response.data.idPerfil
             };
-
             remember(responseLogin);
           })
           .catch((resp) => {

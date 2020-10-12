@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {useSelector} from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faUserCircle,
@@ -17,6 +18,7 @@ import { setRegisterData } from "../../actions/RegisterActions";
 
 export default function Configuraciones(props) {
   const dispatch = useDispatch();
+  const access = useSelector((state) => state.access);
 
   const navigateConfiguraciones = (opcion) => {
     props.navigation.navigate(opcion, { source: "config" });
@@ -65,6 +67,7 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>
+          {access.idPerfil!==2?(
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigateConfiguraciones("Información Negocio")}
@@ -74,7 +77,8 @@ export default function Configuraciones(props) {
               <Text style={styles.textButton}> Configuración del Negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity>):<></> }
+          {access.idPerfil!==3?(
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigateConfiguraciones("Nuevo negocio")}
@@ -84,7 +88,7 @@ export default function Configuraciones(props) {
               <Text style={styles.textButton}> Añadí tu negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity>):<></>}
 
           <TouchableOpacity
             style={styles.button}

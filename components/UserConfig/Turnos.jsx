@@ -3,9 +3,13 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ListMisTurnos from "./Turnos/ListMisTurnos";
 import ListTurnosNegocio from "./Turnos/ListTurnosNegocio";
+import {useSelector} from "react-redux"
+
 
 export default function MisTurnos(props) {
   const [tabSeleccionado, setTabSeleccionado] = useState(0);
+    const access = useSelector((state) => state.access);
+
   return (
     <View style={{ flex: 1 }}>
       <LinearGradient
@@ -19,6 +23,7 @@ export default function MisTurnos(props) {
           {tabSeleccionado === 0 ? <ListMisTurnos /> : <ListTurnosNegocio />}
         </View>
         <View style={{ flex: 1, flexDirection: "row" }}>
+          {access.idPerfil!==2?(
           <View style={styles.container}>
             <TouchableOpacity
               style={{ justifyContent: "center", flex: 1 }}
@@ -34,7 +39,7 @@ export default function MisTurnos(props) {
                 Turnos Negocio
               </Text>
             </TouchableOpacity>
-          </View>
+          </View>):<></>}
           <View style={styles.container}>
             <TouchableOpacity
               style={{ justifyContent: "center", flex: 1 }}
