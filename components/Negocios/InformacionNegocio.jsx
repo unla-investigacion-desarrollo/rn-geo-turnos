@@ -22,6 +22,7 @@ export default function InformacionNegocio(props) {
   };
   return (
     <>
+   
       <View style={{ flexDirection: "row" }}>
         <Text style={{ fontSize: 20, textAlign: "center", width: "90%" }}>
           {marcador_seleccionado.name}
@@ -82,11 +83,11 @@ export default function InformacionNegocio(props) {
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: "row", marginTop: "5%" }}>
-        <View style={{ flex: 1 }}>
+        {/* <View style={{ flex: 1 }}>
           <TouchableOpacity style={{ textAlign: "center" }}>
             <Text style={styles.confirm_button}>Realizar Pedido</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={{ flex: 1 }}>
           <TouchableOpacity style={{ textAlign: "center" }} onPress={infoTurno}>
             <Text style={styles.confirm_button}>Reservar Turno</Text>

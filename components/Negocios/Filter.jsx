@@ -15,7 +15,7 @@ import { apiCalls } from "../../api/apiCalls";
 import { getNegocios } from "./FunctionNegocios";
 import {filterNegocioDistance} from "../../Utils/constantes"
 import {setNegocioFilters} from "../../actions/FilterNegocioActions"
-
+import {actions} from "../../actions/types"
 
 
 export default function Filter() {
@@ -45,9 +45,21 @@ export default function Filter() {
   });
 
   const setFiltros = () => {
+    if(rubro!==0){
     dispatch(setNegocioFilters({km:kilometros, rubro:rubro}))
     getNegocios(dispatch, rubro, access.idPersona, kilometros ,access.token );
     setModalVisible(false);
+    }else{
+       dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "Debe ingresar un rubro",
+            type: "error",
+            visibilityTime: 3000,
+          },
+        });
+    }
+
   };
 
 

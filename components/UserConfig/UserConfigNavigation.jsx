@@ -54,6 +54,10 @@ export default function UserConfigNavigation() {
           name="Nuevo negocio"
           component={DatosNegocio}
         ></Stack.Screen>
+           <Stack.Screen
+          name="Turnos Negocio"
+          component={TurnosNegocio}
+        ></Stack.Screen>
 
         {/* FIN NEGOCIO */}
 
