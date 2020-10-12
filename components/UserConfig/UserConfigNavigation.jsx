@@ -12,7 +12,7 @@ import MapInput from "../NuevoNegocio/MapInput";
 import TurnosNegocio from "../NuevoNegocio/TurnosNegocio";
 import NuevoNegocio from "../NuevoNegocio/NuevoNegocio";
 
-import Pdf from "../Negocios/Pdf";
+import QrEmprendimiento from "../Negocios/QrEmprendimiento";
 
 export default function UserConfigNavigation() {
   const Stack = createStackNavigator();
@@ -33,7 +33,7 @@ export default function UserConfigNavigation() {
           name="Ubicación"
           component={RegistroUbicacion}
         ></Stack.Screen>
-        <Stack.Screen name="PDF" component={Pdf}></Stack.Screen>
+        <Stack.Screen name="PDF" component={QrEmprendimiento}></Stack.Screen>
         <Stack.Screen
           name="Información Negocio"
           component={DatosNegocio}

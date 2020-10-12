@@ -1,6 +1,5 @@
 import axios from "axios";
-//import { getToken } from "../Utils/functions";
-
+import { baseUrl } from "../Utils/constantes"
 let token = "";
 
 export const setTokenAxios = (tokenCredential) => {
@@ -8,7 +7,7 @@ export const setTokenAxios = (tokenCredential) => {
 };
 
 export default axios.create({
-  baseURL: "http://192.168.1.56:8080/api/", //Gonza
+  baseURL: baseUrl, //Gonza
   //baseURL: "http://192.168.0.3:8080/reactivar/api/",//Lucio
   timeout: 10000000,
   responseType: "json",

@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
+  Image
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -71,13 +72,13 @@ export default function RegistroDni(props) {
     >
       <LinearGradient
         // Background Linear Gradient
-        colors={["#6DCAE1", "#0CA4C9"]}
+         colors={["#FFFFFF", "#59C9E5", "#0CA4C9"]}
         style={{
           flex: 1,
           padding: 10,
         }}
       >
-        <View
+     <View
           style={{
             flex: 1,
             justifyContent: "center",
@@ -86,19 +87,15 @@ export default function RegistroDni(props) {
         >
           <View
             style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              borderWidth: 3,
-              borderColor: "#ccc",
-              backgroundColor: "white",
+              width: 130,
+              height: 130,
+              borderRadius: 10,
+             justifyContent:"center",
+             alignItems:"center",
+            
             }}
-          ></View>
-          <View style={{ marginTop: 25 }}>
-            <Text style={{ fontSize: 20, color: "white" }}>
-              #Nombre de la Aplicación#
-            </Text>
-          </View>
+          ><Image source={require('../../assets/LOGOTransparente.png')} style={{ width: 140, height:140 }}/></View>
+        
         </View>
         <View style={{ flex: 1 }}>
           <View>

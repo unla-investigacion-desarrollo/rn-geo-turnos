@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
+  Image
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { actions } from "../../actions/types";
@@ -114,30 +115,15 @@ export default function Ingreso(props) {
         >
           <View
             style={{
-              width: 100,
-              height: 100,
-              borderRadius: 30,
-              borderWidth: 3,
-              borderColor: "#ccc",
-              backgroundColor: "white",
+              width: 130,
+              height: 130,
+              borderRadius: 10,
+             justifyContent:"center",
+             alignItems:"center",
+            
             }}
-          ></View>
-          <View
-            style={{
-              marginTop: 25,
-              borderBottomColor: "#fff",
-              borderBottomWidth: 1,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 28,
-                color: "white",
-              }}
-            >
-              ReactivAR
-            </Text>
-          </View>
+          ><Image source={require('../../assets/LOGOTransparente.png')} style={{ width: 140, height:140 }}/></View>
+        
         </View>
         <View style={{ flex: 1 }}>
           <View>

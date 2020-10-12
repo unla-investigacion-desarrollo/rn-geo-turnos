@@ -4,6 +4,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { dataRead, qrPermissions } from "../../actions/qrReaderActions";
 import { setRegisterData } from "../../actions/RegisterActions";
+import SuccessQrRead from "./SuccessQrRead"
 
 export default function QrReader(props) {
   const qr_state = useSelector((state) => state.qr_state);
@@ -59,7 +60,7 @@ export default function QrReader(props) {
     console.log(registroObject)
     dispatch(setRegisterData(registroObject));
 
-    props.navigation.navigate("Datos Personales");
+   // props.navigation.navigate("Datos Personales");
     
 
     //fetchApi(data);
@@ -88,17 +89,10 @@ export default function QrReader(props) {
         )}
 
         {scanned && (
-          <Text
-            style={{
-              position: "absolute",
-              left: 50,
-              top: 200,
-              backgroundColor: "white",
-            }}
-          >
-            {qr_state?.data[0]?.name}
-          </Text>
+         <SuccessQrRead/>
         )}
+
+       
       </View>
     );
   }

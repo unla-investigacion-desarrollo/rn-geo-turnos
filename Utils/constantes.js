@@ -60,3 +60,5 @@ export const horarios = [
 ];
 
 export const filterNegocioDistance = "3";
+export const baseUrl = "http://192.168.1.56:8080/api/";
+//export const baseUrl = "http://192.168.0.3:8080/api/";
