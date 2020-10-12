@@ -53,6 +53,14 @@ export default function UserConfigNavigation() {
           options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
         <Stack.Screen
+          name="Horarios Negocio Config"
+          component={HorariosNegocio}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Ubicacion Negocio Config"
+          component={MapContainer}
+        ></Stack.Screen>
+        <Stack.Screen
           name="MapInput Negocio"
           component={MapInput}
           options={{headerBackTitleVisible:false}}
@@ -66,6 +74,10 @@ export default function UserConfigNavigation() {
           name="Turnos Negocio"
           component={TurnosNegocio}
           options={{headerBackTitleVisible:false}}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Turnos Negocio Config"
+          component={TurnosNegocio}
         ></Stack.Screen>
 
         {/* FIN NEGOCIO */}

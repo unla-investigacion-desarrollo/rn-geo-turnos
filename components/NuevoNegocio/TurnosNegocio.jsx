@@ -18,6 +18,8 @@ export default function TurnosNegocio(props) {
   const horariosNegocio = useSelector((state) => state.nuevoNegocio.horarios);
   const access = useSelector((state) => state.access);
 
+  const isConfig = props?.route?.name === "Turnos Negocio Config";
+
 
 
   const setNewNegocio = () => {
@@ -41,42 +43,82 @@ export default function TurnosNegocio(props) {
     })
 
     dispatch(setDataNegocio(newNegocio));
+    if(isConfig){
+      console.log({
+        aceptaFoto:true,
+        capacidad: newNegocio.capacidadPersonas,
+        cuit: newNegocio.cuit,
+        idPersona: access.idPersona, 
+        idEstadoEmprendimiento: 2,
+        idRubro: newNegocio.rubro,
+        idTipoEmprendimiento: newNegocio.emprendimiento,
+        nombre: newNegocio.nombre,
+        usuarioModi: access.idPersona.toString()
+      })
       apiCalls
-        .postAltaEmprendimiento({
-          aceptaFoto:true,
-          capacidad: newNegocio.capacidadPersonas,
-          configuracionLocales: configuracionLocales,
-          cuit: newNegocio.cuit,
-          idPersona: access.idPersona, // Falta matchear al usuario
-          idRubro: newNegocio.rubro,
-          idTipoEmprendimiento: newNegocio.emprendimiento,
-          nombre: newNegocio.nombre,
-          ubicacionVo: {
-            calle: newNegocio.calle,
-            numero: newNegocio.numero,
-            departamento: newNegocio.depto.toString(),
-            idLocalidad: newNegocio.localidad,
-            idProvincia: newNegocio.provincia,
-            latitud: newNegocio.latitude.toString(),
-            longitud: newNegocio.longitude.toString(),
-            piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
-            usuarioModi: access.idPersona.toString()
-          },
+      .setNewInfoEmprendimiento(1,{
+        aceptaFoto:true,
+        capacidad: newNegocio.capacidadPersonas,
+        cuit: newNegocio.cuit,
+        idEstadoEmprendimiento: 2,
+        idPersona: access.idPersona, 
+        idRubro: newNegocio.rubro,
+        idTipoEmprendimiento: newNegocio.emprendimiento,
+        nombre: newNegocio.nombre,
+        usuarioModi: access.idPersona.toString()
+      }, access.token)
+      .then((response) => {
+        console.log(response.data)
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Negocio modificado correctamente",
+            type: "success",
+            visibilityTime: 10000
+          }
+        } )
+        props.navigation.navigate("Configuración");
+      }).catch((res)=> {
+        console.log(res.message)
+      });
+    }else{
+      apiCalls
+      .postAltaEmprendimiento({
+        aceptaFoto:true,
+        capacidad: newNegocio.capacidadPersonas,
+        configuracionLocales: configuracionLocales,
+        cuit: newNegocio.cuit,
+        idPersona: access.idPersona, 
+        idRubro: newNegocio.rubro,
+        idTipoEmprendimiento: newNegocio.emprendimiento,
+        nombre: newNegocio.nombre,
+        ubicacionVo: {
+          calle: newNegocio.calle,
+          numero: newNegocio.numero,
+          departamento: newNegocio.depto.toString(),
+          idLocalidad: newNegocio.localidad,
+          idProvincia: newNegocio.provincia,
+          latitud: newNegocio.latitude.toString(),
+          longitud: newNegocio.longitude.toString(),
+          piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
           usuarioModi: access.idPersona.toString()
-    
-        }, access.token)
-        .then((response) => {
-          dispatch( {
-            type: actions.TOAST, payload: {
-              message: "Negocio dado de alta correctamente",
-              type: "success",
-              visibilityTime: 10000
-            }
-          } )
-          dispatch(switchMenu(VER_NEGOCIOS))
-        }).catch((res)=> {
-          console.log(res.message)
-        });
+        },
+        usuarioModi: access.idPersona.toString()
+  
+      }, access.token)
+      .then((response) => {
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Negocio dado de alta correctamente",
+            type: "success",
+            visibilityTime: 10000
+          }
+        } )
+        dispatch(switchMenu(VER_NEGOCIOS))
+      }).catch((res)=> {
+        console.log(res.message)
+      });
+    }
+      
 
   };
 

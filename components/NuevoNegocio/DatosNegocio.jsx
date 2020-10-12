@@ -13,7 +13,7 @@ import { apiCalls } from "../../api/apiCalls";
 import { actions } from "../../actions/types";
 
 export default function DatosNegocio(props) {
-
+  
   const access = useSelector((state) => state.access);
   const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
   const [capacidadPersonas, setCapacidadPersonas] = useState(0);
@@ -35,80 +35,126 @@ export default function DatosNegocio(props) {
   const [enableLocalidades, setEnableLocalidades] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setEnableLocalidades(false)
+  const isConfig = props?.route?.name === "Información Negocio";
 
-    apiCalls.getProvincias()
-      .then((response) => {
-        response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
-        setProvincias(response.data)
-      }).catch((code,message) =>{
-    });
+  
 
-    apiCalls.getRubros(access.token)
-      .then((response) => {
-        response.data.unshift({idRubro:0, nombre:"Seleccione un rubro"})
-        setRubros(response.data)
-      }).catch((res) =>{
-        console.log(res.message)
-      });
+  useEffect(() => {  
+      
+      apiCalls.getRubros(access.token)
+        .then((response) => {
+          response.data.unshift({idRubro:0, nombre:"Seleccione un rubro"})
+          setRubros(response.data)
+          apiCalls.getTipoEmprendimiento(access.token)
+          .then((response) => {
+            response.data.unshift({idTipoEmprendimiento:0, nombre:"Seleccione tipo de emprendimiento"})
+            setEmprendimientos(response.data)
+            apiCalls.getProvincias()
+            .then((response) => {
+              response.data.unshift({idProvincia:0, nombre:"Seleccione una provincia"})
+              setProvincias(response.data)
+              if(isConfig){
+                getInfoEmprendimiento()
+              }else{
+                getInfoEmprendimientoRedux()
+              }
+            }).catch((res) =>{
+              console.log("Catch provincias")
+              console.log(res.message)
+
+          });
+          }).catch((res) =>{
+            console.log("Catch Tipo emprendimiento")
+            console.log(res.message)
+          });
+        }).catch((res) =>{
+          console.log("Catch Rubros")
+          console.log(res.message)
+        });
     
-    apiCalls.getTipoEmprendimiento(access.token)
-      .then((response) => {
-        response.data.unshift({idTipoEmprendimiento:0, nombre:"Seleccione tipo de emprendimiento"})
-        setEmprendimientos(response.data)
-      }).catch((res) =>{
-        console.log(res.message)
-      });
-
-    if (datosNegocio.capacidadPersonas) {
-      setCapacidadPersonas(datosNegocio.capacidadPersonas);
-    }
-    if (datosNegocio.nombre) {
-      setNombre(datosNegocio.nombre);
-    }
-    if (datosNegocio.cuit) {
-      setCuit(datosNegocio.cuit);
-    }
-    if (datosNegocio.telefono) {
-      setTelefono(datosNegocio.telefono);
-    }
-    if (datosNegocio.calle) {
-      setCalle(datosNegocio.calle);
-    }
-    if (datosNegocio.numero) {
-      setNumero(datosNegocio.numero);
-    }
-    if (datosNegocio.piso) {
-      setPiso(datosNegocio.piso);
-    }
-    if (datosNegocio.depto) {
-      setDepto(datosNegocio.depto);
-    }
-    if (datosNegocio.rubro) {
-      setRubro(datosNegocio.rubro);
-    }
-    if (datosNegocio.emprendimiento) {
-      setEmprendimiento(datosNegocio.emprendimiento);
-    }
-    if (datosNegocio.localidad) {
-      setLocalidad(datosNegocio.localidad);
-    }
-    if (datosNegocio.provincia) {
-      setProvincia(datosNegocio.provincia);
-    }
+      
+    
   }, [datosNegocio]);
 
-  const getLocalidadesPorProvincia = (e) => {
-    setProvincia(e)
-    apiCalls.getLocalidadesPorProvincia(e)
+  const getInfoEmprendimientoRedux = () => {
+    setEnableLocalidades(false)
+
+      if (datosNegocio.capacidadPersonas) {
+        setCapacidadPersonas(datosNegocio.capacidadPersonas);
+      }
+      if (datosNegocio.nombre) {
+        setNombre(datosNegocio.nombre);
+      }
+      if (datosNegocio.cuit) {
+        setCuit(datosNegocio.cuit);
+      }
+      if (datosNegocio.telefono) {
+        setTelefono(datosNegocio.telefono);
+      }
+      if (datosNegocio.calle) {
+        setCalle(datosNegocio.calle);
+      }
+      if (datosNegocio.numero) {
+        setNumero(datosNegocio.numero);
+      }
+      if (datosNegocio.piso) {
+        setPiso(datosNegocio.piso);
+      }
+      if (datosNegocio.depto) {
+        setDepto(datosNegocio.depto);
+      }
+      if (datosNegocio.rubro) {
+        setRubro(datosNegocio.rubro);
+      }
+      if (datosNegocio.emprendimiento) {
+        setEmprendimiento(datosNegocio.emprendimiento);
+      }
+      if (datosNegocio.localidad) {
+        setLocalidad(datosNegocio.localidad);
+      }
+      if (datosNegocio.provincia) {
+        setProvincia(datosNegocio.provincia);
+      }
+    
+  }
+
+
+  const getInfoEmprendimiento = () => {
+    apiCalls.getInfoEmprendimiento(1, access.token)
       .then((response) => {
-        setEnableLocalidades(true)
-        response.data.unshift({idProvincia:0, nombre:"Seleccione una localidad"})
-        setLocalidades(response.data)
-      }).catch((res) =>{
-        console.log(res.message)
-    });
+          setCapacidadPersonas(response.data.capacidad);
+          setNombre(response.data.nombre);
+          setCuit(response.data.cuit);
+          // setTelefono(response.data.telefono);
+          setCalle(response.data.ubicacion.calle);
+          setNumero(response.data.ubicacion.numero.toString());
+          setPiso(response.data.ubicacion.piso.toString());
+          setDepto(response.data.ubicacion.departamento);
+          setRubro(response.data.rubro.idRubro);
+          setEmprendimiento(response.data.tipoEmprendimiento.idTipoEmprendimiento);
+          setLocalidad(response.data.ubicacion.localidad.idLocalidad);
+          getLocalidadesPorProvincia(response.data.ubicacion.localidad.provincia.idProvincia,"useefect")
+      })
+      .catch((message) => {
+        console.log("Catch getInfoEmprendimiento")
+        console.log(message)
+      })
+  }
+
+  const getLocalidadesPorProvincia = (e,info) => {
+    if (e != 0){
+      setProvincia(e)
+      apiCalls.getLocalidadesPorProvincia(e)
+        .then((response) => {
+          setEnableLocalidades(true)
+          response.data.unshift({idProvincia:0, nombre:"Seleccione una localidad"})
+          setLocalidades(response.data)
+        }).catch((res) =>{
+          console.log("Catch localidades por provincia")
+          console.log(res.message)
+      });
+    }
+  
   }
 
   const localidadSeleccionada = (locali) => localidades.find(
@@ -139,11 +185,14 @@ export default function DatosNegocio(props) {
         dataNegocio.longitude = response.longitude;
         if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
           dispatch(setDataNegocio(dataNegocio));
-          props.navigation.navigate("Ubicación Negocio");
+          if(isConfig){
+            props.navigation.navigate("Ubicacion Negocio Config")
+          }else{
+            props.navigation.navigate("Ubicación Negocio");
+          }
         }
       });
     }else{
-      console.log(dataNegocioValida)
       dispatch( {
         type: actions.TOAST, payload: {
           message: "Faltan completar campos: " + dataNegocioValida ,
@@ -281,7 +330,7 @@ export default function DatosNegocio(props) {
               style={styles.input}
               selectedValue={provincia}
             
-              onValueChange={(e) => getLocalidadesPorProvincia(e)}
+              onValueChange={(e) => getLocalidadesPorProvincia(e,"prov")}
               iosIcon={
                 <Icon
                   name="arrow-down"

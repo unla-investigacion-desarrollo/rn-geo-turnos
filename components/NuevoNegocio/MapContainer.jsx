@@ -7,7 +7,8 @@ import ConfirmDireccion from "./ConfirmDireccion";
 
 const MapContainer = (props) => {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
-
+  const isConfig = props?.route?.name === "Ubicacion Negocio Config";
+ 
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 12 }}>
@@ -18,7 +19,7 @@ const MapContainer = (props) => {
         ) : null}
       </View>
       <>
-        <ConfirmDireccion navigation={props.navigation} />
+        <ConfirmDireccion navigation={props.navigation} isConfig={isConfig}/>
       </>
     </View>
   );

@@ -26,6 +26,8 @@ export default function HorariosNegocio(props) {
   const dispatch = useDispatch();
 
   const horariosNegocio = useSelector((state) => state.nuevoNegocio.horarios);
+  const isConfig = props?.route?.name === "Horarios Negocio Config";
+
 
   useEffect(() => {
     if (horariosNegocio.horarios !== undefined) {
@@ -253,7 +255,7 @@ export default function HorariosNegocio(props) {
           {horariosNegocio.horarios !== undefined &&
           horariosNegocio.horarios.length > 0 ? (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("Turnos Negocio")}
+              onPress={() => isConfig ? props.navigation.navigate("Turnos Negocio Config") :props.navigation.navigate("Turnos Negocio")}
               style={{
                 backgroundColor: "white",
                 height: 30,

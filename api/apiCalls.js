@@ -50,8 +50,21 @@ function getInfoUsuario(idPersona, token) {
   });
 }
 
+function getInfoEmprendimiento(idEmprendimiento, token) {
+  return api.get("/emprendimiento/" + idEmprendimiento, {
+    headers: { token_auth: token },
+  });
+}
+
 function setNewInfoUsuario(idPersona, parameters, token) {
   return api.put("/fisica/" + idPersona, parameters, {
+    headers: { token_auth: token },
+  });
+}
+
+function setNewInfoEmprendimiento(idEmprendimiento, parameters, token) {
+  console.log("/emprendimiento/" + idEmprendimiento)
+  return api.put("/emprendimiento/" + idEmprendimiento, parameters, {
     headers: { token_auth: token },
   });
 }
@@ -84,6 +97,7 @@ function getUbicacionPersona(idPersona, token) {
 
 export const apiCalls = {
   getInfoUsuario,
+  getInfoEmprendimiento,
   postResetPassword,
   getRubros,
   getTipoEmprendimiento,
@@ -98,5 +112,6 @@ export const apiCalls = {
   setNewInfoUsuario,
   getEmprendimientosFiltro,
   getUbicacionPersona,
-  setNewUbicacion
+  setNewUbicacion,
+  setNewInfoEmprendimiento
 };

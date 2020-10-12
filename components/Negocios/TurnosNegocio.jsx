@@ -39,7 +39,6 @@ export default function TurnosNegocio ( props ) {
       observaciones: comments,
       usuarioModi: access.idPersona
     }, access.token ).then( ( response ) => {
-      console.log( "Turno dado de alta correctamente" )
       dispatch( {
         type: actions.TOAST, payload: {
           message: "Turno dado de alta correctamente",
