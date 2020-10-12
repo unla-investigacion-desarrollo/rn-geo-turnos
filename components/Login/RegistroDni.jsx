@@ -14,7 +14,6 @@ import { setRegisterData } from "../../actions/RegisterActions";
 import { LinearGradient } from "expo-linear-gradient";
 import { actions } from "../../actions/types";
 
-
 export default function RegistroDni(props) {
   const [documento, setDocumento] = useState("");
   const [nroTramite, setNroTramite] = useState("");
@@ -32,33 +31,35 @@ export default function RegistroDni(props) {
   }, [registro]);
 
   const setData = () => {
-    if (documento.length > 0 ) {
-      if (nroTramite.length > 0){
+    if (documento.length > 0) {
+      if (nroTramite.length > 0) {
         let registroObject = {
           documento: documento,
           nroTramite: nroTramite,
         };
-  
+
         dispatch(setRegisterData(registroObject));
-  
+
         props.navigation.navigate("Datos Personales");
-      }else{
-        dispatch( {
-          type: actions.TOAST, payload: {
-            message: "Debe ingresar su N° de tramite. Puede encontrarlo en la parte inferior de su documento" ,
+      } else {
+        dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "Debe ingresar su N° de tramite de su documento",
             type: "warning",
-            visibilityTime: 10000
-          }
-        })
+            visibilityTime: 10000,
+          },
+        });
       }
-    }else{
-      dispatch( {
-        type: actions.TOAST, payload: {
-          message: "Debe ingresar su N° de documento" ,
+    } else {
+      dispatch({
+        type: actions.TOAST,
+        payload: {
+          message: "Debe ingresar su N° de documento",
           type: "warning",
-          visibilityTime: 10000
-        }
-      })
+          visibilityTime: 10000,
+        },
+      });
     }
   };
 

@@ -14,6 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { apiCalls } from "../../api/apiCalls";
+import { actions } from "../../actions/types";
 
 export default function RegistroDatosPersonales(props) {
   const access = useSelector((state) => state.access);
@@ -80,6 +81,15 @@ export default function RegistroDatosPersonales(props) {
       dispatch(setRegisterData(registroObject));
 
       props.navigation.navigate("Ubicación");
+    } else {
+      dispatch({
+        type: actions.TOAST,
+        payload: {
+          message: "No puede dejar campos en blanco",
+          type: "error",
+          visibilityTime: 3000,
+        },
+      });
     }
   };
 
