@@ -78,7 +78,7 @@ export default function FormUbicacion(props) {
         celular: registro.registerData.celular,
         sexo: registro.registerData.sexo,
         cuil: registro.registerData.cuil,
-        dni: registro.registerData.documento,
+        dni: parseInt(registro.registerData.documento),
         numeroTramite: registro.registerData.nroTramite,
         idPerfil: 1,
         loginVo: {
@@ -92,14 +92,13 @@ export default function FormUbicacion(props) {
           departamento: depto,
           idLocalidad: registro.registerData.localidad,
           idProvincia: registro.registerData.provincia,
-          latitud: registro.registerData.latitude,
-          longitud: registro.registerData.longitude,
+          latitud: registro.registerData.latitude.toString(),
+          longitud: registro.registerData.longitude.toString(),
           piso: parseInt(piso),
           usuarioModi: registro.registerData.cuil,
         },
         usuarioModi: registro.registerData.cuil,
       };
-
       apiCalls
         .postAltaUsuario(userInfo)
         .then((response) => {
@@ -114,8 +113,9 @@ export default function FormUbicacion(props) {
           dispatch(setRegisterData({}));
           props.navigation.navigate("Ingreso");
         })
-        .catch((response) => {
-          console.log(response.message)
+        .catch((response,message) => {
+          console.log("Catch registro usuario")
+          console.log(message)
           dispatch({
             type: actions.TOAST,
             payload: {

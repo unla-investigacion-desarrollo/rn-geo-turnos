@@ -105,7 +105,7 @@ export default function Filter() {
               <Slider
                 style={styles.slider}
                 value={kilometros}
-                minimumValue={filterNegocioDistance}
+                minimumValue={parseInt(filterNegocioDistance)}
                 maximumValue={50}
                 minimumTrackTintColor="#0CA4C9"
                 maximumTrackTintColor="#3e3e3e"

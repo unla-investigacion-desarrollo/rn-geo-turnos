@@ -57,7 +57,7 @@ function setNewInfoUsuario(idPersona, parameters, token) {
 }
 
 function setNewUbicacion(idUbicacion, parameters, token) {
-  console.log(parameters)
+  // console.log(parameters)
   return api.put("/ubicacion/" + idUbicacion, parameters, {
     headers: { token_auth: token },
   });

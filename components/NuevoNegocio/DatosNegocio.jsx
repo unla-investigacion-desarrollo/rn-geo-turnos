@@ -111,6 +111,9 @@ export default function DatosNegocio(props) {
     });
   }
 
+  const localidadSeleccionada = (locali) => localidades.find(
+    (localidad) => localidad.idLocalidad === locali
+  );
 
   const continuar = () => {
     let dataNegocio = {
@@ -118,7 +121,7 @@ export default function DatosNegocio(props) {
       cuit: cuit,
       telefono: telefono,
       calle: calle,
-      numero: numero,
+      numero: parseInt(numero),
       piso: piso,
       depto: depto,
       rubro: rubro,
@@ -131,10 +134,9 @@ export default function DatosNegocio(props) {
     };
     let dataNegocioValida = validarCamposDatosNegocio(dataNegocio)
     if (dataNegocioValida === "") {
-      searchPosition(calle + " " + numero).then((response) => {
+      searchPosition(calle + " " + numero + " "+ localidadSeleccionada(localidad).nombre).then((response) => {
         dataNegocio.latitude = response.latitude;
         dataNegocio.longitude = response.longitude;
-
         if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
           dispatch(setDataNegocio(dataNegocio));
           props.navigation.navigate("Ubicación Negocio");
