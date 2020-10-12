@@ -8,16 +8,14 @@ function postAltaUsuario(parameters) {
   return api.post("/fisica", parameters);
 }
 
-function postAltaEmprendimiento(parameters) {
-  return api.post("/emprendimiento", parameters);
+function postAltaEmprendimiento(parameters, token) {
+  return api.post("/emprendimiento", parameters,{
+    headers: { token_auth: token },
+  });
 }
 
-function getEmprendimientos() {
+function getEmprendimientos(token) {
   return api.get("/emprendimiento/");
-}
-
-function getLocalidades() {
-  return api.get("/localidad");
 }
 
 function getProvincias() {
@@ -40,8 +38,10 @@ function getTipoEmprendimiento(token) {
   });
 }
 
-function postTurnos(parameters) {
-  return api.post("/turno/", parameters);
+function postTurnos(parameters,token) {
+  return api.post("/turno/", parameters, {
+    headers: { token_auth: token },
+  });
 }
 
 function getInfoUsuario(idPersona, token) {
@@ -51,7 +51,7 @@ function getInfoUsuario(idPersona, token) {
 }
 
 function setNewInfoUsuario(idPersona, parameters, token) {
-  return api.get("/fisica/" + idPersona, parameters, {
+  return api.put("/fisica/" + idPersona, parameters, {
     headers: { token_auth: token },
   });
 }
@@ -63,10 +63,21 @@ function postLogin(parameters) {
   return api.post("/login", parameters);
 }
 
+function getEmprendimientosFiltro(idRubro, idPersona, km,token) {
+  return api.get("/emprendimiento/" + idRubro + "/"+ idPersona + "/" + km + "/traerPorRubroYKm", {
+    headers: { token_auth: token },
+  });
+}
+
+function getUbicacionPersona(idPersona, token) {
+  return api.get("/persona/" + idPersona + "/coordenadas", {
+    headers: { token_auth: token },
+  });
+}
+
 export const apiCalls = {
   getInfoUsuario,
   postResetPassword,
-  getLocalidades,
   getRubros,
   getTipoEmprendimiento,
   postArticulo,
@@ -78,4 +89,6 @@ export const apiCalls = {
   postTurnos,
   postLogin,
   setNewInfoUsuario,
+  getEmprendimientosFiltro,
+  getUbicacionPersona,
 };

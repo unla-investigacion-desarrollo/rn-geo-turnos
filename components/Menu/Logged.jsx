@@ -1,28 +1,28 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View } from "react-native";
-import NuevoNegocio from "../NuevoNegocio/NuevoNegocio";
+import TurnosNegocio from "../UserConfig/Turnos";
 import VerNegocios from "../Negocios/VerNegocios";
 import NavigationVerNegocios from "../Negocios/NavigationVerNegocios";
 import BottomMenu from "./BottomMenu";
 import UserConfigNavigation from "../UserConfig/UserConfigNavigation";
 import QrReader from "../QR/QrReader";
 import {
-  NUEVO_NEGOCIO,
+  TURNOS,
   VER_NEGOCIOS,
   QR_READER,
   USER_CONFIG,
 } from "../../actions/menuOptions";
-import { switchMenu } from "../../actions/menuSwitchActions";
-import { centerMapToSetted } from "../../actions/centerMapActions";
+import { centerMapToSetted, centerMap } from "../../actions/centerMapActions";
 import { dataRead } from "../../actions/qrReaderActions";
+import { getLocation } from "../../services/location-service"
 
 const RenderMenuSelected = ({ menu_option, center_map }) => {
   const dispatch = useDispatch();
 
   switch (menu_option) {
-    case NUEVO_NEGOCIO:
-      return <NuevoNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
+    case TURNOS:
+      return <TurnosNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
       break;
     case VER_NEGOCIOS:
       return <NavigationVerNegocios />; //Pantalla donde se visualizan los negocios cercanos
@@ -47,11 +47,15 @@ export default function Logged() {
   // console.log(center_map);
   const dispatch = useDispatch(); //Cada vez que cambio de menu, centro el mapa en la posicion que el usuario configuro
   useEffect(() => {
-    dispatch(centerMapToSetted());
+    if (menu_option === VER_NEGOCIOS){
+      setUserPosition()
+    }else{
+      dispatch(centerMapToSetted());
+    }
   }, [menu_option]);
 
   //Sirve para solicitar los permisos y obtener la pisicion del usuario
-  /*const getInitialState = () => {
+  const setUserPosition = () => {
       getLocation().then((data) => {
         dispatch(
           centerMap({
@@ -60,8 +64,12 @@ export default function Logged() {
             direccion: "",
           })
         );
-      });
-    };*/
+      }).catch((err) =>{
+        dispatch(centerMapToSetted());
+      })
+
+      ;
+    };
 
   return (
     <View style={{ flex: 1 }}>

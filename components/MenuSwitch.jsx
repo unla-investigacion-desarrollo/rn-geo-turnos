@@ -3,16 +3,31 @@ import { useSelector, useDispatch } from "react-redux";
 import Login from "./Login/Login";
 import Logged from "./Menu/Logged";
 import Toastr from "./Toastr/Toastr";
-import { Text } from "react-native";
-import { setCredentials } from "../actions/AccessActions";
-import { getCredentials } from "../Utils/functions";
+import {apiCalls} from "../api/apiCalls"
+import {configureCenterMap} from '../actions/centerMapActions'
 
 function MenuSwitch() {
   const login = useSelector((state) => state.login);
   const access = useSelector((state) => state.access);
   const toast_info = useSelector((state) => state.toast);
-  const [token, setToken] = useState("");
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+
+    apiCalls
+        .getUbicacionPersona(access.idPersona, access.token)
+        .then((response) => {
+          dispatch(configureCenterMap({
+              latitude: parseFloat(response.data.latitud),
+              longitude: parseFloat(response.data.longitud),
+              direccion: "",
+          }))
+        })
+        .catch((res) => {
+          console.log(res.message)
+        });
+  })
 
   return (
     <>

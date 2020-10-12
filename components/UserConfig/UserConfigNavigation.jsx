@@ -10,6 +10,8 @@ import HorariosNegocio from "../NuevoNegocio/HorariosNegocio";
 import MapContainer from "../NuevoNegocio/MapContainer";
 import MapInput from "../NuevoNegocio/MapInput";
 import TurnosNegocio from "../NuevoNegocio/TurnosNegocio";
+import NuevoNegocio from "../NuevoNegocio/NuevoNegocio";
+
 import Pdf from "../Negocios/Pdf";
 
 export default function UserConfigNavigation() {
@@ -46,14 +48,14 @@ export default function UserConfigNavigation() {
           component={HorariosNegocio}
         ></Stack.Screen>
         <Stack.Screen
-          name="Turnos Negocio"
-          component={TurnosNegocio}
-        ></Stack.Screen>
-
-        <Stack.Screen
           name="MapInput Negocio"
           component={MapInput}
         ></Stack.Screen>
+        <Stack.Screen
+          name="Nuevo negocio"
+          component={DatosNegocio}
+        ></Stack.Screen>
+
         {/* FIN NEGOCIO */}
 
         <Stack.Screen name="Turnos" component={Turnos}></Stack.Screen>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Text,
   TextInput,
@@ -13,11 +13,14 @@ import { apiCalls } from "../../api/apiCalls";
 import * as SecureStore from "expo-secure-store";
 import { setCredentials } from "../../actions/AccessActions";
 import { setTokenAxios } from "../../api/api";
+import {getLocation} from "../../services/location-service"
+import {centerMap} from "../../actions/centerMapActions"
 
 export default function Ingreso(props) {
-  const [email, setEmail] = useState("berro.gonza2195@gmail.com");
+  const [email, setEmail] = useState("lucio_9996@hotmail.com");
   const [password, setPassword] = useState("1234");
   const dispatch = useDispatch();
+
 
   const setLogged = () => {
     if (email.length > 0) {

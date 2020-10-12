@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 
-import MenuMasNegocios from "./MenuMasNegocios";
 import MenuNegocios from "./MenuNegocios";
+import MenuTurnos from "./MenuTurnos";
 import MenuConfig from "./MenuConfig";
 import MenuQrRead from "./MenuQrRead";
 
@@ -20,7 +20,7 @@ function BottomMenu() {
       }}
     >
       <>
-        <MenuMasNegocios
+        <MenuNegocios
           colorSeleccionadoIcon={colorSeleccionadoIcon} //Componente de menu para agregar negocios
           colorIcon={colorIcon}
         />
@@ -38,7 +38,7 @@ function BottomMenu() {
         />
       </>
       <>
-        <MenuNegocios
+        <MenuTurnos
           colorSeleccionadoIcon={colorSeleccionadoIcon} //componente del menu para visualizar los negocios cercanos
           colorIcon={colorIcon}
         />

@@ -58,3 +58,5 @@ export const horarios = [
   "23:00",
   "23:30",
 ];
+
+export const filterNegocioDistance = "3";

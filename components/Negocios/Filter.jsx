@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -9,24 +9,42 @@ import {
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Picker, Icon } from "native-base";
 import { apiCalls } from "../../api/apiCalls";
+import { getNegocios } from "./FunctionNegocios";
+import {filterNegocioDistance} from "../../Utils/constantes"
+import {setNegocioFilters} from "../../actions/FilterNegocioActions"
+
+
 
 export default function Filter() {
   const [direccion, setDireccion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [kilometros, setKilometros] = useState(10);
+  const [kilometros, setKilometros] = useState(0);
   const [rubro, setRubro] = useState(0);
   const [rubros, setRubros] = useState([]);
   const dispatch = useDispatch();
+  const access = useSelector((state) => state.access);
+  const filterNegocio = useSelector((state) => state.filterNegocio);
+
+  useEffect(() => {
+    if (kilometros === 0){
+      setKilometros(filterNegocio.km)
+      setRubro(filterNegocio.rubro)
+    }
+    
+  });
+
 
   const setFiltros = () => {
+    dispatch(setNegocioFilters({km:kilometros, rubro:rubro}))
+    getNegocios(dispatch, rubro, access.idPersona, kilometros ,access.token );
     setModalVisible(false);
   };
 
   apiCalls
-    .getRubros()
+    .getRubros(access.token)
     .then((response) => {
       response.data.unshift({ idRubro: 0, nombre: "Seleccione un rubro" });
       setRubros(response.data);
@@ -74,7 +92,7 @@ export default function Filter() {
               <Slider
                 style={styles.slider}
                 value={kilometros}
-                minimumValue={0}
+                minimumValue={parseInt(filterNegocioDistance)}
                 maximumValue={50}
                 minimumTrackTintColor="#0CA4C9"
                 maximumTrackTintColor="#3e3e3e"

@@ -10,6 +10,7 @@ import LoginReducer from "./LoginReducer";
 import RegisterReducer from "./RegisterReducer";
 import toastReducer from "./toastReducer";
 import AccessReducer from "./AccessReducer";
+import FilterReducer from "./FilterReducer"
 //combino los states de los reducers en 1 solo para poder accederlo desde los componentes
 export default combineReducers({
   nuevoNegocio: NuevoNegocioReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   registro: RegisterReducer,
   toast: toastReducer,
   access: AccessReducer,
+  filterNegocio: FilterReducer,
 });

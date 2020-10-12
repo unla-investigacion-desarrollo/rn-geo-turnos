@@ -16,6 +16,8 @@ export default function TurnosNegocio(props) {
   const datosNegocio = useSelector((state) => state.nuevoNegocio.dataNegocio);
   const dispatch = useDispatch();
   const horariosNegocio = useSelector((state) => state.nuevoNegocio.horarios);
+  const access = useSelector((state) => state.access);
+
 
 
   const setNewNegocio = () => {
@@ -34,32 +36,35 @@ export default function TurnosNegocio(props) {
         turno1Hasta: h.horaDesde2,
         turno2Desde: h.horaHasta1,
         turno2Hasta: h.horaHasta2,
+        usuarioModi: access.idPersona.toString()
       })
     })
 
     dispatch(setDataNegocio(newNegocio));
       apiCalls
         .postAltaEmprendimiento({
+          aceptaFoto:true,
+          capacidad: newNegocio.capacidadPersonas,
           configuracionLocales: configuracionLocales,
           cuit: newNegocio.cuit,
-          fechaModi: new Date(),
-          idPersona: 15, // Falta matchear al usuario
+          idPersona: access.idPersona, // Falta matchear al usuario
           idRubro: newNegocio.rubro,
           idTipoEmprendimiento: newNegocio.emprendimiento,
           nombre: newNegocio.nombre,
           ubicacionVo: {
-            calleNumero: newNegocio.calle,
+            calle: newNegocio.calle,
+            numero: newNegocio.numero,
             departamento: newNegocio.depto.toString(),
             idLocalidad: newNegocio.localidad,
             idProvincia: newNegocio.provincia,
             latitud: newNegocio.latitude.toString(),
             longitud: newNegocio.longitude.toString(),
             piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
-            usuarioModi: "xlucio"
+            usuarioModi: access.idPersona.toString()
           },
-          usuarioModi: "xlucio"
-
-        })
+          usuarioModi: access.idPersona.toString()
+    
+        }, access.token)
         .then((response) => {
           dispatch( {
             type: actions.TOAST, payload: {

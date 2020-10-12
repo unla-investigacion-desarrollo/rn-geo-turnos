@@ -94,20 +94,33 @@ export default function RegistroDatosPersonales(props) {
   };
 
   const saveNewData = () => {
-    let registroObject = {
-      nombre: nombre,
-      apellido: apellido,
-      sexo: sexo,
-      cuil: cuil,
-      celular: celular,
-      usuarioModi: cuil,
-      //email: email,
-      //password: password,
-    };
-
-    apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token);
-
-    props.navigation.navigate("Configuración");
+    if (password === repetirPassword){
+      let registroObject = {
+        celular: celular,
+        email: email,
+        password: password,
+        sexo:sexo
+      };
+      console.log(access)
+      apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token)
+      .then( ( response ) => {
+        console.log(response)
+        props.navigation.navigate("Configuración");
+      } ).catch( ( error ) => {
+        console.log(error.message)
+  
+      } );
+  
+    }else{
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Las contraseñas deben ser iguales: " + dataNegocioValida ,
+          type: "warning",
+          visibilityTime: 10000
+        }
+      })
+    }
+    
   };
 
   return (
