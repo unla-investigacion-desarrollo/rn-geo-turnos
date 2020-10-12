@@ -43,11 +43,13 @@ export default function NavigationVerNegocios() {
         <Stack.Screen
           name="Negocios cercanos"
           component={VerNegocios}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
 
         <Stack.Screen
           name="Reservar turno"
           component={TurnosNegocio}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
       </Stack.Navigator>
     );

@@ -285,6 +285,7 @@ export default function FormUbicacion(props) {
     <View
       style={{
         flex: 1,
+       
       }}
     >
       <LinearGradient

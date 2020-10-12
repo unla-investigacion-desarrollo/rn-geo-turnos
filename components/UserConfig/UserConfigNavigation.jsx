@@ -22,46 +22,55 @@ export default function UserConfigNavigation() {
         <Stack.Screen
           name="Configuración"
           component={Configuraciones}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
 
         <Stack.Screen
           name="Datos personales"
           component={Register}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
 
         <Stack.Screen
           name="Ubicación"
           component={RegistroUbicacion}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
-        <Stack.Screen name="PDF" component={QrEmprendimiento}></Stack.Screen>
+        <Stack.Screen name="PDF" component={QrEmprendimiento} options={{headerBackTitleVisible:false}}></Stack.Screen>
         <Stack.Screen
           name="Información Negocio"
           component={DatosNegocio}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
         <Stack.Screen
           name="Ubicación Negocio"
           component={MapContainer}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
         <Stack.Screen
           name="Horarios Negocio"
           component={HorariosNegocio}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
         <Stack.Screen
           name="MapInput Negocio"
           component={MapInput}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
         <Stack.Screen
           name="Nuevo negocio"
           component={DatosNegocio}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
            <Stack.Screen
           name="Turnos Negocio"
           component={TurnosNegocio}
+          options={{headerBackTitleVisible:false}}
         ></Stack.Screen>
 
         {/* FIN NEGOCIO */}
 
-        <Stack.Screen name="Turnos" component={Turnos}></Stack.Screen>
+        <Stack.Screen name="Turnos" component={Turnos} options={{headerBackTitleVisible:false}}></Stack.Screen>
       </Stack.Navigator>
     );
   };
