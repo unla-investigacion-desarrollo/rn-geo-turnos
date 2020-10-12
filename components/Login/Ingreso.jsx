@@ -17,7 +17,7 @@ import {getLocation} from "../../services/location-service"
 import {centerMap} from "../../actions/centerMapActions"
 
 export default function Ingreso(props) {
-  const [email, setEmail] = useState("lucio_9996@hotmail.com");
+  const [email, setEmail] = useState("berro.gonza2195@gmail.com");
   const [password, setPassword] = useState("1234");
   const dispatch = useDispatch();
 

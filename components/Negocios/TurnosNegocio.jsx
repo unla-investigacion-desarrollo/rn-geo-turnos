@@ -26,9 +26,6 @@ export default function TurnosNegocio ( props ) {
   const [comments, setComments] = useState( "" );
   const access = useSelector((state) => state.access);
 
-  console.log( negocio )
-
-
   const postReservarTurno = () => {
 
     let splitDay = day.split( "/" )

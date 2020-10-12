@@ -36,7 +36,6 @@ export default function QrReader(props) {
   };
 
   const handleBarCodeScanned = ({ data }) => {
-    console.log("DNI" + data)
     const lecturaDocumento = data.split("@");
     let registroObject = registro.registerData;
 

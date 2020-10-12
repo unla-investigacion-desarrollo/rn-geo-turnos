@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
@@ -16,38 +16,18 @@ export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
   const lista_negocios = useSelector((state) => state.lista_negocios.negocios); //Lista de negocios cercanos
   const filterNegocio = useSelector((state) => state.filterNegocio);
-
+  const [strokeColor, setStrokeColor] = useState("#1a66ff");
+  const [fillColor, setFillColor] = useState("rgba(219, 231, 255, 0.38)");
  
   const showInfoNegocio = useSelector(
     (state) => state.lista_negocios.showInfoNegocio
   ); //Lista de negocios cercanos
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   setUserPosition()
-  // }, []);
-
-
-  // const setUserPosition = () => {
-  //   getLocation().then((data) => {
-  //     dispatch(
-  //       centerMap({
-  //         latitude: data.latitude,
-  //         longitude: data.longitude,
-  //         direccion: "",
-  //       })
-  //     );
-  //   }).catch((err) =>{
-  //     dispatch(centerMapToSetted());
-  //   })
-
-  //   ;
-  // };
 
   const setShowInfoNegocio = (mostrar) => {
     dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: mostrar });
   };
-
   const seleccionarMarker = (lat, longitud, calle, numero, id, name) => {
     //Selecciono marcador dentro del mapa
     setShowInfoNegocio(true);
@@ -104,16 +84,16 @@ export default function VerNegocios(props) {
           region={{
             latitude: region.latitude, //Marco el centro del mapa con la ubicacion del usuario
             longitude: region.longitude,
-            latitudeDelta: 0.003,
-            longitudeDelta: 0.003,
+            latitudeDelta: parseFloat(filterNegocio.km)*0.05/2,
+            longitudeDelta: parseFloat(filterNegocio.km)*0.05/2,
           }}
         >
           <MapView.Circle
                 center =  {{latitude:parseFloat(region.latitude), longitude:parseFloat(region.longitude)}}
                 radius = { filterNegocio.km*1000 }
                 strokeWidth = { 1 }
-                strokeColor = { '#1a66ff' }
-                fillColor = { 'rgba(230,238,255,0.5)' }
+                strokeColor = {strokeColor}
+                fillColor = {fillColor}
         />
           {marcarNegocios()}
         </MapView>

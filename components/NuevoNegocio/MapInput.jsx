@@ -19,7 +19,6 @@ function MapInput(props) {
 
       let key_url = "&key=" + key; //concateno la key para armar la url
 
-      // console.log(url + address + key_url); //armo la url completa para hacer el fetch
 
       fetch(url + address + key_url)
         .then((response) => response.json())

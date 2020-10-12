@@ -101,10 +101,8 @@ export default function RegistroDatosPersonales(props) {
         password: password,
         sexo:sexo
       };
-      console.log(access)
       apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token)
       .then( ( response ) => {
-        console.log(response)
         props.navigation.navigate("Configuración");
       } ).catch( ( error ) => {
         console.log(error.message)

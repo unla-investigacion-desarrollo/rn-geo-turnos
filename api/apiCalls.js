@@ -56,6 +56,13 @@ function setNewInfoUsuario(idPersona, parameters, token) {
   });
 }
 
+function setNewUbicacion(idUbicacion, parameters, token) {
+  console.log(parameters)
+  return api.put("/ubicacion/" + idUbicacion, parameters, {
+    headers: { token_auth: token },
+  });
+}
+
 function postResetPassword(parameters) {
   return api.post("/persona/resetpassword/", parameters);
 }
@@ -91,4 +98,5 @@ export const apiCalls = {
   setNewInfoUsuario,
   getEmprendimientosFiltro,
   getUbicacionPersona,
+  setNewUbicacion
 };

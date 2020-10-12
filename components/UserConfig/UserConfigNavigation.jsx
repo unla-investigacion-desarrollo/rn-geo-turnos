@@ -34,7 +34,6 @@ export default function UserConfigNavigation() {
           component={RegistroUbicacion}
         ></Stack.Screen>
         <Stack.Screen name="PDF" component={Pdf}></Stack.Screen>
-        {/* NEGOCIO */}
         <Stack.Screen
           name="Información Negocio"
           component={DatosNegocio}

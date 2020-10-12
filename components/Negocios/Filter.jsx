@@ -32,10 +32,17 @@ export default function Filter() {
     if (kilometros === 0){
       setKilometros(filterNegocio.km)
       setRubro(filterNegocio.rubro)
-    }
+    
+      apiCalls
+    .getRubros(access.token)
+    .then((response) => {
+      response.data.unshift({ idRubro: 0, nombre: "Seleccione un rubro" });
+      setRubros(response.data);
+    })
+    .catch((code, message) => {});
+  }
     
   });
-
 
   const setFiltros = () => {
     dispatch(setNegocioFilters({km:kilometros, rubro:rubro}))
@@ -43,13 +50,7 @@ export default function Filter() {
     setModalVisible(false);
   };
 
-  apiCalls
-    .getRubros(access.token)
-    .then((response) => {
-      response.data.unshift({ idRubro: 0, nombre: "Seleccione un rubro" });
-      setRubros(response.data);
-    })
-    .catch((code, message) => {});
+
 
   const pickerItemsRubros = rubros.map((i) => (
     <Picker.Item key={i.nombre + "rubro"} label={i.nombre} value={i.idRubro} />
@@ -92,7 +93,7 @@ export default function Filter() {
               <Slider
                 style={styles.slider}
                 value={kilometros}
-                minimumValue={parseInt(filterNegocioDistance)}
+                minimumValue={filterNegocioDistance}
                 maximumValue={50}
                 minimumTrackTintColor="#0CA4C9"
                 maximumTrackTintColor="#3e3e3e"

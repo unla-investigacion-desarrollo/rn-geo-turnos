@@ -23,6 +23,7 @@ export default function FormUbicacion(props) {
   const [numero, setNumero] = useState("");
   const [piso, setPiso] = useState(0);
   const [depto, setDepto] = useState("");
+  const [ubicacionValidada,setUbicacionValidada] = useState(false);
   const [localidad, setLocalidad] = useState(0);
   const [localidades, setLocalidades] = useState([]);
   const [provincia, setProvincia] = useState(0);
@@ -67,6 +68,7 @@ export default function FormUbicacion(props) {
     if (registerOjecto.provincia) {
       setProvincia(registerOjecto.provincia);
     }
+    
   }, [registro]);
 
   const setLogged = () => {
@@ -138,6 +140,8 @@ export default function FormUbicacion(props) {
 
   const getLocalidadesPorProvincia = (e) => {
     setProvincia(e);
+   // setUbicacionValidada(false);
+
     apiCalls
       .getLocalidadesPorProvincia(e)
       .then((response) => {
@@ -154,9 +158,37 @@ export default function FormUbicacion(props) {
   };
 
   const setLocation = () => {
-    if (calle.length > 0 && localidad > 0 && provincia > 0) {
-      props.navigation.navigate("Configuracion de usuario");
-    }
+      if (calle.length > 0 && localidad > 0 && provincia > 0) {
+          const ubicacionObject = {
+                      calle: calle,
+                      departamento: depto,
+                      idLocalidad:localidad,
+                      idProvincia: provincia,
+                      latitud: registro.registerData.latitude,
+                      longitud: registro.registerData.longitude,
+                      numero: parseInt(numero),
+                      piso: piso,
+                      usuarioModi:"",                  
+          }
+            apiCalls
+      .setNewUbicacion(registro.registerData.idUbicacion,ubicacionObject,access.token)
+      .then((response) => {
+        dispatch({
+        type: actions.TOAST,
+        payload: {
+          message:
+            "Se actualizó su ubicación.",
+          type: "success",
+          visibilityTime: 3000,
+        },
+      });
+        props.navigation.navigate("Configuración");
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+         
+      } 
   };
 
   const validarDireccion = () => {
@@ -175,13 +207,19 @@ export default function FormUbicacion(props) {
     }
   };
 
-  const searchDireccionGoogle = (calle, numero, locali) => {
-    const localidadSeleccionada = localidades.find(
+   const localidadSeleccionada = (locali) => localidades.find(
       (localidad) => localidad.idLocalidad === locali
     );
+     const provinciaSeleccionada = (provi) => provincias.find(
+      (provincia) => provincia.idProvincia === provi
+    );
+
+  const searchDireccionGoogle = (calle, numero, locali) => {
+
+    const localidadString = localidadSeleccionada(locali);
 
     searchPosition(
-      calle + " " + numero + " " + localidadSeleccionada.nombre
+      calle + " " + numero + " " + localidadString.nombre
     ).then((response) => {
       if (!isConfig) {
         let registroObject = {
@@ -209,17 +247,31 @@ export default function FormUbicacion(props) {
         let registroObject = registro.registerData;
         registroObject.latitude = response.latitude;
         registroObject.longitude = response.longitude;
-        registroObject.calle = response.calle;
-        registroObject.numero = response.numero;
-        registroObject.piso = response.piso;
-        registroObject.depto = response.depto;
-        registroObject.localidad = response.localidad;
-        registroObject.provincia = response.provincia;
+        registroObject.calle = calle;
+        registroObject.numero = numero;
+        registroObject.piso = piso;
+        registroObject.depto = depto;
+        registroObject.localidad = localidad;
+        registroObject.provincia = provincia;
 
         dispatch(setRegisterData(registroObject));
       }
+      setUbicacionValidada(true);
     });
   };
+
+  const changeNumero = (numero) =>{
+    setNumero(numero);
+    setUbicacionValidada(false);
+  }
+   const changeLocalidad= (localidad) =>{
+     setLocalidad(localidad);
+    setUbicacionValidada(false);
+  }
+   const changeCalle = (calle) =>{
+     setCalle(calle);
+    setUbicacionValidada(false);
+  }
 
   const pickerItemsLocalidades = localidades.map((i) => (
     <Picker.Item key={i.nombre} label={i.nombre} value={i.idLocalidad} />
@@ -252,7 +304,7 @@ export default function FormUbicacion(props) {
                   style={styles.input}
                   placeholder="Ingrese su dirección"
                   value={calle}
-                  onChangeText={(e) => setCalle(e)}
+                  onChangeText={(e) => changeCalle(e)}
                 ></TextInput>
               </View>
             </View>
@@ -266,7 +318,7 @@ export default function FormUbicacion(props) {
                       value={numero}
                       placeholder="Numero"
                       keyboardType="numeric"
-                      onChangeText={(e) => setNumero(e)}
+                      onChangeText={(e) => changeNumero(e)}
                     ></TextInput>
                   </View>
                 </View>
@@ -325,7 +377,7 @@ export default function FormUbicacion(props) {
                 style={styles.input}
                 selectedValue={localidad}
                 enabled={enableLocalidades}
-                onValueChange={(e) => setLocalidad(e)}
+                onValueChange={(e) => changeLocalidad(e)}
                 iosIcon={
                   <Icon
                     name="arrow-down"
@@ -369,7 +421,7 @@ export default function FormUbicacion(props) {
                 </View>
               </TouchableOpacity>
             </View>
-
+            {ubicacionValidada?(
             <TouchableOpacity
               style={{ height: 50 }}
               onPress={isConfig ? setLocation : setLogged}
@@ -394,7 +446,7 @@ export default function FormUbicacion(props) {
                   {isConfig ? "Guardar ubicación" : "Finalizar Registro"}
                 </Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity>):<></>}
           </View>
         </ScrollView>
       </LinearGradient>

@@ -37,6 +37,7 @@ export default function RegistroUbicacion(props) {
             depto: response.data.ubicacion.departamento,
             localidad: response.data.ubicacion.localidad.idLocalidad,
             provincia: response.data.ubicacion.localidad.provincia.idProvincia,
+            idUbicacion: response.data.ubicacion.idUbicacion,
           };
           dispatch(setRegisterData(registroObject));
           setLoadPage( true )
