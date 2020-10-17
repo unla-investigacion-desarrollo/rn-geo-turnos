@@ -1,9 +1,9 @@
 import { apiCalls } from "../../api/apiCalls";
 import { addNegocios } from "../../actions/negociosListActions";
 
-export const getNegocios = (dispatch, idRubro, idPersona, km, token) => {
+export const getNegocios = (dispatch, idRubro, km,latitud,longitud, token) => {
   apiCalls
-    .getEmprendimientosFiltro(idRubro, idPersona, km, token)
+    .getEmprendimientosFiltro(idRubro, km,latitud,longitud, token)
     .then((response) => {
       let negocios = response.data;
         negocios.forEach((n) => {

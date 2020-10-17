@@ -103,8 +103,16 @@ export default function RegistroDatosPersonales(props) {
       };
       apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token)
       .then( ( response ) => {
+         dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Datos personales actualizados" ,
+          type: "success",
+          visibilityTime: 3000
+        }
+      })
         props.navigation.navigate("Configuración");
       } ).catch( ( error ) => {
+       
         console.log(error.message)
   
       } );
@@ -112,9 +120,9 @@ export default function RegistroDatosPersonales(props) {
     }else{
       dispatch( {
         type: actions.TOAST, payload: {
-          message: "Las contraseñas deben ser iguales: " + dataNegocioValida ,
+          message: "Las contraseñas deben ser iguales" ,
           type: "warning",
-          visibilityTime: 10000
+          visibilityTime: 3000
         }
       })
     }

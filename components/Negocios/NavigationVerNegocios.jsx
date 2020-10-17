@@ -15,10 +15,12 @@ export default function NavigationVerNegocios() {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.access);
   const filterNegocio = useSelector((state) => state.filterNegocio);
+    const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
+
 
   useEffect(() => {
     // setUserPosition()
-    getNegocios(dispatch, 0, access.idPersona, filterNegocio.km,access.token );
+    getNegocios(dispatch, 0,filterNegocio.km,center_map.latitude,center_map.longitude,access.token );
   });
 
 

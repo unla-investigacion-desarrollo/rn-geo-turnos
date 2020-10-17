@@ -27,7 +27,7 @@ function getLocalidadesPorProvincia(idLocalidad) {
 }
 
 function getRubros(token) {
-  return api.get("/rubro/", {
+  return api.get("/rubro", {
     headers: { token_auth: token },
   });
 }
@@ -83,8 +83,9 @@ function postLogin(parameters) {
   return api.post("/login", parameters);
 }
 
-function getEmprendimientosFiltro(idRubro, idPersona, km,token) {
-  return api.get("/emprendimiento/" + idRubro + "/"+ idPersona + "/" + km + "/traerPorRubroYKm", {
+function getEmprendimientosFiltro(idRubro,km, latitud,longitud,token) {
+  console.log("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong");
+  return api.get("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong", {
     headers: { token_auth: token },
   });
 }

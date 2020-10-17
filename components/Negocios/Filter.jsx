@@ -27,6 +27,7 @@ export default function Filter() {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.access);
   const filterNegocio = useSelector((state) => state.filterNegocio);
+    const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
 
   useEffect(() => {
     if (kilometros === 0){
@@ -47,7 +48,7 @@ export default function Filter() {
   const setFiltros = () => {
     if(rubro!==0){
     dispatch(setNegocioFilters({km:kilometros, rubro:rubro}))
-    getNegocios(dispatch, rubro, access.idPersona, kilometros ,access.token );
+    getNegocios(dispatch, rubro, kilometros,center_map.latitude,center_map.longitude ,access.token );
     setModalVisible(false);
     }else{
        dispatch({

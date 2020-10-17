@@ -45,7 +45,7 @@ export default function VerNegocios(props) {
 
   const marcarNegocios = () => {
     //Genero los MARKERS de los negocios cercanos
-    //  {console.log(lista_negocios)}
+      console.log(lista_negocios)
     {
       return lista_negocios.map((marker, index) => (
         <MapView.Marker
