@@ -45,13 +45,13 @@ export default function NavigationVerNegocios() {
         <Stack.Screen
           name="Negocios cercanos"
           component={VerNegocios}
-          options={{headerBackTitleVisible:false}}
+            options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
 
         <Stack.Screen
           name="Reservar turno"
           component={TurnosNegocio}
-          options={{headerBackTitleVisible:false}}
+           options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
       </Stack.Navigator>
     );

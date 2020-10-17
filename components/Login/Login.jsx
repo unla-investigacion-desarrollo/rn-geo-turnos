@@ -14,27 +14,27 @@ export default function Login(props) {
   const createHomeStack = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Ingreso" component={Ingreso} options={{headerBackTitleVisible:false}}></Stack.Screen>
+        <Stack.Screen name="Ingreso" component={Ingreso} options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}></Stack.Screen>
         <Stack.Screen
           name="Registro DNI"
           component={RegistroDni}
-          options={{headerBackTitleVisible:false}}
+           options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
           name="Datos Personales"
           component={Register}
-          options={{headerBackTitleVisible:false}}
+           options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
           name="Ubicación"
           component={RegistroUbicacion}
-          options={{headerBackTitleVisible:false}}
+           options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
-        <Stack.Screen name="Cámara" component={QrReader} options={{headerBackTitleVisible:false}}></Stack.Screen>
+        <Stack.Screen name="Cámara" component={QrReader}  options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}></Stack.Screen>
         <Stack.Screen
           name="Restablecer contraseña"
           component={RestablecerPw}
-          options={{headerBackTitleVisible:false}}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
       </Stack.Navigator>
     );

@@ -49,7 +49,7 @@ export default function Configuraciones(props) {
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigateConfiguraciones("Datos personales")}
+            onPress={() => navigateConfiguraciones("Datos Personales")}
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faUserCircle} style={styles.icon} />
@@ -59,7 +59,7 @@ export default function Configuraciones(props) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigateConfiguraciones("Ubicación")}
+            onPress={() => navigateConfiguraciones("Tu Ubicación")}
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faMapMarkerAlt} style={styles.icon} />
@@ -81,7 +81,7 @@ export default function Configuraciones(props) {
           {access.idPerfil!==3?(
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigateConfiguraciones("Nuevo negocio")}
+            onPress={() => navigateConfiguraciones("Editar Negocio")}
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faStore} style={styles.icon} />
@@ -92,11 +92,11 @@ export default function Configuraciones(props) {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigateConfiguraciones("PDF")}
+            onPress={() => navigateConfiguraciones("QR del Negocio")}
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faFilePdf} style={styles.icon} />
-              <Text style={styles.textButton}> PDF </Text>
+              <Text style={styles.textButton}> QR del Negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>

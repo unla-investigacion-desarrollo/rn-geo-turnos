@@ -37,7 +37,7 @@ export default function DatosNegocio(props) {
   const [enableLocalidades, setEnableLocalidades] = useState(false);
   const dispatch = useDispatch();
 
-  const isConfig = props?.route?.name === "Información Negocio";
+  const isConfig = props?.route?.name === "Editar Negocio";
 
   
 
@@ -205,9 +205,9 @@ export default function DatosNegocio(props) {
         if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
           dispatch(setDataNegocio(dataNegocio));
           if(isConfig){
-            props.navigation.navigate("Ubicacion Negocio Config")
+            props.navigation.navigate("Ubicación")
           }else{
-            props.navigation.navigate("Ubicación Negocio");
+            props.navigation.navigate("Ubicación del Negocio");
           }
         }
       });

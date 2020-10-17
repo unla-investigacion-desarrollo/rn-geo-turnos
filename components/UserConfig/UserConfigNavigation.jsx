@@ -22,62 +22,66 @@ export default function UserConfigNavigation() {
         <Stack.Screen
           name="Configuración"
           component={Configuraciones}
-          options={{headerBackTitleVisible:false}}
+         options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
 
         <Stack.Screen
-          name="Datos personales"
+          name="Datos Personales"
           component={Register}
-          options={{headerBackTitleVisible:false}}
+         options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
 
         <Stack.Screen
-          name="Ubicación"
+          name="Tu Ubicación"
           component={RegistroUbicacion}
-          options={{headerBackTitleVisible:false}}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
-        <Stack.Screen name="PDF" component={QrEmprendimiento} options={{headerBackTitleVisible:false}}></Stack.Screen>
+        <Stack.Screen name="QR del Negocio" component={QrEmprendimiento} 
+            options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}></Stack.Screen>
         <Stack.Screen
           name="Información Negocio"
-          component={DatosNegocio}
-          options={{headerBackTitleVisible:false}}
+          component={DatosNegocio} 
+         options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
-          name="Ubicación Negocio"
+          name="Ubicación del Negocio"
           component={MapContainer}
-          options={{headerBackTitleVisible:false}}
+         options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
-          name="Horarios Negocio"
+          name="Horarios del Negocio"
           component={HorariosNegocio}
-          options={{headerBackTitleVisible:false}}
+         options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
-          name="Horarios Negocio Config"
+          name="Editar Horarios"
           component={HorariosNegocio}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
-          name="Ubicacion Negocio Config"
+          name="Ubicación"
           component={MapContainer}
+        options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
           name="MapInput Negocio"
           component={MapInput}
-          options={{headerBackTitleVisible:false}}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
-          name="Nuevo negocio"
+          name="Editar Negocio"
           component={DatosNegocio}
-          options={{headerBackTitleVisible:false}}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
            <Stack.Screen
-          name="Turnos Negocio"
+          name="Turnos del Negocio"
           component={TurnosNegocio}
-          options={{headerBackTitleVisible:false}}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
         <Stack.Screen
-          name="Turnos Negocio Config"
+          name="Editar Turnos del Negocio"
           component={TurnosNegocio}
+          options={{headerBackTitleVisible:false,headerTitleAlign: "center"}}
         ></Stack.Screen>
 
         {/* FIN NEGOCIO */}

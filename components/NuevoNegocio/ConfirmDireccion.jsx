@@ -9,9 +9,9 @@ function ConfirmDireccion(props) {
   const dispatch = useDispatch();
   const agregarNegocio = () => {
     if(props.isConfig){
-      props.navigation.navigate("Horarios Negocio Config");
+      props.navigation.navigate("Editar Horarios");
     }else{
-      props.navigation.navigate("Horarios Negocio");
+      props.navigation.navigate("Horarios del Negocio");
     }
   };
 
