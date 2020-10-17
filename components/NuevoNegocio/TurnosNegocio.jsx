@@ -56,7 +56,7 @@ export default function TurnosNegocio(props) {
         usuarioModi: access.idPersona.toString()
       })
       apiCalls
-      .setNewInfoEmprendimiento(1,{
+      .setNewInfoEmprendimiento(access.idEmprendimiento,{
         aceptaFoto:true,
         capacidad: newNegocio.capacidadPersonas,
         cuit: newNegocio.cuit,
@@ -68,7 +68,7 @@ export default function TurnosNegocio(props) {
         usuarioModi: access.idPersona.toString()
       }, access.token)
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         dispatch( {
           type: actions.TOAST, payload: {
             message: "Negocio modificado correctamente",
@@ -188,7 +188,7 @@ export default function TurnosNegocio(props) {
                 paddingTop: 5,
               }}
             >
-              Finalizar Registro
+              {isConfig ? "Guardar datos" : "Finalizar Registro"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -210,3 +210,4 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
 });
+

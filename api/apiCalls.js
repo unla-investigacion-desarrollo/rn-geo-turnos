@@ -63,7 +63,6 @@ function setNewInfoUsuario(idPersona, parameters, token) {
 }
 
 function setNewInfoEmprendimiento(idEmprendimiento, parameters, token) {
-  console.log("/emprendimiento/" + idEmprendimiento)
   return api.put("/emprendimiento/" + idEmprendimiento, parameters, {
     headers: { token_auth: token },
   });
@@ -84,7 +83,6 @@ function postLogin(parameters) {
 }
 
 function getEmprendimientosFiltro(idRubro,km, latitud,longitud,token) {
-  console.log("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong");
   return api.get("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong", {
     headers: { token_auth: token },
   });
