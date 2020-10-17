@@ -122,11 +122,13 @@ export default function DatosNegocio(props) {
 
 
   const getInfoEmprendimiento = () => {
+    console.log(access.idEmprendimiento)
     apiCalls.getInfoEmprendimiento(access.idEmprendimiento, access.token)
       .then((response) => {
           let horariosAux = []
           let tiempoAtencionAux = 0
-          response.data.configuracionLocales?.forEach(item => {
+          // console.log(response.data)
+          response.data.configuracionesLocal?.forEach(item => {
             tiempoAtencionAux = item.tiempoAtencion
             horariosAux.push({
               diaSemana: parseInt(item.diaSemana),
@@ -138,6 +140,7 @@ export default function DatosNegocio(props) {
           })
           let horariosRedux = {horarios: horariosAux, tiempoAtencion: tiempoAtencionAux}
           if (horariosAux.length > 0) {
+            console.log(horariosRedux)
             dispatch(setHorariosNegocio(horariosRedux));
           }
           setCapacidadPersonas(response.data.capacidad);

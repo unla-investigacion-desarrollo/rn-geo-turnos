@@ -6,9 +6,8 @@ import {
   faUserCircle,
   faMapMarkerAlt,
   faStore,
-  faCalendar,
   faChevronRight,
-  faFilePdf,
+  faCloudDownloadAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { actions } from "../../actions/types";
 import { useDispatch } from "react-redux";
@@ -74,7 +73,7 @@ export default function Configuraciones(props) {
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faStore} style={styles.icon} />
-              <Text style={styles.textButton}> Configuración del Negocio </Text>
+              <Text style={styles.textButton}> Añadí tu negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>):<></> }
@@ -85,7 +84,7 @@ export default function Configuraciones(props) {
           >
             <View style={{ flexDirection: "row" }}>
               <FontAwesomeIcon icon={faStore} style={styles.icon} />
-              <Text style={styles.textButton}> Añadí tu negocio </Text>
+              <Text style={styles.textButton}> Configuracion del negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>):<></>}
@@ -95,7 +94,7 @@ export default function Configuraciones(props) {
             onPress={() => navigateConfiguraciones("QR del Negocio")}
           >
             <View style={{ flexDirection: "row" }}>
-              <FontAwesomeIcon icon={faFilePdf} style={styles.icon} />
+              <FontAwesomeIcon icon={faCloudDownloadAlt} style={styles.icon} />
               <Text style={styles.textButton}> QR del Negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>

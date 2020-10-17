@@ -4,12 +4,16 @@ import { Text, View, StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { dataRead, qrPermissions } from "../../actions/qrReaderActions";
 import { setRegisterData } from "../../actions/RegisterActions";
+import {apiCalls} from "../../api/apiCalls"
 import SuccessQrRead from "./SuccessQrRead"
 
 export default function QrReader(props) {
   const qr_state = useSelector((state) => state.qr_state);
   const registro = useSelector((state) => state.registro);
   const [scanned, setScanned] = useState(false);
+  const [scannedQR, setScannedQR] = useState(false);
+  const [nombreEmprendimiento, setNombreEmprendimiento] = useState("");
+  const access = useSelector((state) => state.access);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,34 +40,48 @@ export default function QrReader(props) {
       });
   };
 
-  const handleBarCodeScanned = ({ data }) => {
-    const lecturaDocumento = data.split("@");
-    let registroObject = registro.registerData;
-
-    if (data[0] === "@"){
-      registroObject.sexo = lecturaDocumento[8] === "M" ? "hombre" : "mujer";
-      registroObject.documento = lecturaDocumento[1];
-      registroObject.nroTramite = lecturaDocumento[10];
-      registroObject.nombre = lecturaDocumento[5];
-      registroObject.apellido = lecturaDocumento[4];
-    }else{
-      registroObject.sexo = lecturaDocumento[3] === "M" ? "hombre" : "mujer";
-      registroObject.documento = lecturaDocumento[4];
-      registroObject.nroTramite = lecturaDocumento[0];
-      registroObject.nombre = lecturaDocumento[2];
-      registroObject.apellido = lecturaDocumento[1];
-  
+  const postOcuparLocal = () => {
+    apiCalls.ocuparLocal( {
+      idEmprendimiento: 1,
+      idPersona: access.idPersona,
+      usuarioModi: access.idPersona
+    }, access.token ).then( ( response ) => {
+      setNombreEmprendimiento(response.data.emprendimiento.nombre)
+      console.log(response.data.emprendimiento.nombre)
+    } ).catch( ( code, message ) => {
       
+    } )
+  }
+
+  const handleBarCodeScanned = ({ data }) => {
+    if (data.includes('www.')){  
+      postOcuparLocal(data)
+      setScannedQR(true)
+      setScanned(true)
+    }else{
+      const lecturaDocumento = data.split("@");
+      let registroObject = registro.registerData;
+  
+      if (data[0] === "@"){
+        registroObject.sexo = lecturaDocumento[8] === "M" ? "hombre" : "mujer";
+        registroObject.documento = lecturaDocumento[1];
+        registroObject.nroTramite = lecturaDocumento[10];
+        registroObject.nombre = lecturaDocumento[5];
+        registroObject.apellido = lecturaDocumento[4];
+      }else{
+        registroObject.sexo = lecturaDocumento[3] === "M" ? "hombre" : "mujer";
+        registroObject.documento = lecturaDocumento[4];
+        registroObject.nroTramite = lecturaDocumento[0];
+        registroObject.nombre = lecturaDocumento[2];
+        registroObject.apellido = lecturaDocumento[1];
+      }
+      console.log(registroObject)
+        //Cuando logro escanear algo con la camara
+      dispatch(setRegisterData(registroObject));
+      setScanned(true);
+      // props.navigation.navigate("Datos Personales");
     }
-    //Cuando logro escanear algo con la camara
-    setScanned(true);
-    console.log(registroObject)
-    dispatch(setRegisterData(registroObject));
-
-   // props.navigation.navigate("Datos Personales");
     
-
-    //fetchApi(data);
   };
 
   if (qr_state.loadingPermissions) {
@@ -88,8 +106,12 @@ export default function QrReader(props) {
           />
         )}
 
-        {scanned && (
-         <SuccessQrRead/>
+        {/* {scanned && (
+         <View/>
+        )} */}
+
+        {scannedQR && (
+         <SuccessQrRead emprendimiento={nombreEmprendimiento}/>
         )}
 
        

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function SuccessQrRead ( ) {
+export default function SuccessQrRead ( props ) {
   
   return (
     <View style={{ flex: 1 }}>
@@ -26,9 +26,9 @@ export default function SuccessQrRead ( ) {
         </View>
          <View style={{ marginTop: 10,paddingTop:"20%" }}>
             <View style={styles.viewContainerText}>
-             <Text style={styles.explanationText}>Recibimos tu aviso de que te encuentras en</Text>
-             <Text style={styles.emprendimientoText}> "Nombre de Local"</Text>
-               <Text style={styles.emprendimientoText}> ¡No te olvides de escanear el QR al salir!</Text>
+              <Text style={styles.explanationText}>Recibimos tu aviso de que te encuentras en</Text>
+              <Text style={styles.emprendimientoText}>{props.emprendimiento}</Text>
+              <Text style={styles.emprendimientoText}> ¡No te olvides de escanear el QR al salir!</Text>
             </View>
           </View>
         </View>
@@ -40,7 +40,9 @@ export default function SuccessQrRead ( ) {
 const styles = StyleSheet.create( {
  
   viewContainerText:{
-    flexDirection:'row',flexWrap: 'wrap',justifyContent:"center"
+    flexDirection:'row',
+    flexWrap: 'wrap',
+    justifyContent:"center"
   },
   viewContainer:{
    flex:1
@@ -56,7 +58,7 @@ const styles = StyleSheet.create( {
   emprendimientoText:{
       marginTop:"5%",
     color:"white",
-    textAlign:"center",
+    // textAlign:"center",
     fontSize:18
   },
   button: {
