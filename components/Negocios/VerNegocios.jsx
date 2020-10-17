@@ -113,10 +113,8 @@ export default function VerNegocios(props) {
           paddingLeft: 8,
           paddingRight: 8,
           zIndex: 1,
-          elevation: 2,
           marginTop: 35,
           marginLeft: 10, 
-          backgroundColor:"#abc"
         }}
       >
         <Filter />
