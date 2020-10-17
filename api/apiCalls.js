@@ -63,7 +63,6 @@ function setNewInfoUsuario(idPersona, parameters, token) {
 }
 
 function setNewInfoEmprendimiento(idEmprendimiento, parameters, token) {
-  console.log("/emprendimiento/" + idEmprendimiento)
   return api.put("/emprendimiento/" + idEmprendimiento, parameters, {
     headers: { token_auth: token },
   });

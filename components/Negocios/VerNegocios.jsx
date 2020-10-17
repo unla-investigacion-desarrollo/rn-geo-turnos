@@ -38,7 +38,7 @@ export default function VerNegocios(props) {
 
   const marcarNegocios = () => {
     //Genero los MARKERS de los negocios cercanos
- 
+
     {
       return lista_negocios.map((marker, index) => (
         <MapView.Marker
@@ -94,11 +94,12 @@ export default function VerNegocios(props) {
       <View
         style={{
           position: "absolute",
-          width: "100%",
+          width: 68,
           paddingLeft: 8,
           paddingRight: 8,
           zIndex: 1,
-          elevation: 2,
+          marginTop: 35,
+          marginLeft: 10, 
         }}
       >
         <Filter />

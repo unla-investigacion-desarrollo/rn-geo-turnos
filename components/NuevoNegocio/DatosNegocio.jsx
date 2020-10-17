@@ -11,6 +11,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { apiCalls } from "../../api/apiCalls";
 import { actions } from "../../actions/types";
+import { setHorariosNegocio } from "../../actions/NuevoNegocioActions";
+
 
 export default function DatosNegocio(props) {
   
@@ -120,12 +122,28 @@ export default function DatosNegocio(props) {
 
 
   const getInfoEmprendimiento = () => {
-    apiCalls.getInfoEmprendimiento(1, access.token)
+    apiCalls.getInfoEmprendimiento(access.idEmprendimiento, access.token)
       .then((response) => {
+          let horariosAux = []
+          let tiempoAtencionAux = 0
+          response.data.configuracionLocales?.forEach(item => {
+            tiempoAtencionAux = item.tiempoAtencion
+            horariosAux.push({
+              diaSemana: parseInt(item.diaSemana),
+              horaDesde1: item.turno1Desde,
+              horaDesde2: item.turno2Desde,
+              horaHasta1: item.turno1Hasta,
+              horaHasta2: item.turno2Hasta,
+            })
+          })
+          let horariosRedux = {horarios: horariosAux, tiempoAtencion: tiempoAtencionAux}
+          if (horariosAux.length > 0) {
+            dispatch(setHorariosNegocio(horariosRedux));
+          }
           setCapacidadPersonas(response.data.capacidad);
           setNombre(response.data.nombre);
           setCuit(response.data.cuit);
-          // setTelefono(response.data.telefono);
+          setTelefono(response.data.telefono.toString());
           setCalle(response.data.ubicacion.calle);
           setNumero(response.data.ubicacion.numero.toString());
           setPiso(response.data.ubicacion.piso.toString());
@@ -178,6 +196,7 @@ export default function DatosNegocio(props) {
       latitude: 0,
       longitude: 0,
     };
+    
     let dataNegocioValida = validarCamposDatosNegocio(dataNegocio)
     if (dataNegocioValida === "") {
       searchPosition(calle + " " + numero + " "+ localidadSeleccionada(localidad).nombre).then((response) => {
@@ -327,7 +346,7 @@ export default function DatosNegocio(props) {
             <Picker
               note
               mode="dropdown"
-              style={styles.input}
+              style={[styles.input,]}
               selectedValue={provincia}
             
               onValueChange={(e) => getLocalidadesPorProvincia(e,"prov")}
