@@ -1,16 +1,13 @@
-import React, {useEffect, useState} from "react";
-import { StyleSheet, View, Dimensions, Image } from "react-native";
+import React, { useState} from "react";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import MapView from "react-native-maps";
 import InformacionNegocio from "./InformacionNegocio";
 import Filter from "./Filter";
 import { selectMarker } from "../../actions/selectMarkerActions";
 import { actions } from "../../actions/types";
-import { getLocation } from "../../services/location-service"
-import { centerMapToSetted, centerMap } from "../../actions/centerMapActions";
+import ImageMarker from "./ImageMarker";
 
-
-import { showToast } from "../../actions/toastActions";
 
 export default function VerNegocios(props) {
   const region = useSelector((state) => state.center_map.region); //Centro del mapa
@@ -28,47 +25,35 @@ export default function VerNegocios(props) {
   const setShowInfoNegocio = (mostrar) => {
     dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: mostrar });
   };
-  const seleccionarMarker = (lat, longitud, calle, numero, id, name) => {
+  
+  const seleccionarMarker = (marker) => {
     //Selecciono marcador dentro del mapa
     setShowInfoNegocio(true);
     dispatch(
-      selectMarker({
-        latitude: lat,
-        longitude: longitud,
-        calle: calle,
-        numero: numero,
-        id: id,
-        name: name,
-      })
+      selectMarker(
+       marker
+      )
     );
   };
 
   const marcarNegocios = () => {
     //Genero los MARKERS de los negocios cercanos
-      console.log(lista_negocios)
+ 
     {
       return lista_negocios.map((marker, index) => (
         <MapView.Marker
           key={index}
           onPress={() =>
-            seleccionarMarker(
-              marker.latitude,
-              marker.longitude,
-              marker.calle,
-              marker.numero,
-              marker.idEmprendimiento,
-              marker.name
-            )
+            seleccionarMarker(marker)
           }
           coordinate={{
             latitude: marker.latitude,
             longitude: marker.longitude,
           }}
         >
-          <Image
-            source={require("../../assets/marcador-verde.png")}
-            style={{ height: 35, width: 35 }}
-          />
+        
+        <ImageMarker imageColor={marker.nroColor}/>
+          
         </MapView.Marker>
       ));
     }

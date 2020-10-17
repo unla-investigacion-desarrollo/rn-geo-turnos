@@ -84,7 +84,6 @@ function postLogin(parameters) {
 }
 
 function getEmprendimientosFiltro(idRubro,km, latitud,longitud,token) {
-  console.log("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong");
   return api.get("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong", {
     headers: { token_auth: token },
   });

@@ -20,9 +20,19 @@ export default function InformacionNegocio(props) {
   const infoTurno = () => {
     props.navigation.navigate("Reservar turno");
   };
+
+  const textoDireccion = () =>{
+
+    const piso = (marcador_seleccionado.ubicacion.piso>0?"Piso "+marcador_seleccionado.ubicacion.piso:"")
+    const departamento = (marcador_seleccionado.ubicacion.departamento!==null && marcador_seleccionado.ubicacion.departamento!==""?"Depto "+marcador_seleccionado.ubicacion.departamento:"")
+    const direccion = marcador_seleccionado.ubicacion.calle + " " + marcador_seleccionado.ubicacion.numero+", "+marcador_seleccionado.ubicacion.localidad.nombre+" "+piso+" "+departamento;
+
+    return direccion;
+  }
+
   return (
     <>
-   
+  
       <View style={{ flexDirection: "row" }}>
         <Text style={{ fontSize: 20, textAlign: "center", width: "90%" }}>
           {marcador_seleccionado.name}
@@ -71,7 +81,7 @@ export default function InformacionNegocio(props) {
               width: "100%",
             }}
           >
-            {marcador_seleccionado.calle + " " + marcador_seleccionado.numero}
+            {textoDireccion()}
           </Text>
 
           <FontAwesomeIcon
@@ -83,16 +93,12 @@ export default function InformacionNegocio(props) {
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: "row", marginTop: "5%" }}>
-        {/* <View style={{ flex: 1 }}>
-          <TouchableOpacity style={{ textAlign: "center" }}>
-            <Text style={styles.confirm_button}>Realizar Pedido</Text>
-          </TouchableOpacity>
-        </View> */}
+       {marcador_seleccionado.usaTurnos &&
         <View style={{ flex: 1 }}>
           <TouchableOpacity style={{ textAlign: "center" }} onPress={infoTurno}>
             <Text style={styles.confirm_button}>Reservar Turno</Text>
           </TouchableOpacity>
-        </View>
+        </View>}
       </View>
     </>
   );

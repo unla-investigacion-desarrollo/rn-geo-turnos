@@ -16,6 +16,7 @@ import {
 import { centerMapToSetted, centerMap } from "../../actions/centerMapActions";
 import { dataRead } from "../../actions/qrReaderActions";
 import { getLocation } from "../../services/location-service"
+import { actions } from "../../actions/types";
 
 const RenderMenuSelected = ({ menu_option, center_map }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,8 @@ export default function Logged() {
     }else{
       dispatch(centerMapToSetted());
     }
+
+     dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: false });
   }, [menu_option]);
 
   //Sirve para solicitar los permisos y obtener la pisicion del usuario

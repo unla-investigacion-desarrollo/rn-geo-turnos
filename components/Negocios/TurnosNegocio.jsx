@@ -26,6 +26,14 @@ export default function TurnosNegocio ( props ) {
   const [comments, setComments] = useState( "" );
   const access = useSelector((state) => state.access);
 
+  const textoDireccion = () =>{
+
+    const piso = (negocio.ubicacion.piso>0?"Piso "+negocio.ubicacion.piso:"")
+    const departamento = (negocio.ubicacion.departamento!==null && negocio.ubicacion.departamento!==""?"Depto "+negocio.ubicacion.departamento:"")
+    const direccion = negocio.ubicacion.calle + " " + negocio.ubicacion.numero+", "+negocio.ubicacion.localidad.nombre+" "+piso+" "+departamento;
+
+    return direccion;
+  }
   const postReservarTurno = () => {
 
     let splitDay = day.split( "/" )
@@ -69,7 +77,7 @@ export default function TurnosNegocio ( props ) {
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
           <View style={{ marginTop: 15 }}>
             <Text style={styles.name}>{negocio.name}</Text>
-            <Text style={styles.address}>Dirección: {negocio.calle} {negocio.numero}</Text>
+            <Text style={styles.address}>Dirección: {textoDireccion()}</Text>
             <Text></Text>
             <Text style={styles.labelText}>Dia</Text>
 

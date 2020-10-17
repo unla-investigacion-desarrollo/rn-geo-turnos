@@ -1,11 +1,7 @@
 import { SELECT_MARKER } from "../actions/types";
 
 const initialState = {
-  marcador_seleccionado: {
-    latitude: null,
-    longitude: null,
-    direccion: "",
-  },
+  marcador_seleccionado: {}
 };
 
 export default function (state = initialState, action) {
