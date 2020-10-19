@@ -122,7 +122,7 @@ export default function DatosNegocio(props) {
 
 
   const getInfoEmprendimiento = () => {
-    console.log(access.idEmprendimiento)
+    
     apiCalls.getInfoEmprendimiento(access.idEmprendimiento, access.token)
       .then((response) => {
           let horariosAux = []
@@ -140,7 +140,6 @@ export default function DatosNegocio(props) {
           })
           let horariosRedux = {horarios: horariosAux, tiempoAtencion: tiempoAtencionAux}
           if (horariosAux.length > 0) {
-            console.log(horariosRedux)
             dispatch(setHorariosNegocio(horariosRedux));
           }
           setCapacidadPersonas(response.data.capacidad);
@@ -207,7 +206,7 @@ export default function DatosNegocio(props) {
         dataNegocio.longitude = response.longitude;
         if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
           dispatch(setDataNegocio(dataNegocio));
-          if(isConfig){
+          if(!isConfig){
             props.navigation.navigate("Ubicación")
           }else{
             props.navigation.navigate("Ubicación del Negocio");

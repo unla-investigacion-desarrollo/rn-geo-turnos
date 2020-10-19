@@ -18,7 +18,7 @@ export default function TurnosNegocio(props) {
   const horariosNegocio = useSelector((state) => state.nuevoNegocio.horarios);
   const access = useSelector((state) => state.access);
 
-  const isConfig = props?.route?.name === "Turnos Negocio Config";
+  const isConfig = props?.route?.name === "Editar Turnos del Negocio";
 
 
 
@@ -43,32 +43,58 @@ export default function TurnosNegocio(props) {
     })
 
     dispatch(setDataNegocio(newNegocio));
+    // console.log(newNegocio)
     if(isConfig){
-      console.log({
-        aceptaFoto:true,
-        capacidad: newNegocio.capacidadPersonas,
-        cuit: newNegocio.cuit,
-        idPersona: access.idPersona, 
-        idEstadoEmprendimiento: 2,
-        idRubro: newNegocio.rubro,
-        idTipoEmprendimiento: newNegocio.emprendimiento,
-        nombre: newNegocio.nombre,
-        usuarioModi: access.idPersona.toString()
-      })
+      // console.log({
+      //   aceptaFoto:true,
+      //   capacidad: newNegocio.capacidadPersonas,
+      //   configuracionLocales: configuracionLocales,
+      //   cuit: newNegocio.cuit,
+      //   idEstadoEmprendimiento: 2,
+      //   idPersona: access.idPersona,
+      //   idRubro: newNegocio.rubro, 
+      //   idTipoEmprendimiento: newNegocio.emprendimiento,
+      //   nombre: newNegocio.nombre,
+      //   telefono: newNegocio.telefono,
+      //   ubicacionVo: {
+      //     calle: newNegocio.calle,
+      //     numero: newNegocio.numero,
+      //     departamento: newNegocio.depto ? newNegocio.depto.toString() : "",
+      //     idLocalidad: newNegocio.localidad,
+      //     idProvincia: newNegocio.provincia,
+      //     latitud: newNegocio.latitude.toString(),
+      //     longitud: newNegocio.longitude.toString(),
+      //     piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
+      //     usuarioModi: access.idPersona.toString()
+      //   },
+      //   usuarioModi: access.idPersona.toString()
+      // })
       apiCalls
       .setNewInfoEmprendimiento(access.idEmprendimiento,{
         aceptaFoto:true,
         capacidad: newNegocio.capacidadPersonas,
+        configuracionLocales: configuracionLocales,
         cuit: newNegocio.cuit,
         idEstadoEmprendimiento: 2,
-        idPersona: access.idPersona, 
-        idRubro: newNegocio.rubro,
+        idPersona: access.idPersona,
+        idRubro: newNegocio.rubro, 
         idTipoEmprendimiento: newNegocio.emprendimiento,
         nombre: newNegocio.nombre,
+        telefono: newNegocio.telefono,
+        ubicacionVo: {
+          calle: newNegocio.calle,
+          numero: newNegocio.numero,
+          departamento: newNegocio.depto ? newNegocio.depto.toString() : "",
+          idLocalidad: newNegocio.localidad,
+          idProvincia: newNegocio.provincia,
+          latitud: newNegocio.latitude.toString(),
+          longitud: newNegocio.longitude.toString(),
+          piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
+          usuarioModi: access.idPersona.toString()
+        },
         usuarioModi: access.idPersona.toString()
       }, access.token)
       .then((response) => {
-        // console.log(response.data)
         dispatch( {
           type: actions.TOAST, payload: {
             message: "Negocio modificado correctamente",
@@ -94,7 +120,7 @@ export default function TurnosNegocio(props) {
         ubicacionVo: {
           calle: newNegocio.calle,
           numero: newNegocio.numero,
-          departamento: newNegocio.depto.toString(),
+          departamento: newNegocio.depto ? newNegocio.depto.toString() : "",
           idLocalidad: newNegocio.localidad,
           idProvincia: newNegocio.provincia,
           latitud: newNegocio.latitude.toString(),
