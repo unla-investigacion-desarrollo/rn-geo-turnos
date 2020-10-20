@@ -67,6 +67,12 @@ export default function VerNegocios(props) {
           style={{ flex: 1 }}
           provider={MapView.PROVIDER_GOOGLE}
           showsUserLocation={true}
+          showsPointsOfInterest={false}
+          showsIndoors={false}
+          showsIndoorLevelPicker={false}
+          showsTraffic={false}
+          loadingEnabled={true}
+          showsMyLocationButton={false}
           region={{
             latitude: region.latitude, //Marco el centro del mapa con la ubicacion del usuario
             longitude: region.longitude,

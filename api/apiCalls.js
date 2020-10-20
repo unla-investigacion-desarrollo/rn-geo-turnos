@@ -82,6 +82,12 @@ function postLogin(parameters) {
   return api.post("/login", parameters);
 }
 
+function ocuparLocal(parameters,token) {
+  return api.post("/ocupacionLocal", parameters,{
+    headers: { token_auth: token },
+  });
+}
+
 function getEmprendimientosFiltro(idRubro,km, latitud,longitud,token) {
   return api.get("/emprendimiento/" + idRubro + "/"+ latitud + "/"+ longitud +"/"+ km + "/traerPorRubroKmLatLong", {
     headers: { token_auth: token },
@@ -112,5 +118,6 @@ export const apiCalls = {
   getEmprendimientosFiltro,
   getUbicacionPersona,
   setNewUbicacion,
-  setNewInfoEmprendimiento
+  setNewInfoEmprendimiento,
+  ocuparLocal,
 };

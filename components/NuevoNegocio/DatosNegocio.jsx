@@ -122,11 +122,13 @@ export default function DatosNegocio(props) {
 
 
   const getInfoEmprendimiento = () => {
+    
     apiCalls.getInfoEmprendimiento(access.idEmprendimiento, access.token)
       .then((response) => {
           let horariosAux = []
           let tiempoAtencionAux = 0
-          response.data.configuracionLocales?.forEach(item => {
+          // console.log(response.data)
+          response.data.configuracionesLocal?.forEach(item => {
             tiempoAtencionAux = item.tiempoAtencion
             horariosAux.push({
               diaSemana: parseInt(item.diaSemana),
@@ -204,7 +206,7 @@ export default function DatosNegocio(props) {
         dataNegocio.longitude = response.longitude;
         if (dataNegocio.latitude !== 0 && dataNegocio.longitude !== 0) {
           dispatch(setDataNegocio(dataNegocio));
-          if(isConfig){
+          if(!isConfig){
             props.navigation.navigate("Ubicación")
           }else{
             props.navigation.navigate("Ubicación del Negocio");

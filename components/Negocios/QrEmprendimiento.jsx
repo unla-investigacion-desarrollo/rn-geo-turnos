@@ -23,7 +23,7 @@ export default function QrEmprendimiento ( ) {
       >
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13,alignItems:"center",paddingTop:"20%" }}>
           <View style={{width:250,height:250,backgroundColor:"white", alignItems:"center",justifyContent:"center"}}> 
-             <QRCode size="250" content='LOGO.png1'/>
+             <QRCode size={250} content='LOGO.png1'/>
           </View>
             <View style={{ marginTop: 10,paddingTop:"20%",flexDirection:"row" }}>
             <View style={styles.viewContainerText}>
