@@ -6,6 +6,7 @@ import {
   Modal,
   Text,
   Slider,
+  Dimensions,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +28,7 @@ export default function Filter() {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.access);
   const filterNegocio = useSelector((state) => state.filterNegocio);
-    const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
+  const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
 
   useEffect(() => {
     if (kilometros === 0){
@@ -165,6 +166,8 @@ export default function Filter() {
   );
 }
 
+const height = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   input: {
     height: 60,
@@ -204,7 +207,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 10,
-    height: "35%",
+    height: height*0.45,
     backgroundColor: "white",
     borderRadius: 10,
     padding: 20,

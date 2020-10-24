@@ -80,7 +80,7 @@ export default function FormUbicacion(props) {
         cuil: registro.registerData.cuil,
         dni: parseInt(registro.registerData.documento),
         numeroTramite: registro.registerData.nroTramite,
-        idPerfil: 1,
+        idPerfil: 2,
         loginVo: {
           clave: registro.registerData.password,
           email: registro.registerData.email,

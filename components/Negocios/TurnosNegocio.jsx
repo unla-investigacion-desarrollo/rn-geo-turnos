@@ -82,6 +82,10 @@ export default function TurnosNegocio ( props ) {
             <Text style={styles.labelText}>Dia</Text>
 
             <DatePicker
+              
+              
+              minDate={new Date()}
+              maxDate={new Date().getDate() + 6}
               locale={"es"}
               style={styles.input}
               onDateChange={( date ) => setDay( date )}
