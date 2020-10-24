@@ -114,7 +114,7 @@ export default function HorariosNegocio(props) {
             />
           </View>
           <View style={{ flex: 2 }}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <ListaHorarios />
             </ScrollView>
           </View>

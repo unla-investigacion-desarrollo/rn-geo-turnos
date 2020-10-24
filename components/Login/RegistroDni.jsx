@@ -83,7 +83,7 @@ export default function RegistroDni(props) {
         }}
       >
 
-     <ScrollView>
+     <ScrollView showsVerticalScrollIndicator={false}>
 
         <View
           style={{

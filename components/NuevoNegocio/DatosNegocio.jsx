@@ -249,7 +249,7 @@ export default function DatosNegocio(props) {
           flex: 1,
         }}
       >
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
           <View style={{ marginTop: 7 }}>
             <Text style={styles.labelText}>Nombre del Negocio</Text>

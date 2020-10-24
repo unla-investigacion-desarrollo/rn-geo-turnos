@@ -72,7 +72,7 @@ export default function ListMisTurnos(props) {
           cancelBtnText="Cancelar"
         />
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             hminHight: 90,

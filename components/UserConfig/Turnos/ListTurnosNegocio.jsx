@@ -78,7 +78,7 @@ export default function ListTurnosNegocio(props) {
           cancelBtnText="Cancelar"
         />
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             minHeight: 90,

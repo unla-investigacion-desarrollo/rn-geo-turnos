@@ -143,7 +143,7 @@ export default function RegistroDatosPersonales(props) {
           padding: 10,
         }}
       >
-        <ScrollView >
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ flex: 3 }}>
             <Text style={{ color: "white", fontWeight: "bold" }}>
               {isConfig && (
