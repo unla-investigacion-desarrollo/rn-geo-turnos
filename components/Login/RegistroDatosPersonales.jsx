@@ -143,7 +143,7 @@ export default function RegistroDatosPersonales(props) {
           padding: 10,
         }}
       >
-        <ScrollView>
+        <ScrollView >
           <View style={{ flex: 3 }}>
             <Text style={{ color: "white", fontWeight: "bold" }}>
               {isConfig && (
@@ -269,6 +269,7 @@ export default function RegistroDatosPersonales(props) {
               <TextInput
                 style={styles.input}
                 value={password}
+                secureTextEntry={true}
                 placeholder="Ingrese una contraseña"
                 onChangeText={(value) => setPassword(value)}
               ></TextInput>
@@ -280,6 +281,7 @@ export default function RegistroDatosPersonales(props) {
 
               <TextInput
                 style={styles.input}
+                secureTextEntry={true}
                 value={repetirPassword}
                 placeholder="Repita su contraseña"
                 onChangeText={(value) => setRepetirPassword(value)}

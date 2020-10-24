@@ -5,7 +5,9 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
+  ScrollView,
+  Dimensions
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +22,8 @@ export default function RegistroDni(props) {
   const [nroTramite, setNroTramite] = useState("");
   const registro = useSelector((state) => state.registro);
   const dispatch = useDispatch();
+  const height = Dimensions.get("window").height;
+
 
   useEffect(() => {
     let registerOjecto = registro.registerData;
@@ -78,9 +82,12 @@ export default function RegistroDni(props) {
           padding: 10,
         }}
       >
-     <View
+
+     <ScrollView>
+
+        <View
           style={{
-            flex: 1,
+            height:height/2.8,
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -165,6 +172,7 @@ export default function RegistroDni(props) {
             </View>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </LinearGradient>
     </View>
   );

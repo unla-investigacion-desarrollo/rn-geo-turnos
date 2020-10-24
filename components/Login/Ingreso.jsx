@@ -5,7 +5,9 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
+  ScrollView,
+  Dimensions
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { actions } from "../../actions/types";
@@ -18,9 +20,10 @@ import {getLocation} from "../../services/location-service"
 import {centerMap} from "../../actions/centerMapActions"
 
 export default function Ingreso(props) {
-  const [email, setEmail] = useState("berro.gonza2195@gmail.com");
+  const [email, setEmail] = useState("trucco.lucioj@gmail.com");
   const [password, setPassword] = useState("1234");
   const dispatch = useDispatch();
+  const height = Dimensions.get("window").height;
 
 
   const setLogged = () => {
@@ -107,9 +110,11 @@ export default function Ingreso(props) {
           padding: 10,
         }}
       >
+          <ScrollView>
+
         <View
           style={{
-            flex: 1,
+            height:height/2.8,
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -144,6 +149,7 @@ export default function Ingreso(props) {
               type="password"
               style={styles.input}
               value={password}
+              secureTextEntry={true}
               onChangeText={(value) => setPassword(value)}
             ></TextInput>
           </View>
@@ -210,8 +216,10 @@ export default function Ingreso(props) {
             </View>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </LinearGradient>
     </View>
+
   );
 }
 const styles = StyleSheet.create({

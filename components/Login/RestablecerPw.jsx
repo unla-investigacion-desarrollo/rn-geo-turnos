@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { apiCalls } from "../../api/apiCalls";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../actions/types";
 
 export default function RestablecerPw(props) {
@@ -29,6 +29,8 @@ export default function RestablecerPw(props) {
           }
         })
       }).catch((code,message) =>{
+        console.log(code)
+        console.log(message)
         dispatch( {
           type: actions.TOAST, payload: {
             message: "Hubo un problema para reestablecer la contraseña, por favor intente nuevamente" ,

@@ -17,6 +17,7 @@ function BottomMenu() {
         borderColor: "#ddd",
         height: "80%",
         borderTopWidth: 1,
+        paddingTop:3,
       }}
     >
       <>

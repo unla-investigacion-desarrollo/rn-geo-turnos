@@ -76,7 +76,7 @@ function setNewUbicacion(idUbicacion, parameters, token) {
 }
 
 function postResetPassword(parameters) {
-  return api.post("/persona/resetpassword/", parameters);
+  return api.post("/persona/resetpassword", parameters);
 }
 function postLogin(parameters) {
   return api.post("/login", parameters);
