@@ -164,9 +164,9 @@ export default function ListMisTurnos(props) {
 const styles = StyleSheet.create({
   datePicker: {
     height: 35,
-    elevation: 8,
+    // elevation: 8,
     borderRadius: 5,
-    backgroundColor: "transparent",
+    // backgroundColor: "transparent",
     paddingHorizontal: 15,
     marginTop: 8,
 
@@ -179,4 +179,5 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
+  
 });

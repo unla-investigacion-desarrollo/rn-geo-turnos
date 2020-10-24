@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { View } from "react-native";
-import TurnosNegocio from "../UserConfig/Turnos";
+import { View,  Keyboard} from "react-native";
+import TurnosNavigation from "../UserConfig/Turnos/TurnosNavegation";
 import VerNegocios from "../Negocios/VerNegocios";
 import NavigationVerNegocios from "../Negocios/NavigationVerNegocios";
 import BottomMenu from "./BottomMenu";
@@ -23,7 +23,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
 
   switch (menu_option) {
     case TURNOS:
-      return <TurnosNegocio />; //Pantalla donde se inicia el proceso de alta de un negocio
+      return <TurnosNavigation />; //Pantalla donde se inicia el proceso de alta de un negocio
       break;
     case VER_NEGOCIOS:
       return <NavigationVerNegocios />; //Pantalla donde se visualizan los negocios cercanos
@@ -44,6 +44,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
 export default function Logged() {
   const menu_option = useSelector((state) => state.menu_option.menu_option); //Menu seleccionado
   const center_map = useSelector((state) => state.center_map.region); //Centro del mapa
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
 
   const dispatch = useDispatch(); //Cada vez que cambio de menu, centro el mapa en la posicion que el usuario configuro
   useEffect(() => {
@@ -55,6 +56,27 @@ export default function Logged() {
 
      dispatch({ type: actions.SHOW_INFO_NEGOCIOS, payload: false });
   }, [menu_option]);
+
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    // cleanup function
+    // return () => {
+    //   Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+    //   Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    // };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setKeyboardOpen(true)
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardOpen(false)
+  };
+
 
   //Sirve para solicitar los permisos y obtener la pisicion del usuario
   const setUserPosition = () => {
@@ -74,16 +96,19 @@ export default function Logged() {
     };
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 20 }}>
-        <RenderMenuSelected
-          menu_option={menu_option}
-          center_map={center_map}
-        ></RenderMenuSelected>
+    // <SafeAreaView style={{height:height}}>
+      
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 20 }}>
+          <RenderMenuSelected
+            menu_option={menu_option}
+            center_map={center_map}
+          ></RenderMenuSelected>
+        </View>
+        {!keyboardOpen && <View style={{ flex: 2 }}>
+          <BottomMenu />
+        </View>}
       </View>
-      <View style={{ flex: 2 }}>
-        <BottomMenu />
-      </View>
-    </View>
+
   );
 }

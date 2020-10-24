@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, TextInput, Text, Slider, ScrollView } from "react-native";
+import { StyleSheet, View, TextInput, Text, Slider, ScrollView} from "react-native";
 import { Picker, Icon } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataNegocio } from "../../actions/NuevoNegocioActions";

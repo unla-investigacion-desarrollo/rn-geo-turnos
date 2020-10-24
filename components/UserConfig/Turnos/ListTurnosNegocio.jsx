@@ -171,7 +171,7 @@ export default function ListTurnosNegocio(props) {
 const styles = StyleSheet.create({
   datePicker: {
     height: 35,
-    elevation: 8,
+    // elevation: 8,
     borderRadius: 5,
     backgroundColor: "transparent",
     paddingHorizontal: 15,
