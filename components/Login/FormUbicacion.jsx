@@ -296,7 +296,7 @@ export default function FormUbicacion(props) {
           padding: 10,
         }}
       >
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ flex: 3 }}>
             <View>
               <Text style={styles.labelText}>Calle</Text>

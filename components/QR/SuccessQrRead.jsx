@@ -52,6 +52,7 @@ const styles = StyleSheet.create( {
   },
   explanationText:{
     color:"white",
+    width:"100%",
     textAlign:"center",
     fontSize:15
   },

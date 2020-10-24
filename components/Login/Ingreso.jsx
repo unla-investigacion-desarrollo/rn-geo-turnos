@@ -110,7 +110,7 @@ export default function Ingreso(props) {
           padding: 10,
         }}
       >
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
 
         <View
           style={{
