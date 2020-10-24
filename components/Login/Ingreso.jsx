@@ -116,14 +116,13 @@ export default function Ingreso(props) {
         >
           <View
             style={{
-              width: 130,
-              height: 130,
+              flex:1,
               borderRadius: 10,
              justifyContent:"center",
-             alignItems:"center",
+             alignItems:"center"
             
             }}
-          ><Image source={require('../../assets/LOGOTransparente.png')} style={{ width: 140, height:140 }}/></View>
+          ><Image source={require('../../assets/1.png')} style={{flex:1,resizeMode:"contain",width:400}}/></View>
         
         </View>
         <View style={{ flex: 1 }}>
