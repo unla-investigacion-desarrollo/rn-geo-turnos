@@ -79,6 +79,7 @@ export default function VerNegocios(props) {
             latitudeDelta: parseFloat(filterNegocio.km)*0.05/2,
             longitudeDelta: parseFloat(filterNegocio.km)*0.05/2,
           }}
+        
         >
           <MapView.Circle
                 center =  {{latitude:parseFloat(region.latitude), longitude:parseFloat(region.longitude)}}
