@@ -14,13 +14,15 @@ import { horarios, dias } from "../../Utils/constantes";
 import { setHorariosNegocio } from "../../actions/NuevoNegocioActions";
 import { useDispatch, useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
+import { actions } from "../../actions/types";
+
 
 export default function HorariosNegocio(props) {
   const [diaSemana, setDiaSemana] = useState(0);
-  const [horaDesde1, setHoraDesde1] = useState("");
-  const [horaDesde2, setHoraDesde2] = useState("");
-  const [horaHasta1, setHoraHasta1] = useState("");
-  const [horaHasta2, setHoraHasta2] = useState("");
+  const [horaDesde1, setHoraDesde1] = useState("--:--");
+  const [horaDesde2, setHoraDesde2] = useState("--:--");
+  const [horaHasta1, setHoraHasta1] = useState("--:--");
+  const [horaHasta2, setHoraHasta2] = useState("--:--");
   const [tiempoAtencion, setTiempoAtencion] = useState(0);
   const [diasSemanaDisponibles, setDiasSemanaDisponibles] = useState([]);
   const dispatch = useDispatch();
@@ -55,6 +57,7 @@ export default function HorariosNegocio(props) {
   }, [horariosNegocio]);
 
   const agregarHorario = () => {
+    
     let horario = {
       diaSemana: diaSemana,
       horaDesde1: horaDesde1,
@@ -63,7 +66,7 @@ export default function HorariosNegocio(props) {
       horaHasta2: horaHasta2,
     };
     let listaHorariosNegocio = [horario];
-
+    console.log(horario)
     if (
       horariosNegocio !== undefined &&
       horariosNegocio.horarios !== undefined
@@ -75,18 +78,24 @@ export default function HorariosNegocio(props) {
       tiempoAtencion: tiempoAtencion,
       horarios: listaHorariosNegocio,
     };
-    if (
-      diaSemana > 0 &&
-      horaDesde1 !== "" &&
-      horaDesde2 !== "" &&
-      horaHasta1 !== "" &&
-      horaHasta2 !== ""
-    )
+    if ((diaSemana > 0 &&
+      horaDesde1 !== "--:--" &&
+      horaHasta1 !== "--:--" ) && ((horaDesde2 !== "--:--" && horaHasta2 !== "--:--") || (horaDesde2 === "--:--" && horaHasta2 === "--:--"))
+    ){
       if (diaSemana > 0) {
         dispatch(setHorariosNegocio(newHorarios));
         setDiaSemana(0);
       }
-  };
+    }else{
+      dispatch( {
+        type: actions.TOAST, payload: {
+          message: "Horario inválido",
+          type: "error",
+          visibilityTime: 3000
+        }
+      } )
+    }
+    };
 
   return (
     <View style={{ flex: 1 }}>
@@ -142,7 +151,7 @@ export default function HorariosNegocio(props) {
           </View>
           <View style={{ flexDirection: "row", flex: 0.5, paddingBottom: 10 }}>
             <View style={{ flex: 1, paddingRight: 10 }}>
-              <Text style={styles.labelText}>Hora Desde</Text>
+              <Text style={styles.labelText}>Hora Desde *</Text>
               <Picker
                 note
                 mode="dropdown"
@@ -162,7 +171,7 @@ export default function HorariosNegocio(props) {
               </Picker>
             </View>
             <View style={{ flex: 1 }}>
-                <Text style={styles.labelText}>Hora Hasta</Text>
+                <Text style={styles.labelText}>Hora Hasta *</Text>
                 <Picker
                   note
                   mode="dropdown"

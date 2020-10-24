@@ -48,7 +48,7 @@ export default function CardExample({ horarioNegocio }) {
                   }}
                 >
                   {horarioNegocio.horaDesde1}hs a {horarioNegocio.horaHasta1}hs
-                  -{horarioNegocio.horaDesde2}hs a {horarioNegocio.horaHasta2}hs
+                  {horarioNegocio.horaDesde2 !== "--:--" ? ("-" + horarioNegocio.horaDesde2 + "hs a " + horarioNegocio.horaHasta2 + "hs") : ""}
                 </Text>
               </View>
             </View>

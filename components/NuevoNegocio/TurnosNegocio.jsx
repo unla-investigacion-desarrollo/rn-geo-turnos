@@ -35,8 +35,8 @@ export default function TurnosNegocio(props) {
         intervaloTurnos: intervaloTurno,
         tiempoAtencion: tiempoAtencion,
         turno1Desde: h.horaDesde1,
-        turno1Hasta: h.horaDesde2,
-        turno2Desde: h.horaHasta1,
+        turno1Hasta: h.horaHasta1,
+        turno2Desde: h.horaDesde2,
         turno2Hasta: h.horaHasta2,
         usuarioModi: access.idPersona.toString()
       })
@@ -45,30 +45,6 @@ export default function TurnosNegocio(props) {
     dispatch(setDataNegocio(newNegocio));
     // console.log(newNegocio)
     if(isConfig){
-      // console.log({
-      //   aceptaFoto:true,
-      //   capacidad: newNegocio.capacidadPersonas,
-      //   configuracionLocales: configuracionLocales,
-      //   cuit: newNegocio.cuit,
-      //   idEstadoEmprendimiento: 2,
-      //   idPersona: access.idPersona,
-      //   idRubro: newNegocio.rubro, 
-      //   idTipoEmprendimiento: newNegocio.emprendimiento,
-      //   nombre: newNegocio.nombre,
-      //   telefono: newNegocio.telefono,
-      //   ubicacionVo: {
-      //     calle: newNegocio.calle,
-      //     numero: newNegocio.numero,
-      //     departamento: newNegocio.depto ? newNegocio.depto.toString() : "",
-      //     idLocalidad: newNegocio.localidad,
-      //     idProvincia: newNegocio.provincia,
-      //     latitud: newNegocio.latitude.toString(),
-      //     longitud: newNegocio.longitude.toString(),
-      //     piso: parseInt(newNegocio.piso)? parseInt(newNegocio.piso): 0,
-      //     usuarioModi: access.idPersona.toString()
-      //   },
-      //   usuarioModi: access.idPersona.toString()
-      // })
       apiCalls
       .setNewInfoEmprendimiento(access.idEmprendimiento,{
         aceptaFoto:true,
