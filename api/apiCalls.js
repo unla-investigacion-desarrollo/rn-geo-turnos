@@ -20,7 +20,7 @@ function getEmprendimientos(token) {
 }
 
 function bajaEmprendimiento(idEmprendimiento, token) {
-  return api.patch("/emprendimiento/5/bajaLogica", {
+  return api.patch("/emprendimiento/"+idEmprendimiento+"/bajaLogica", {} ,{
     headers: { token_auth: token },
   });
 }

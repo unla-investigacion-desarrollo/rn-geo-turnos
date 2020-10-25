@@ -16,6 +16,9 @@ import * as SecureStore from "expo-secure-store";
 import { setRegisterData } from "../../actions/RegisterActions";
 import {apiCalls} from "../../api/apiCalls"
 import Logo from "../../assets/LOGO.png"
+import { setCredentials } from "../../actions/AccessActions";
+import { setTokenAxios } from "../../api/api";
+
 
 
 export default function Configuraciones(props) {
@@ -40,14 +43,51 @@ export default function Configuraciones(props) {
     }
   };
 
+  const remember = async (loginResponse) => {
+    setAccessCredentials(loginResponse);
+  };
+
+
+  const setAccessCredentials = async (credentials) => {
+    try {
+      await SecureStore.setItemAsync(
+        "credentials",
+        JSON.stringify(credentials)
+      );
+      dispatch(setCredentials(credentials));
+      setTokenAxios(credentials.token);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const deleteNegocio = () => {
     
     apiCalls.bajaEmprendimiento(access.idEmprendimiento, access.token)
     .then((response) => {
-      console.log("BOrra2")
+      let responseLogin = {
+        token: access.token,
+        idPersona: access.idPersona,
+        idPerfil: access.idPerfil == 1 ? access.idPerfil : 2,
+        idEmprendimiento: 0
+      };
+      clearCredentials()
+      remember(responseLogin);
     }).catch(error => {
-      console.log(error.response.data)
-    })
+      dispatch({
+        type: actions.TOAST,
+        payload: {
+          message:
+            "Hubo un problema para eliminar el negocio",
+          type: "error",
+          visibilityTime: 3000,
+        },
+      });
+    }).finally(() =>{
+      setModalVisible(false)
+
+    }
+    )
     
   }
 

@@ -40,7 +40,7 @@ export default function Ingreso(props) {
               token: response.data.token,
               idPersona: response.data.idPersona,
               idPerfil:response.data.idPerfil,
-              idEmprendimiento: response.data.idEmprendimiento
+              idEmprendimiento: response.data.idEmprendimiento ? response.data.idEmprendimiento : 0
             };
             remember(responseLogin);
           })
