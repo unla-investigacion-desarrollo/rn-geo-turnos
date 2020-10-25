@@ -8,6 +8,9 @@ import { apiCalls } from "../../api/apiCalls";
 import { switchMenu } from "../../actions/menuSwitchActions";
 import { VER_NEGOCIOS } from "../../actions/menuOptions";
 import { actions } from "../../actions/types";
+import * as SecureStore from "expo-secure-store";
+import { setTokenAxios } from "../../api/api";
+import { setCredentials } from "../../actions/AccessActions";
 
 
 export default function TurnosNegocio(props) {
@@ -20,6 +23,32 @@ export default function TurnosNegocio(props) {
 
   const isConfig = props?.route?.name === "Editar Turnos del Negocio";
 
+
+  const remember = async (loginResponse) => {
+    setAccessCredentials(loginResponse);
+  };
+
+
+  const clearCredentials = async () => {
+    try {
+      await SecureStore.deleteItemAsync("credentials");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const setAccessCredentials = async (credentials) => {
+    try {
+      await SecureStore.setItemAsync(
+        "credentials",
+        JSON.stringify(credentials)
+      );
+      dispatch(setCredentials(credentials));
+      setTokenAxios(credentials.token);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 
   const setNewNegocio = () => {
@@ -108,6 +137,14 @@ export default function TurnosNegocio(props) {
   
       }, access.token)
       .then((response) => {
+        const responseLogin = {
+          token: access.token,
+          idPersona: access.idPersona,
+          idPerfil: access.idPerfil == 1 ? access.idPerfil : 3,
+          idEmprendimiento: response.data.idEmprendimiento
+        };
+        clearCredentials();
+        remember(responseLogin);
         dispatch( {
           type: actions.TOAST, payload: {
             message: "Negocio dado de alta correctamente",
@@ -116,12 +153,11 @@ export default function TurnosNegocio(props) {
           }
         } )
         dispatch(switchMenu(VER_NEGOCIOS))
-      }).catch((res)=> {
-        console.log(res.message)
+      }).catch(error => {
+        console.log(error.response.data.message)
+
       });
     }
-      
-
   };
 
   return (

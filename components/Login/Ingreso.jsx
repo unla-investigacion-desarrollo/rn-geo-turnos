@@ -43,11 +43,11 @@ export default function Ingreso(props) {
             };
             remember(responseLogin);
           })
-          .catch((resp) => {
+          .catch(error => {
             dispatch({
               type: actions.TOAST,
               payload: {
-                message: "Error al ingresar al sistema",
+                message: error?.response?.data?.message ? error.response.data.message : "Error al ingresar al sistema",
                 type: "error",
                 visibilityTime: 3000,
               },

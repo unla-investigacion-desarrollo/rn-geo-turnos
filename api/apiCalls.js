@@ -100,6 +100,12 @@ function getUbicacionPersona(idPersona, token) {
   });
 }
 
+function addImage(parameters,token) {
+  return api.post("/emprendimiento/uploadImage", parameters,{
+    headers: { token_auth: token },
+  });
+}
+
 export const apiCalls = {
   getInfoUsuario,
   getInfoEmprendimiento,
@@ -120,4 +126,5 @@ export const apiCalls = {
   setNewUbicacion,
   setNewInfoEmprendimiento,
   ocuparLocal,
+  addImage,
 };

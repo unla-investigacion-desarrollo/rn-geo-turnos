@@ -14,6 +14,9 @@ import { useDispatch } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import * as SecureStore from "expo-secure-store";
 import { setRegisterData } from "../../actions/RegisterActions";
+import {apiCalls} from "../../api/apiCalls"
+import Logo from "../../assets/LOGO.png"
+
 
 export default function Configuraciones(props) {
   const dispatch = useDispatch();
@@ -35,6 +38,24 @@ export default function Configuraciones(props) {
       console.log(e);
     }
   };
+
+
+  const apiTest = () => {
+
+
+    apiCalls
+    .addImage({
+      idEmprendimiento: 1,
+      // imageBase64: ""
+    }, access.token)
+    .then((response) => {
+      console.log("piola")
+    })
+    .catch((code, message) => {
+      console.log(code.message)
+    });
+  }
+  console.log(access)
 
   return (
     <View style={{ flex: 1 }}>
@@ -66,7 +87,7 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>
-          {access.idPerfil!==2?(
+          {access.idPerfil!==3?(
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigateConfiguraciones("Información Negocio")}
@@ -77,7 +98,7 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>):<></> }
-          {access.idPerfil!==3?(
+          {access.idPerfil!==2?(
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigateConfiguraciones("Editar Negocio")}
@@ -99,7 +120,18 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>
+          {/* <TouchableOpacity
+            style={styles.button}
+            onPress={() => apiTest()}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <FontAwesomeIcon icon={faStore} style={styles.icon} />
+              <Text style={styles.textButton}>Añadir imagen</Text>
+              <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
+            </View>
+          </TouchableOpacity> */}
         </View>
+        
         <View style={{ backgroundColor: "transparent" }}>
           <View>
             <TouchableOpacity

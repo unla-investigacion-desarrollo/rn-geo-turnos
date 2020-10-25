@@ -66,7 +66,6 @@ export default function HorariosNegocio(props) {
       horaHasta2: horaHasta2,
     };
     let listaHorariosNegocio = [horario];
-    console.log(horario)
     if (
       horariosNegocio !== undefined &&
       horariosNegocio.horarios !== undefined

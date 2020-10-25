@@ -14,19 +14,22 @@ function MenuSwitch() {
 
 
   useEffect(() => {
-
-    apiCalls
-        .getUbicacionPersona(access.idPersona, access.token)
-        .then((response) => {
-          dispatch(configureCenterMap({
-              latitude: parseFloat(response.data.latitud),
-              longitude: parseFloat(response.data.longitud),
-              direccion: "",
-          }))
-        })
-        .catch((res) => {
-          console.log(res.message)
-        });
+    if (login.logged === 1 && access.token !== ""){
+      apiCalls
+      .getUbicacionPersona(access.idPersona, access.token)
+      .then((response) => {
+        dispatch(configureCenterMap({
+            latitude: parseFloat(response.data.latitud),
+            longitude: parseFloat(response.data.longitud),
+            direccion: "",
+        }))
+      })
+      .catch((res) => {
+        console.log("Api GetUbicacion")
+        console.log(res.message)
+      });
+    }
+   
   })
 
   return (

@@ -113,13 +113,16 @@ export default function FormUbicacion(props) {
           dispatch(setRegisterData({}));
           props.navigation.navigate("Ingreso");
         })
-        .catch((response,message) => {
-          console.log("Catch registro usuario")
-          console.log(message)
+        .catch(error => {
+          console.log(error.response.data.message)
+          let errorMessage = error?.response?.data?.message ? error.response.data.message : "Error al completar el registro"
+          if (errorMessage == "El objeto ya exite dentro de la BD."){
+            errorMessage = "El DNI ingresado ya esta registrado"
+          }
           dispatch({
             type: actions.TOAST,
             payload: {
-              message: "Error al completar el registro",
+              message: errorMessage,
               type: "error",
               visibilityTime: 3000,
             },
