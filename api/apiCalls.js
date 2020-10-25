@@ -14,8 +14,15 @@ function postAltaEmprendimiento(parameters, token) {
   });
 }
 
+
 function getEmprendimientos(token) {
   return api.get("/emprendimiento/");
+}
+
+function bajaEmprendimiento(idEmprendimiento, token) {
+  return api.patch("/emprendimiento/5/bajaLogica", {
+    headers: { token_auth: token },
+  });
 }
 
 function getProvincias() {
@@ -127,4 +134,5 @@ export const apiCalls = {
   setNewInfoEmprendimiento,
   ocuparLocal,
   addImage,
+  bajaEmprendimiento,
 };

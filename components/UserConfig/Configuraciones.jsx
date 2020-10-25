@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import React, {useState} from "react";
+import { StyleSheet, View, Text, TouchableOpacity, Modal } from "react-native";
 import {useSelector} from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -21,6 +21,7 @@ import Logo from "../../assets/LOGO.png"
 export default function Configuraciones(props) {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.access);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const navigateConfiguraciones = (opcion) => {
     props.navigation.navigate(opcion, { source: "config" });
@@ -39,10 +40,19 @@ export default function Configuraciones(props) {
     }
   };
 
+  const deleteNegocio = () => {
+    
+    apiCalls.bajaEmprendimiento(access.idEmprendimiento, access.token)
+    .then((response) => {
+      console.log("BOrra2")
+    }).catch(error => {
+      console.log(error.response.data)
+    })
+    
+  }
+
 
   const apiTest = () => {
-
-
     apiCalls
     .addImage({
       idEmprendimiento: 1,
@@ -55,7 +65,6 @@ export default function Configuraciones(props) {
       console.log(code.message)
     });
   }
-  console.log(access)
 
   return (
     <View style={{ flex: 1 }}>
@@ -120,6 +129,17 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>
+          {access.idPerfil!==2?(
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setModalVisible(true)}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <FontAwesomeIcon icon={faStore} style={styles.icon} />
+              <Text style={styles.textButton}> Eliminar negocio </Text>
+              <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
+            </View>
+          </TouchableOpacity>):<></>}
           {/* <TouchableOpacity
             style={styles.button}
             onPress={() => apiTest()}
@@ -154,6 +174,45 @@ export default function Configuraciones(props) {
           </View>
         </View>
       </LinearGradient>
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.rowFilters}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#2572FF",
+                }}
+              >
+                Eliminar negocio
+              </Text>
+            </View>
+            <View style={{ ...styles.rowFilters, marginTop: 15 }}>
+              <Text style={styles.textLabel}>
+                ¿Está seguro que quiere eliminar su negocio? Esta acción no se puede deshacer
+              </Text>
+            </View>
+        
+
+           
+
+            <View style={{ flexDirection: "row", marginTop: "10%" }}>
+              <TouchableOpacity
+                style={styles.touchableButtonsFilter}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.buttonsModalFilter}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.touchableButtonsFilter}
+                onPress={deleteNegocio}
+              >
+                <Text style={styles.buttonsModalFilter}>Eliminar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -173,6 +232,7 @@ const styles = StyleSheet.create({
     //   borderTopWidth: 1,
     borderBottomWidth: 1,
   },
+  touchableButtonsFilter: { flex: 1, alignItems: "center" },
   textButton: {
     color: "#fff",
     fontSize: 15,
@@ -194,10 +254,35 @@ const styles = StyleSheet.create({
     top: 5,
     position: "absolute",
   },
+  buttonsModalFilter: {
+    color: "#2572FF",
+  },
   icon: {
     color: "#fff",
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 15,
+  },
+  modalView: {
+    margin: 10,
+    height: 200,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });
