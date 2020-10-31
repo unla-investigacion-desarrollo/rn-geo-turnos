@@ -92,9 +92,9 @@ export default function InformacionNegocio(props) {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 1, flexDirection: "row", marginTop: "5%" }}>
+      <View style={{ flex: 1, flexDirection: "row" }}>
        {marcador_seleccionado.usaTurnos &&
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1}}>
           <TouchableOpacity style={{ textAlign: "center" }} onPress={infoTurno}>
             <Text style={styles.confirm_button}>Reservar Turno</Text>
           </TouchableOpacity>

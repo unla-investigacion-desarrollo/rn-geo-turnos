@@ -117,7 +117,7 @@ export default function VerNegocios(props) {
         <View
           style={{
             backgroundColor: "#fff",
-            height: "30%",
+            height: Dimensions.get("window").height > 750 ? "30%" : "40%",
             borderRadius: 10,
             borderColor: "#ddd",
             borderWidth: 1,
