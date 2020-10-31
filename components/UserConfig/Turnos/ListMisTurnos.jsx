@@ -37,7 +37,7 @@ export default function ListMisTurnos(props) {
         response.data.forEach(t => {
           turnosAux.push({idTurno: t.idTurno, idEmprendimiento: t.emprendimiento.idEmprendimiento, nombreEmprendimiento: t.emprendimiento.nombre, comentarios: t.observaciones,
           fechaHora: t.fechaHora, estadoturno: t.estadoTurno.estado, idEstadoTurno: t.estadoTurno.idEstadoTurno, latitudEmprendimiento: t.emprendimiento.ubicacion.latitud,
-          longitudEmprendimiento: t.emprendimiento.ubicacion.longitud})
+          longitudEmprendimiento: t.emprendimiento.ubicacion.longitud, telefono: t.emprendimiento.telefono})
         })
         setTurnos(turnosAux)
         // response.data.unshift({
@@ -63,7 +63,7 @@ export default function ListMisTurnos(props) {
       "Cancelar Turno",
       "¿Está seguro que quiere cancelar el turno?",
       [
-        { text: "Cancelar", onPress: () => console.log("OK Pressed") },
+        { text: "Cancelar", onPress: () => console.log("Cancel Pressed") },
         { text: "Confirmar", onPress: () => console.log("OK Pressed") },
       ],
       { cancelable: false }
@@ -74,6 +74,7 @@ export default function ListMisTurnos(props) {
       return turnos.map(t => {
         return(
           <View
+            key={t.idTurno}
             style={{
               hminHight: 90,
               backgroundColor: "rgba(0, 0, 0, 0.62)",
@@ -146,7 +147,7 @@ export default function ListMisTurnos(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ flex: 1, alignItems: "center" }}
-                  onPress={() => callNumber("1135949261")}
+                  onPress={() => callNumber(t.telefono)}
                 >
                   <FontAwesomeIcon
                     icon={faPhone}

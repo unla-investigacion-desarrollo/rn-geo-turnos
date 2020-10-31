@@ -72,23 +72,30 @@ export default function HorariosNegocio(props) {
     ) {
       listaHorariosNegocio = [...horariosNegocio.horarios, horario];
     }
-
     const newHorarios = {
       tiempoAtencion: tiempoAtencion,
       horarios: listaHorariosNegocio,
     };
     if ((diaSemana > 0 &&
       horaDesde1 !== "--:--" &&
-      horaHasta1 !== "--:--" ) && ((horaDesde2 !== "--:--" && horaHasta2 !== "--:--") || (horaDesde2 === "--:--" && horaHasta2 === "--:--"))
+      horaHasta1 !== "--:--" ) && ((horaDesde2 !== "--:--" && horaHasta2 !== "--:--") || (horaDesde2 === "--:--" && horaHasta2 === "--:--") && horaDesde1 !== horaHasta1 && horaDesde2 && horaHasta2)
     ){
-      if (diaSemana > 0) {
+      if (horaDesde2 !== "--:--" > 0 && horarios.indexOf(horaDesde2) >= horarios.indexOf(horaHasta1)) {
         dispatch(setHorariosNegocio(newHorarios));
         setDiaSemana(0);
+      }else{
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "La segunda franja horaria debe comenzar luego de terminada la primera.",
+            type: "error",
+            visibilityTime: 3000
+          }
+        } )
       }
     }else{
       dispatch( {
         type: actions.TOAST, payload: {
-          message: "Horario inválido",
+          message: "El horario ingresado es inválido, recuerde seleccionar un día y al menos una franja horaria",
           type: "error",
           visibilityTime: 3000
         }
@@ -105,6 +112,7 @@ export default function HorariosNegocio(props) {
           flex: 1,
         }}
       >
+        <ScrollView>
         <View style={{ marginLeft: 15, marginRight: 15, flex: 13 }}>
           <View style={{ flex: 1, justifyContent: "center" }}>
             <Text style={styles.labelText}>
@@ -121,7 +129,7 @@ export default function HorariosNegocio(props) {
               onValueChange={(value) => setTiempoAtencion(parseInt(value))}
             />
           </View>
-          <View style={{ flex: 2 }}>
+          <View style={{ flex: 1 }}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <ListaHorarios />
             </ScrollView>
@@ -236,30 +244,25 @@ export default function HorariosNegocio(props) {
                 </Picker>
             </View>
           </View>
-          <View
-            style={{
-              bottom: 10,
-              flex: 0.3,
-              flexDirection: "row",
-              justifyContent: "flex-end",
-            }}
-          >
-            <TouchableOpacity onPress={agregarHorario}>
+          <View style={{ flexDirection: "row", flex: 0.5, justifyContent: "flex-end",paddingBottom:30}}>
+          <TouchableOpacity onPress={agregarHorario}>
               <View
                 style={{
                   backgroundColor: "#2572FF",
-                  padding: 5,
+                  padding: 12,
                   borderRadius: 5,
-                  bottom:-20
+                  bottom:-20,
+                  
                 }}
               >
                 <Text style={{ color: "#fff" }}>Añadir Horario</Text>
               </View>
             </TouchableOpacity>
           </View>
+
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, paddingBottom: 30 }}>
           {horariosNegocio.horarios !== undefined &&
           horariosNegocio.horarios.length > 0 ? (
             <TouchableOpacity
@@ -287,6 +290,7 @@ export default function HorariosNegocio(props) {
             <></>
           )}
         </View>
+        </ScrollView>
       </LinearGradient>
     </View>
   );
