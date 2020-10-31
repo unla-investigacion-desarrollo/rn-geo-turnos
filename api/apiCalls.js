@@ -19,6 +19,7 @@ function getEmprendimientos(token) {
   return api.get("/emprendimiento/");
 }
 
+
 function bajaEmprendimiento(idEmprendimiento, token) {
   return api.patch("/emprendimiento/"+idEmprendimiento+"/bajaLogica", {} ,{
     headers: { token_auth: token },
@@ -53,6 +54,18 @@ function postTurnos(parameters,token) {
 
 function getInfoUsuario(idPersona, token) {
   return api.get("/fisica/" + idPersona, {
+    headers: { token_auth: token },
+  });
+}
+
+// function getTurnosUsuario(idPersona, token) {
+//   return api.get("/turno/persona/" + idPersona, {
+//     headers: { token_auth: token },
+//   });
+// }
+
+function getTurnosUsuario( id, token) {
+  return api.get("/turno" ,{
     headers: { token_auth: token },
   });
 }
@@ -135,4 +148,5 @@ export const apiCalls = {
   ocuparLocal,
   addImage,
   bajaEmprendimiento,
+  getTurnosUsuario,
 };

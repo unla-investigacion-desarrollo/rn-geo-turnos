@@ -85,7 +85,7 @@ export default function TurnosNegocio ( props ) {
               
               
               minDate={new Date()}
-              maxDate={new Date().getDate() + 6}
+              // maxDate={new Date().getDate() + 6}
               locale={"es"}
               style={styles.input}
               onDateChange={( date ) => setDay( date )}
