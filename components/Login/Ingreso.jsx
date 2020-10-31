@@ -20,7 +20,7 @@ import {getLocation} from "../../services/location-service"
 import {centerMap} from "../../actions/centerMapActions"
 
 export default function Ingreso(props) {
-  const [email, setEmail] = useState("trucco.lucioj@gmail.com");
+  const [email, setEmail] = useState("trucco.lucioj2@gmail.com");
   const [password, setPassword] = useState("1234");
   const dispatch = useDispatch();
   const height = Dimensions.get("window").height;

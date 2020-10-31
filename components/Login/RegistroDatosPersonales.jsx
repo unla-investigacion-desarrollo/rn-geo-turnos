@@ -56,6 +56,14 @@ export default function RegistroDatosPersonales(props) {
     }
   }, []);
 
+  const checkPassword = (pw) => {
+    if(pw.toUpperCase() != pw && pw.length > 6 && pw.toLowerCase() != pw) {
+      return true;
+    }
+    return false;
+    
+  }
+
   const setData = () => {
     if (
       nombre.length > 0 &&
@@ -66,21 +74,43 @@ export default function RegistroDatosPersonales(props) {
       password.length > 0 &&
       sexo.length > 0
     ) {
-      let registroObject = {
-        nombre: nombre,
-        apellido: apellido,
-        cuil: cuil,
-        celular: celular,
-        email: email,
-        password: password,
-        sexo: sexo,
-        documento: registro.registerData.documento,
-        nroTramite: registro.registerData.nroTramite,
-      };
-
-      dispatch(setRegisterData(registroObject));
-
-      props.navigation.navigate("Ubicación");
+      if (password === repetirPassword){
+        if (checkPassword(password)){
+          let registroObject = {
+            nombre: nombre,
+            apellido: apellido,
+            cuil: cuil,
+            celular: celular,
+            email: email,
+            password: password,
+            sexo: sexo,
+            documento: registro.registerData.documento,
+            nroTramite: registro.registerData.nroTramite,
+          };
+    
+          dispatch(setRegisterData(registroObject));
+    
+          props.navigation.navigate("Ubicación");
+        }else{
+          dispatch( {
+            type: actions.TOAST, payload: {
+              message: "Las contraseñas debe tener al menos 6 caracteres y contener una letra mayuscula y una miniscula" ,
+              type: "warning",
+              visibilityTime: 3000
+            }
+          })
+        }
+        
+      }else{
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Las contraseñas deben ser iguales" ,
+            type: "warning",
+            visibilityTime: 3000
+          }
+        })
+      }
+      
     } else {
       dispatch({
         type: actions.TOAST,
@@ -94,40 +124,50 @@ export default function RegistroDatosPersonales(props) {
   };
 
   const saveNewData = () => {
-    if (password === repetirPassword){
-      let registroObject = {
-        celular: celular,
-        email: email,
-        password: password,
-        sexo:sexo
-      };
-      apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token)
-      .then( ( response ) => {
-         dispatch( {
-        type: actions.TOAST, payload: {
-          message: "Datos personales actualizados" ,
-          type: "success",
-          visibilityTime: 3000
+    if (true){
+      if (password === repetirPassword){
+        if (checkPassword(password)){          
+          let registroObject = {
+            celular: celular,
+            email: email,
+            password: password,
+            sexo:sexo
+          };
+          apiCalls.setNewInfoUsuario(access.idPersona, registroObject, access.token)
+          .then( ( response ) => {
+            dispatch( {
+            type: actions.TOAST, payload: {
+              message: "Datos personales actualizados" ,
+              type: "success",
+              visibilityTime: 3000
+            }
+          })
+            props.navigation.navigate("Configuración");
+          } ).catch( ( error ) => {
+            console.log(error.message)
+          } );
+        }else{
+          dispatch( {
+            type: actions.TOAST, payload: {
+              message: "Las contraseñas debe tener al menos 6 caracteres y contener una letra mayuscula y una miniscula" ,
+              type: "warning",
+              visibilityTime: 3000
+            }
+          })
         }
-      })
-        props.navigation.navigate("Configuración");
-      } ).catch( ( error ) => {
-       
-        console.log(error.message)
-  
-      } );
-  
-    }else{
-      dispatch( {
-        type: actions.TOAST, payload: {
-          message: "Las contraseñas deben ser iguales" ,
-          type: "warning",
-          visibilityTime: 3000
-        }
-      })
+      }else{
+        dispatch( {
+          type: actions.TOAST, payload: {
+            message: "Las contraseñas deben ser iguales" ,
+            type: "warning",
+            visibilityTime: 3000
+          }
+        })
+      }
+      
+    };
     }
     
-  };
 
   return (
     <View
