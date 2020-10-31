@@ -5,6 +5,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { dataRead, qrPermissions } from "../../actions/qrReaderActions";
 import { setRegisterData } from "../../actions/RegisterActions";
 import {apiCalls} from "../../api/apiCalls"
+import { actions } from "../../actions/types";
+
 import SuccessQrRead from "./SuccessQrRead"
 
 export default function QrReader(props) {
@@ -54,32 +56,58 @@ export default function QrReader(props) {
   }
 
   const handleBarCodeScanned = ({ data }) => {
-    if (data.includes('www.')){  
-      postOcuparLocal(data)
-      setScannedQR(true)
-      setScanned(true)
+    if (props.isEmprendimiento){
+      if (data.includes('/ocupacionLocal/')){  
+        postOcuparLocal(data)
+        setScannedQR(true)
+        setScanned(true)
+      }else{
+        dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "El código no pertenece a un negocio",
+            type: "error",
+            visibilityTime: 3000,
+          },
+        });
+      }
     }else{
+      console.log("llegue")
       const lecturaDocumento = data.split("@");
       let registroObject = registro.registerData;
-  
-      if (data[0] === "@"){
-        registroObject.sexo = lecturaDocumento[8] === "M" ? "hombre" : "mujer";
-        registroObject.documento = lecturaDocumento[1];
-        registroObject.nroTramite = lecturaDocumento[10];
-        registroObject.nombre = lecturaDocumento[5];
-        registroObject.apellido = lecturaDocumento[4];
+      if (lecturaDocumento.length> 3 ){
+        if (data[0] === "@"){
+          registroObject.sexo = lecturaDocumento[8] === "M" ? "hombre" : "mujer";
+          registroObject.documento = lecturaDocumento[1];
+          registroObject.nroTramite = lecturaDocumento[10];
+          registroObject.nombre = lecturaDocumento[5];
+          registroObject.apellido = lecturaDocumento[4];
+        }else{
+          registroObject.sexo = lecturaDocumento[3] === "M" ? "hombre" : "mujer";
+          registroObject.documento = lecturaDocumento[4];
+          registroObject.nroTramite = lecturaDocumento[0];
+          registroObject.nombre = lecturaDocumento[2];
+          registroObject.apellido = lecturaDocumento[1];
+        }
+        console.log(registroObject)
+          //Cuando logro escanear algo con la camara
+        dispatch(setRegisterData(registroObject));
+        setScanned(true);
+        props.navigation.navigate("Datos Personales");
       }else{
-        registroObject.sexo = lecturaDocumento[3] === "M" ? "hombre" : "mujer";
-        registroObject.documento = lecturaDocumento[4];
-        registroObject.nroTramite = lecturaDocumento[0];
-        registroObject.nombre = lecturaDocumento[2];
-        registroObject.apellido = lecturaDocumento[1];
+        setScanned(true);
+        props.navigation.navigate("Registro DNI");
+        dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "No pudimos verificar que el código leido corresponda con un DNI, por favor complete los datos a mano",
+            type: "error",
+            visibilityTime: 5000,
+          },
+        });
       }
-      console.log(registroObject)
-        //Cuando logro escanear algo con la camara
-      dispatch(setRegisterData(registroObject));
-      setScanned(true);
-      // props.navigation.navigate("Datos Personales");
+
+      
     }
     
   };

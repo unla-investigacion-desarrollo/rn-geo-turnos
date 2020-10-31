@@ -33,7 +33,7 @@ const RenderMenuSelected = ({ menu_option, center_map }) => {
       break;
     case QR_READER:
       dispatch(dataRead([]));
-      return <QrReader />; //Pantalla donde se realiaz la lectura del codigo QR
+      return <QrReader isEmprendimiento={true}/>; //Pantalla donde se realiaz la lectura del codigo QR
       break;
     default:
       return <VerNegocios />; //Por default la pantalla que se ve es la de negocios cercanos
