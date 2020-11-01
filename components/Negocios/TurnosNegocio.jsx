@@ -27,21 +27,21 @@ export default function TurnosNegocio ( props ) {
   const access = useSelector((state) => state.access);
 
   const textoDireccion = () =>{
-
+    
     const piso = (negocio.ubicacion.piso>0?"Piso "+negocio.ubicacion.piso:"")
     const departamento = (negocio.ubicacion.departamento!==null && negocio.ubicacion.departamento!==""?"Depto "+negocio.ubicacion.departamento:"")
     const direccion = negocio.ubicacion.calle + " " + negocio.ubicacion.numero+", "+negocio.ubicacion.localidad.nombre+" "+piso+" "+departamento;
 
     return direccion;
   }
+
   const postReservarTurno = () => {
-
     let splitDay = day.split( "/" )
-    let fechaHora = splitDay[2] + ( parseInt( splitDay[1] ) <= 9 ? "-0" : "-" ) + splitDay[1] + "-" + splitDay[0] + "T" + hour + ":00"
-
+    let fechaHora = splitDay[2] + ( parseInt( splitDay[1] ) <= 9 ? "-0" : "-" ) + splitDay[1] + "-" + (splitDay[0].length == 1 ? "0"+splitDay[0] : splitDay[0]) + "T" + hour + ":00"
+    console.log(fechaHora)
     apiCalls.postTurnos( {
       fechaHora: fechaHora,
-      idEmprendimiento: negocio.id ? negocio.id : 1,
+      idEmprendimiento: negocio.idEmprendimiento ? negocio.idEmprendimiento : 1,
       idEstadoTurno: 1,
       idPersona: access.idPersona,
       observaciones: comments,
@@ -54,6 +54,7 @@ export default function TurnosNegocio ( props ) {
           visibilityTime: 10000
         }
       } )
+      props.navigation.navigate("Negocios cercanos");
     } ).catch( ( code, message ) => {
       dispatch( {
         type: actions.TOAST, payload: {

@@ -158,7 +158,7 @@ export default function Configuraciones(props) {
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
           </TouchableOpacity>):<></>}
-
+          {access.idPerfil!==2?(
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigateConfiguraciones("QR del Negocio")}
@@ -168,7 +168,7 @@ export default function Configuraciones(props) {
               <Text style={styles.textButton}> QR del Negocio </Text>
               <FontAwesomeIcon icon={faChevronRight} style={styles.iconArrow} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> ):<></>}
           {access.idPerfil!==2?(
           <TouchableOpacity
             style={styles.button}

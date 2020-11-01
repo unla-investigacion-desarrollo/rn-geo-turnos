@@ -24,29 +24,25 @@ export default function ListMisTurnos(props) {
   const [tabSeleccionado, setTabSeleccionado] = useState(0);
   const access = useSelector((state) => state.access);
   const [turnos, setTurnos] = useState([])
+  const [day, setDay] = useState( new Date().getDate().length > 1 ?  +new Date().getDate() : "0"+new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
 
   useEffect(() => {
     getTurnos()
-  }, []);
+  }, [day]);
 
   const getTurnos  = () => {
-    apiCalls.getTurnosUsuario(access.idPersona, access.token)
+    apiCalls.getTurnosUsuario(access.idPersona, day,access.token)
       .then((response) => {
-        // console.log(response.data)
         let turnosAux = []
         response.data.forEach(t => {
-          turnosAux.push({idTurno: t.idTurno, idEmprendimiento: t.emprendimiento.idEmprendimiento, nombreEmprendimiento: t.emprendimiento.nombre, comentarios: t.observaciones,
-          fechaHora: t.fechaHora, estadoturno: t.estadoTurno.estado, idEstadoTurno: t.estadoTurno.idEstadoTurno, latitudEmprendimiento: t.emprendimiento.ubicacion.latitud,
-          longitudEmprendimiento: t.emprendimiento.ubicacion.longitud, telefono: t.emprendimiento.telefono})
+          let fechaAux = t.fechaHora.split("T")[0] + " " + t.fechaHora.split("T")[1].split(".")[0]
+          turnosAux.push({idTurno: t.idTurno, idEmprendimiento: t.idEmprendimiento, nombreEmprendimiento: t.nombre, comentarios: t.observaciones,
+          fechaHora: fechaAux, estadoturno: t.estado, idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
+          longitudEmprendimiento: t.longitud, telefono: t.telefono})
         })
         setTurnos(turnosAux)
-        // response.data.unshift({
-        //   idProvincia: 0,
-        //   nombre: "Seleccione una provincia",
-        // });
-        // setProvincias(response.data);
       })
-      .catch((code, message) => {});
+      .catch(error => {});
   }
 
 
@@ -165,13 +161,15 @@ export default function ListMisTurnos(props) {
       
     }
 
+
   return (
     <View style={{ flex: 1, padding: 20, paddingTop: 0 }}>
       <View style={{ width: "100%", marginBottom: 15 }}>
         <DatePicker
           locale={"es"}
           style={styles.datePicker}
-          date={new Date()}
+          date={day}
+          onDateChange={( date ) => setDay( date )}
           customStyles={{
             dateText: {
               color: "#fff",

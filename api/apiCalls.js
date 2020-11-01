@@ -58,17 +58,14 @@ function getInfoUsuario(idPersona, token) {
   });
 }
 
-// function getTurnosUsuario(idPersona, token) {
-//   return api.get("/turno/persona/" + idPersona, {
-//     headers: { token_auth: token },
-//   });
-// }
-
-function getTurnosUsuario( id, token) {
-  return api.get("/turno" ,{
+function getTurnosUsuario(idPersona, date, token) {
+  console.log(date)
+  return api.get("/turno/persona/" + idPersona, {
     headers: { token_auth: token },
+    params: {fecha: date}
   });
 }
+
 
 function getInfoEmprendimiento(idEmprendimiento, token) {
   return api.get("/emprendimiento/" + idEmprendimiento, {
