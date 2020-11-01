@@ -200,7 +200,10 @@ export default function HorariosNegocio(props) {
                 </Picker>
               </View>
           </View>
+          {(horaDesde1 !== "--:--" && horaHasta1 !== "--:--") &&
+
           <View style={{ flexDirection: "row", flex: 0.5 }}>
+            
             <View style={{ flex: 1, paddingRight: 10 }}>
               <Text style={styles.labelText}>Hora Desde</Text>
               <Picker
@@ -221,6 +224,7 @@ export default function HorariosNegocio(props) {
                 })}
               </Picker>
             </View>
+          
             <View style={{ flex: 1 }}>
                 <Text style={styles.labelText}>Hora Hasta</Text>
                 <Picker
@@ -244,6 +248,7 @@ export default function HorariosNegocio(props) {
                 </Picker>
             </View>
           </View>
+          }
           <View style={{ flexDirection: "row", flex: 0.5, justifyContent: "flex-end",paddingBottom:30}}>
           <TouchableOpacity onPress={agregarHorario}>
               <View
