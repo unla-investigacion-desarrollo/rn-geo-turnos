@@ -37,7 +37,7 @@ export default function ListMisTurnos(props) {
         response.data.forEach(t => {
           let fechaAux = t.fechaHora.split("T")[0] + " " + t.fechaHora.split("T")[1].split(".")[0]
           turnosAux.push({idTurno: t.idTurno, idEmprendimiento: t.idEmprendimiento, nombreEmprendimiento: t.nombre, comentarios: t.observaciones,
-          fechaHora: fechaAux, estadoturno: t.estado, idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
+          fechaHora: fechaAux, estadoturno: t.idEstadoTurno == 2 ? "Aceptado" : "Pendiente", idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
           longitudEmprendimiento: t.longitud, telefono: t.telefono})
         })
         setTurnos(turnosAux)
@@ -45,6 +45,14 @@ export default function ListMisTurnos(props) {
       .catch(error => {});
   }
 
+  const rechazarTurno = (idTurno) => {
+    let newIdEstadoTurno = 1
+    apiCalls.modificarEstadoTurno(idTurno,{idEstadoTurno: newIdEstadoTurno},access.token)
+    .then((response) => {
+      getTurnos()
+    })
+    .catch(error => {console.log(error.response.message)});
+  }
 
   const showCommentTurno = (comentarios) =>
     Alert.alert(
@@ -54,13 +62,13 @@ export default function ListMisTurnos(props) {
       { cancelable: false }
     );
 
-  const cancelTurno = () =>
+  const cancelTurno = (idTurno) =>
     Alert.alert(
       "Cancelar Turno",
       "¿Está seguro que quiere cancelar el turno?",
       [
         { text: "Cancelar", onPress: () => console.log("Cancel Pressed") },
-        { text: "Confirmar", onPress: () => console.log("OK Pressed") },
+        { text: "Confirmar", onPress: () => rechazarTurno(idTurno) },
       ],
       { cancelable: false }
     );
@@ -69,7 +77,8 @@ export default function ListMisTurnos(props) {
       
       return turnos.map(t => {
         return(
-          <View
+          <>
+          {<View
             key={t.idTurno}
             style={{
               hminHight: 90,
@@ -133,7 +142,7 @@ export default function ListMisTurnos(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ flex: 1, alignItems: "center" }}
-                  onPress={cancelTurno}
+                  onPress={() => cancelTurno(t.idTurno)}
                 >
                   <FontAwesomeIcon
                     icon={faTimes}
@@ -153,7 +162,8 @@ export default function ListMisTurnos(props) {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </View>}
+          </>
         )  
       })
       

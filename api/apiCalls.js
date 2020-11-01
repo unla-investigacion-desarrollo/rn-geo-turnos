@@ -20,6 +20,12 @@ function getEmprendimientos(token) {
 }
 
 
+function modificarEstadoTurno(idTurno, params, token) {
+  return api.patch("/turno/"+idTurno, params ,{
+    headers: { token_auth: token },
+  });
+}
+
 function bajaEmprendimiento(idEmprendimiento, token) {
   return api.patch("/emprendimiento/"+idEmprendimiento+"/bajaLogica", {} ,{
     headers: { token_auth: token },
@@ -59,8 +65,14 @@ function getInfoUsuario(idPersona, token) {
 }
 
 function getTurnosUsuario(idPersona, date, token) {
-  console.log(date)
   return api.get("/turno/persona/" + idPersona, {
+    headers: { token_auth: token },
+    params: {fecha: date}
+  });
+}
+
+function getTurnosEmprendimiento(idEmprendimiento, date, token) {
+  return api.get("/turno/emprendimiento/" + idEmprendimiento, {
     headers: { token_auth: token },
     params: {fecha: date}
   });
@@ -146,4 +158,6 @@ export const apiCalls = {
   addImage,
   bajaEmprendimiento,
   getTurnosUsuario,
+  getTurnosEmprendimiento,
+  modificarEstadoTurno,
 };
