@@ -38,7 +38,6 @@ export default function TurnosNegocio ( props ) {
   const postReservarTurno = () => {
     let splitDay = day.split( "/" )
     let fechaHora = splitDay[2] + ( parseInt( splitDay[1] ) <= 9 ? "-0" : "-" ) + splitDay[1] + "-" + (splitDay[0].length == 1 ? "0"+splitDay[0] : splitDay[0]) + "T" + hour + ":00"
-    console.log(fechaHora)
     apiCalls.postTurnos( {
       fechaHora: fechaHora,
       idEmprendimiento: negocio.idEmprendimiento ? negocio.idEmprendimiento : 1,

@@ -16,91 +16,90 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { callNumber } from "../../../services/phone-services";
 import DatePicker from "react-native-datepicker";
-import {apiCalls} from "../../../api/apiCalls"
+import { apiCalls } from "../../../api/apiCalls"
 import { useSelector } from "react-redux";
 
 
-export default function ListTurnosNegocio(props) {
-  const [tabSeleccionado, setTabSeleccionado] = useState(0);
-  const access = useSelector((state) => state.access);
-  const [turnos, setTurnos] = useState([])
-  const [day, setDay] = useState( new Date().getDate().length > 1 ?  +new Date().getDate() : "0"+new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
+export default function ListTurnosNegocio ( props ) {
+  const [tabSeleccionado, setTabSeleccionado] = useState( 0 );
+  const access = useSelector( ( state ) => state.access );
+  const [turnos, setTurnos] = useState( [] )
+  const [day, setDay] = useState( new Date().getDate().length > 1 ? +new Date().getDate() : "0" + new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
 
 
-  useEffect(() => {
+  useEffect( () => {
     getTurnos()
-  }, [day]);
+  }, [day] );
 
-  const getTurnos  = () => {
-    
-    apiCalls.getTurnosEmprendimiento(access.idEmprendimiento, day,access.token)
-      .then((response) => {
+  const getTurnos = () => {
+
+    apiCalls.getTurnosEmprendimiento( access.idEmprendimiento, day, access.token )
+      .then( ( response ) => {
         let turnosAux = []
-        response.data.forEach(t => {
-          let fechaAux = t.fechaHora.split("T")[0] + " " + t.fechaHora.split("T")[1].split(".")[0]
-          console.log(t.idEstadoTurno)
-          turnosAux.push({idTurno: t.idTurno, idEmprendimiento: t.idEmprendimiento, nombreEmprendimiento: t.nombre, comentarios: t.observaciones,
-          fechaHora: fechaAux, estadoturno: t.idEstadoTurno == 2 ? "Aceptado" : "Pendiente", idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
-          longitudEmprendimiento: t.longitud, telefono: t.telefono})
-        })
-        setTurnos(turnosAux)
-      })
-      .catch(error => {});
+        response.data.forEach( t => {
+          let fechaAux = t.fechaHora.split( "T" )[0] + " " + t.fechaHora.split( "T" )[1].split( "." )[0]
+          turnosAux.push( {
+            idTurno: t.idTurno, idEmprendimiento: t.idEmprendimiento, nombrePersona: t.nombrePersona, comentarios: t.observaciones,
+            fechaHora: fechaAux, estadoturno: t.idEstadoTurno == 2 ? "Aceptado" : "Pendiente", idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
+            longitudEmprendimiento: t.longitud, telefono: t.telefono
+          } )
+        } )
+        setTurnos( turnosAux )
+      } )
+      .catch( error => { } );
   }
 
-  const rechazarTurno = (idTurno) => {
+  const rechazarTurno = ( idTurno ) => {
     let newIdEstadoTurno = 1
-    apiCalls.modificarEstadoTurno(idTurno,{idEstadoTurno: newIdEstadoTurno},access.token)
-    .then((response) => {
-      getTurnos()
-    })
-    .catch(error => {console.log(error.response.message)});
+    apiCalls.modificarEstadoTurno( idTurno, { idEstadoTurno: newIdEstadoTurno }, access.token )
+      .then( ( response ) => {
+        getTurnos()
+      } )
+      .catch( error => { console.log( error.response.message ) } );
   }
 
-  const aceptarTurno = (idTurno) => {
+  const aceptarTurno = ( idTurno ) => {
     let newIdEstadoTurno = 2
-    apiCalls.modificarEstadoTurno(idTurno,{idEstadoTurno: newIdEstadoTurno},access.token)
-    .then((response) => {
-      console.log(response.data)
-      getTurnos()
-    })
-    .catch(error => {console.log(error.response.message)});
+    apiCalls.modificarEstadoTurno( idTurno, { idEstadoTurno: newIdEstadoTurno }, access.token )
+      .then( ( response ) => {
+        getTurnos()
+      } )
+      .catch( error => { console.log( error.response.message ) } );
   }
 
   const showCommentTurno = () =>
     Alert.alert(
       "Comentario del Cliente",
       comentarios,
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      [{ text: "OK", onPress: () => console.log( "OK Pressed" ) }],
       { cancelable: false }
     );
-  const cancelTurno = (idTurno) =>
+  const cancelTurno = ( idTurno ) =>
     Alert.alert(
       "Rechazar Turno",
       "¿Está seguro que quiere rechazar el turno?",
       [
-        { text: "Cancelar", onPress: () => console.log("OK Pressed") },
-        { text: "Confirmar", onPress: () => rechazarTurno(idTurno) },
+        { text: "Cancelar", },
+        { text: "Confirmar", onPress: () => rechazarTurno( idTurno ) },
       ],
       { cancelable: false }
     );
-  const acceptTurno = (idTurno) =>
+  const acceptTurno = ( idTurno ) =>
     Alert.alert(
       "Aceptar Turno",
       "¿Está seguro que quiere aceptar el turno?",
       [
-        { text: "Cancelar", onPress: () => console.log("OK Pressed") },
-        { text: "Confirmar", onPress: () => aceptarTurno(idTurno) },
+        { text: "Cancelar" },
+        { text: "Confirmar", onPress: () => aceptarTurno( idTurno ) },
       ],
       { cancelable: false }
     );
 
   const drawTurnos = () => {
-    return turnos.map(t => {
-      return(
-
-      <View
-          key={t.idTurno}
+    return turnos.map( t => {
+      return (
+        <View
+          key={t.idTurno.toString()}
           style={{
             minHeight: 90,
             backgroundColor: "rgba(0, 0, 0, 0.62)",
@@ -109,7 +108,7 @@ export default function ListTurnosNegocio(props) {
           }}
         >
           <Text style={{ padding: 10, color: "white", fontSize: 18 }}>
-            Cliente: {t.nombre}
+            Cliente: {t.nombrePersona}
           </Text>
           <View
             style={{
@@ -142,8 +141,8 @@ export default function ListTurnosNegocio(props) {
             >
               <TouchableOpacity
                 style={{ flex: 1, alignItems: "center" }}
-                onPress={() => showCommentTurno(t.comentarios)}
-                >
+                onPress={() => showCommentTurno( t.comentarios )}
+              >
                 <FontAwesomeIcon
                   icon={faCommentDots}
                   size={35}
@@ -153,7 +152,7 @@ export default function ListTurnosNegocio(props) {
 
               {t.idEstadoTurno !== 2 && <TouchableOpacity
                 style={{ flex: 1, alignItems: "center" }}
-                onPress={() => acceptTurno(t.idTurno)}
+                onPress={() => acceptTurno( t.idTurno )}
               >
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -164,8 +163,8 @@ export default function ListTurnosNegocio(props) {
 
               <TouchableOpacity
                 style={{ flex: 1, alignItems: "center" }}
-                onPress={() => cancelTurno(t.idTurno)}
-                >
+                onPress={() => cancelTurno( t.idTurno )}
+              >
                 <FontAwesomeIcon
                   icon={faTimes}
                   size={35}
@@ -174,8 +173,8 @@ export default function ListTurnosNegocio(props) {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ flex: 1, alignItems: "center" }}
-                onPress={() => callNumber(t.telefono)}
-                >
+                onPress={() => callNumber( t.telefono )}
+              >
                 <FontAwesomeIcon
                   icon={faPhone}
                   size={35}
@@ -186,7 +185,7 @@ export default function ListTurnosNegocio(props) {
           </View>
         </View>
       )
-    })
+    } )
   }
 
   return (
@@ -222,12 +221,12 @@ export default function ListTurnosNegocio(props) {
         />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-         {turnos.length > 0 && drawTurnos()}
+        {turnos.length > 0 && drawTurnos()}
       </ScrollView>
     </View>
   );
 }
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
   datePicker: {
     height: 35,
     // elevation: 8,
@@ -244,4 +243,4 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
-});
+} );

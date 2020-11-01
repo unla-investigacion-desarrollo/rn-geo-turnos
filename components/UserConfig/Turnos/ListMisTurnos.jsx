@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -17,67 +17,69 @@ import {
 import { callNumber } from "../../../services/phone-services";
 import { routeDirection } from "../../../services/location-service";
 import DatePicker from "react-native-datepicker";
-import {apiCalls} from "../../../api/apiCalls"
+import { apiCalls } from "../../../api/apiCalls"
 import { useSelector } from "react-redux";
 
-export default function ListMisTurnos(props) {
-  const [tabSeleccionado, setTabSeleccionado] = useState(0);
-  const access = useSelector((state) => state.access);
-  const [turnos, setTurnos] = useState([])
-  const [day, setDay] = useState( new Date().getDate().length > 1 ?  +new Date().getDate() : "0"+new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
+export default function ListMisTurnos ( props ) {
+  const [tabSeleccionado, setTabSeleccionado] = useState( 0 );
+  const access = useSelector( ( state ) => state.access );
+  const [turnos, setTurnos] = useState( [] )
+  const [day, setDay] = useState( new Date().getDate().length > 1 ? +new Date().getDate() : "0" + new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
 
-  useEffect(() => {
+  useEffect( () => {
     getTurnos()
-  }, [day]);
+  }, [day] );
 
-  const getTurnos  = () => {
-    apiCalls.getTurnosUsuario(access.idPersona, day,access.token)
-      .then((response) => {
+  const getTurnos = () => {
+    apiCalls.getTurnosUsuario( access.idPersona, day, access.token )
+      .then( ( response ) => {
         let turnosAux = []
-        response.data.forEach(t => {
-          let fechaAux = t.fechaHora.split("T")[0] + " " + t.fechaHora.split("T")[1].split(".")[0]
-          turnosAux.push({idTurno: t.idTurno, idEmprendimiento: t.idEmprendimiento, nombreEmprendimiento: t.nombre, comentarios: t.observaciones,
-          fechaHora: fechaAux, estadoturno: t.idEstadoTurno == 2 ? "Aceptado" : "Pendiente", idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
-          longitudEmprendimiento: t.longitud, telefono: t.telefono})
-        })
-        setTurnos(turnosAux)
-      })
-      .catch(error => {});
+        response.data.forEach( t => {
+          let fechaAux = t.fechaHora.split( "T" )[0] + " " + t.fechaHora.split( "T" )[1].split( "." )[0]
+          turnosAux.push( {
+            idTurno: t.idTurno, idEmprendimiento: t.idEmprendimiento, nombreEmprendimiento: t.nombre, comentarios: t.observaciones,
+            fechaHora: fechaAux, estadoturno: t.idEstadoTurno == 2 ? "Aceptado" : "Pendiente", idEstadoTurno: t.idEstadoTurno, latitudEmprendimiento: t.latitud,
+            longitudEmprendimiento: t.longitud, telefono: t.telefono
+          } )
+        } )
+        setTurnos( turnosAux )
+      } )
+      .catch( error => { } );
   }
 
-  const rechazarTurno = (idTurno) => {
+  const rechazarTurno = ( idTurno ) => {
     let newIdEstadoTurno = 1
-    apiCalls.modificarEstadoTurno(idTurno,{idEstadoTurno: newIdEstadoTurno},access.token)
-    .then((response) => {
-      getTurnos()
-    })
-    .catch(error => {console.log(error.response.message)});
+    apiCalls.modificarEstadoTurno( idTurno, { idEstadoTurno: newIdEstadoTurno }, access.token )
+      .then( ( response ) => {
+        getTurnos()
+      } )
+      .catch( error => { console.log( error.response.message ) } );
   }
 
-  const showCommentTurno = (comentarios) =>
+  const showCommentTurno = ( comentarios ) =>
     Alert.alert(
       "Comentario que realizaste",
       comentarios,
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      [{ text: "OK", onPress: () => console.log( "OK Pressed" ) }],
       { cancelable: false }
     );
 
-  const cancelTurno = (idTurno) =>
+  const cancelTurno = ( idTurno ) =>
     Alert.alert(
       "Cancelar Turno",
       "¿Está seguro que quiere cancelar el turno?",
       [
-        { text: "Cancelar", onPress: () => console.log("Cancel Pressed") },
-        { text: "Confirmar", onPress: () => rechazarTurno(idTurno) },
+        { text: "Cancelar", onPress: () => console.log( "Cancel Pressed" ) },
+        { text: "Confirmar", onPress: () => rechazarTurno( idTurno ) },
       ],
       { cancelable: false }
     );
 
-    const drawTurnos = () => {
-      
-      return turnos.map(t => {
-        return(
-          <>
+  const drawTurnos = () => {
+
+    return turnos.map( t => {
+      return (
+        <>
           {<View
             key={t.idTurno}
             style={{
@@ -121,7 +123,7 @@ export default function ListMisTurnos(props) {
               >
                 <TouchableOpacity
                   style={{ flex: 1, alignItems: "center" }}
-                  onPress={() => showCommentTurno(t.comentarios)}
+                  onPress={() => showCommentTurno( t.comentarios )}
                 >
                   <FontAwesomeIcon
                     icon={faCommentDots}
@@ -129,10 +131,10 @@ export default function ListMisTurnos(props) {
                     style={{ color: "white" }}
                   />
                 </TouchableOpacity>
-  
+
                 <TouchableOpacity
                   style={{ flex: 1, alignItems: "center" }}
-                  onPress={() => routeDirection(parseFloat(t.latitudEmprendimiento), parseFloat(t.longitudEmprendimiento))}
+                  onPress={() => routeDirection( parseFloat( t.latitudEmprendimiento ), parseFloat( t.longitudEmprendimiento ) )}
                 >
                   <FontAwesomeIcon
                     icon={faMapMarkerAlt}
@@ -142,7 +144,7 @@ export default function ListMisTurnos(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ flex: 1, alignItems: "center" }}
-                  onPress={() => cancelTurno(t.idTurno)}
+                  onPress={() => cancelTurno( t.idTurno )}
                 >
                   <FontAwesomeIcon
                     icon={faTimes}
@@ -152,7 +154,7 @@ export default function ListMisTurnos(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ flex: 1, alignItems: "center" }}
-                  onPress={() => callNumber(t.telefono)}
+                  onPress={() => callNumber( t.telefono )}
                 >
                   <FontAwesomeIcon
                     icon={faPhone}
@@ -163,13 +165,13 @@ export default function ListMisTurnos(props) {
               </View>
             </View>
           </View>}
-          </>
-        )  
-      })
-      
-      
-      
-    }
+        </>
+      )
+    } )
+
+
+
+  }
 
 
   return (
@@ -211,7 +213,7 @@ export default function ListMisTurnos(props) {
     </View>
   );
 }
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
   datePicker: {
     height: 35,
     // elevation: 8,
@@ -229,5 +231,5 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
-  
-});
+
+} );
