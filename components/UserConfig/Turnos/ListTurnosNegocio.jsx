@@ -17,7 +17,8 @@ import {
 import { callNumber } from "../../../services/phone-services";
 import DatePicker from "react-native-datepicker";
 import { apiCalls } from "../../../api/apiCalls"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../../../actions/types";
 
 
 export default function ListTurnosNegocio ( props ) {
@@ -25,6 +26,7 @@ export default function ListTurnosNegocio ( props ) {
   const access = useSelector( ( state ) => state.access );
   const [turnos, setTurnos] = useState( [] )
   const [day, setDay] = useState( new Date().getDate().length > 1 ? +new Date().getDate() : "0" + new Date().getDate() + "/" + ( new Date().getMonth() + 1 ) + "/" + new Date().getFullYear() );
+  const dispatch = useDispatch();
 
 
   useEffect( () => {
@@ -54,8 +56,23 @@ export default function ListTurnosNegocio ( props ) {
     apiCalls.modificarEstadoTurno( idTurno, { idEstadoTurno: newIdEstadoTurno }, access.token )
       .then( ( response ) => {
         getTurnos()
+        dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "El turno fue rechazado",
+            type: "success",
+            visibilityTime: 5000,
+          },
+        });
       } )
-      .catch( error => { console.log( error.response.message ) } );
+      .catch( error => { dispatch({
+        type: actions.TOAST,
+        payload: {
+          message: "Hubo un problema para rechazar el turno",
+          type: "error",
+          visibilityTime: 5000,
+        },
+      }); } );
   }
 
   const aceptarTurno = ( idTurno ) => {
@@ -63,11 +80,26 @@ export default function ListTurnosNegocio ( props ) {
     apiCalls.modificarEstadoTurno( idTurno, { idEstadoTurno: newIdEstadoTurno }, access.token )
       .then( ( response ) => {
         getTurnos()
+        dispatch({
+          type: actions.TOAST,
+          payload: {
+            message: "El turno fue aceptado correctamente",
+            type: "success",
+            visibilityTime: 5000,
+          },
+        });
       } )
-      .catch( error => { console.log( error.response.message ) } );
+      .catch( error => { dispatch({
+        type: actions.TOAST,
+        payload: {
+          message: "Hubo un problema para aceptar el turno",
+          type: "error",
+          visibilityTime: 5000,
+        },
+      }); } );
   }
 
-  const showCommentTurno = () =>
+  const showCommentTurno = (comentarios) =>
     Alert.alert(
       "Comentario del Cliente",
       comentarios,
