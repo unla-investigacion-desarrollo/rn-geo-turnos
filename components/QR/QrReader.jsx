@@ -6,6 +6,7 @@ import { dataRead, qrPermissions } from "../../actions/qrReaderActions";
 import { setRegisterData } from "../../actions/RegisterActions";
 import {apiCalls} from "../../api/apiCalls"
 import { actions } from "../../actions/types";
+import { Buffer } from 'buffer'
 
 import SuccessQrRead from "./SuccessQrRead"
 
@@ -33,18 +34,14 @@ export default function QrReader(props) {
     );
   };
 
-  const fetchApi = (readed) => {
-    //Ejemplo donde busco a un endpoint lo que lei del qr para obtener una informcion
-    fetch(qr_state.url + readed)
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(dataRead(res.forms)); //Guardo lo que lei en redux
-      });
-  };
 
-  const postOcuparLocal = () => {
+  const postOcuparLocal = (data) => {
+    let encodedEmprendimiento = data.split("ocupacionLocal/")[1]
+    let idEmprendimiento = Buffer.from(encodedEmprendimiento, 'base64').toString('ascii')
+    
+
     apiCalls.ocuparLocal( {
-      idEmprendimiento: 1,
+      idEmprendimiento: idEmprendimiento,
       idPersona: access.idPersona,
       usuarioModi: access.idPersona
     }, access.token ).then( ( response ) => {
