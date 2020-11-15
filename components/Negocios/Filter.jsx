@@ -111,7 +111,7 @@ export default function Filter() {
                 maximumValue={50}
                 minimumTrackTintColor="#0CA4C9"
                 maximumTrackTintColor="#3e3e3e"
-                thumbTintColor="white"
+                thumbTintColor="black"
                 onValueChange={(value) => setKilometros(parseInt(value))}
               />
             </View>
